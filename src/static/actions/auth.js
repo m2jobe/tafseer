@@ -7,7 +7,7 @@ import {
     AUTH_LOGIN_USER_FAILURE,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGOUT_USER
-} from '../constants';
+} from '../constants/ActionTypes';
 
 
 export function authLoginUserSuccess(token, user) {

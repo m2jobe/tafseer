@@ -3,7 +3,7 @@ import {
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
     AUTH_LOGOUT_USER
-} from '../constants';
+} from '../constants/ActionTypes';
 
 
 const initialState = {
@@ -52,4 +52,3 @@ export default function authReducer(state = initialState, action) {
             return state;
     }
 }
-

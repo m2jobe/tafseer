@@ -1,7 +1,7 @@
 import {
     DATA_RECEIVE_PROTECTED_DATA,
     DATA_FETCH_PROTECTED_DATA_REQUEST
-} from '../constants';
+} from '../constants/ActionTypes';
 
 const initialState = {
     data: null,
@@ -24,4 +24,3 @@ export default function dataReducer(state = initialState, action) {
             return state;
     }
 }
-

@@ -1,0 +1,57 @@
+html, body, .app-header {
+    background-color: #FAF9F9 !important;
+}
+
+.page-auth .body-inner:before, .page-login .body-inner:before, .page-signup .body-inner:before, .page-forgot .body-inner:before {
+    background-color: #B95656 !important;
+}
+
+.tm-logo-text > h1 > a {
+  color: #B95656 !important;
+}
+
+.tm-logo {
+  width: 20vh;
+}
+
+@media (min-width: 768px) {
+.page-auth .main-body, .page-login .main-body, .page-signup .main-body, .page-forgot .main-body {
+    padding-top: 30px !important;
+}
+
+}
+
+.tm-hr{
+    border-top: none rgb(224, 224, 224);
+    border-left: none rgb(224, 224, 224);
+    border-right: none rgb(224, 224, 224);
+    border-bottom: 1px solid rgb(224, 224, 224);
+    bottom: 8px;
+    box-sizing: content-box;
+    margin: 0px;
+    position: absolute;
+    width: 100%;
+}
+
+.tm-input {
+  padding: 0px;
+position: relative;
+width: 100% !important;
+border: none !important ;
+outline: none !important;
+background-color: rgba(0, 0, 0, 0) !important;
+color: rgba(0, 0, 0, 0.87) !important ;
+cursor: inherit !important;
+font-style: inherit;
+font-variant: inherit;
+font-weight: inherit;
+font-stretch: inherit;
+font-size: inherit;
+line-height: inherit;
+font-family: inherit;
+opacity: 1;
+-webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+height: 100%;
+box-sizing: border-box !important;
+padding-bottom: 20px !important;
+}
