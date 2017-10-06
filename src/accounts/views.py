@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from accounts.models import User
 from accounts.serializers import UserRegistrationSerializer, UserSerializer
 from lib.utils import AtomicMixin
+from django.utils import timezone
 
 
 class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
@@ -20,7 +21,19 @@ class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
 
     def post(self, request):
         """User registration view."""
-        return self.create(request)
+        now = timezone.now()
+        #email = User.normalize_email(request.data['email'])
+        user = User(email=request.data['email'],
+                          first_name=request.data['first_name'],
+                          last_name=request.data['last_name'],
+                          is_active=True,
+                          last_login=now,
+                          date_joined=now)
+        user.set_password(request.data['password'])
+
+        user.save()
+        return Response("SUCCESS", status=status.HTTP_200_OK)
+        #return self.create(request)
 
 
 class UserLoginView(GenericAPIView):

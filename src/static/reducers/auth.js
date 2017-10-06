@@ -2,6 +2,9 @@ import {
     AUTH_LOGIN_USER_REQUEST,
     AUTH_LOGIN_USER_SUCCESS,
     AUTH_LOGIN_USER_FAILURE,
+    AUTH_REGISTER_USER_REQUEST,
+    AUTH_REGISTER_USER_SUCCESS,
+    AUTH_REGISTER_USER_FAILURE,
     AUTH_LOGOUT_USER
 } from '../constants/ActionTypes';
 
@@ -48,6 +51,24 @@ export default function authReducer(state = initialState, action) {
                 statusText: 'You have been successfully logged out.'
             });
 
+        case AUTH_REGISTER_USER_REQUEST:
+            return Object.assign({}, state, {
+                isAuthenticating: true,
+                statusText: null
+            });
+
+
+        case AUTH_REGISTER_USER_SUCCESS:
+            return Object.assign({}, state, {
+                isAuthenticating: false,
+                statusText: 'You have been successfully registered.'
+            });
+
+        case AUTH_REGISTER_USER_FAILURE:
+            return Object.assign({}, state, {
+                isAuthenticating: false, //needs its own version
+                statusText: `Registration Error: ${action.payload.status} - ${action.payload.statusText}`
+            });
         default:
             return state;
     }

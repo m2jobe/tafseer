@@ -69,8 +69,8 @@ class MainApp extends React.Component {
   };
 
   componentWillMount() {
-      const token = this.props.token;
-      this.props.actions.dataFetchProtectedData(token);
+      //const token = this.props.token;
+      //this.props.actions.dataFetchProtectedData(token);
   }
 
   render() {
