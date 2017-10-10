@@ -56,7 +56,7 @@ $gray-100: #f8f9fa !default; // $gray-lightest
 $gray-200: #e9ecef !default; // $gray-lighter
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;  
+$gray-500: #adb5bd !default;
 $gray-600: #868e96 !default; // $gray-light
 $gray-700: #495057 !default; // $gray
 $gray-800: #343a40 !default; // $gray-dark
@@ -75,7 +75,7 @@ $grays: (
   900: $gray-900
 ) !default;
 
-$blue:    #2196F3 !default; // Blue 500
+$blue:    #ffffff !default; //#2196F3 !default; // Blue 500
 $indigo:  #6610f2 !default;
 $purple:  #7E57C2 !default; // Deep Purple 400
 $pink:    #e83e8c !default;
@@ -158,7 +158,7 @@ $sizes: (
 //
 // Settings for the `<body>` element.
 
-$body-bg:       #e5e5e5 !default;
+$body-bg:       transparent !default;
 $body-color:    rgba(0, 0, 0, 0.87) !default;
 
 // Links

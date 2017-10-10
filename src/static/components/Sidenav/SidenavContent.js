@@ -87,6 +87,9 @@ class SidebarContent extends React.Component {
     });
   }
 
+    shouldComponentUpdate() {
+      return false;
+    }
 
   render() {
 
@@ -96,29 +99,29 @@ class SidebarContent extends React.Component {
         <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">home</i><span className="nav-text">Home</span></FlatButton></li>
         <li>          <FlatButton href="#/app/ui/buttons"><i className="nav-icon material-icons">whatshot</i><span className="nav-text">Trending Events</span></FlatButton></li>
         <li className="nav-divider" />
-        <li className="nav-header" disabled><span>Library</span></li>
-        <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">history</i><span className="nav-text">History</span></FlatButton></li>
-        <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">watch_later</i><span className="nav-text">Watch Later</span></FlatButton></li>
+        {/*<li className="nav-header" disabled><span>Library</span></li>
+        <li><FlatButton href="#/app/dashboard1"><i className="nav-icon material-icons">history</i><span className="nav-text">History</span></FlatButton></li>
+        <li><FlatButton href="#/app/dashboard2"><i className="nav-icon material-icons">watch_later</i><span className="nav-text">Watch Later</span></FlatButton></li>
         <li className="nav-divider" />
 
-        <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">subscriptions</i><span className="nav-text">Subscriptions</span></FlatButton>
+        <li><FlatButton href="#/app/dashboard3"><i className="nav-icon material-icons">subscriptions</i><span className="nav-text">Subscriptions</span></FlatButton>
         <ul>
           <li><FlatButton  href="#/app/ui/buttons"><span>Tourmonkeys Live</span></FlatButton></li>
           <li><FlatButton  href="#/app/ui/cards"><span>Garage Studios</span></FlatButton></li>
           <li><FlatButton  href="#/app/ui/cards"><span>Example Live Streams</span></FlatButton></li>
         </ul>
         </li>
-        <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">explore</i><span className="nav-text">Discover</span></FlatButton> </li>
+        <li><FlatButton href="#/app/dashboard4"><i className="nav-icon material-icons">explore</i><span className="nav-text">Discover</span></FlatButton> </li>
         <li className="nav-divider" />
-        <li><FlatButton href="#/app/dashboard"><i className="nav-icon material-icons">settings</i><span className="nav-text">Settings</span></FlatButton></li>
+        */}<li><FlatButton href="#/app/dashboard5"><i className="nav-icon material-icons">settings</i><span className="nav-text">Settings</span></FlatButton></li>
         <li className="nav-divider" />
-        <li className="nav-header" disabled><span>Upgrade</span></li>
+        {/*<li className="nav-header" disabled><span>Upgrade</span></li>
         <li className="li-small"><FlatButton href="#/app/ui/pricing-tables"><i className="nav-icon nav-dot material-icons color-danger">fiber_manual_record</i><span className="nav-text"><b style={{color: 'white'}}>Get Premium Now</b></span></FlatButton></li>
 
-        <li className="nav-divider" />
+        <li className="nav-divider" />*/}
         <li className="nav-header" disabled><span>Become a Tourmonkey</span></li>
-        {/*
         <li className="li-small"><FlatButton href="#/sign-up"><i className="nav-icon nav-dot material-icons color-info">fiber_manual_record</i><span className="nav-text">Join Now</span></FlatButton></li>
+        {/*
 
         <li>
           <FlatButton href="#/sign"><i className="nav-icon material-icons">folder_open</i><span className="nav-text">UI Kit</span></FlatButton>

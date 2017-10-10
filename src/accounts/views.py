@@ -14,6 +14,7 @@ from accounts.serializers import UserRegistrationSerializer, UserSerializer
 from lib.utils import AtomicMixin
 from django.utils import timezone
 
+from lib.utils import validate_email as email_is_valid
 
 class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
     serializer_class = UserRegistrationSerializer
@@ -21,9 +22,17 @@ class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
 
     def post(self, request):
         """User registration view."""
-        now = timezone.now()
+        email=request.data['email']
         #email = User.normalize_email(request.data['email'])
-        user = User(email=request.data['email'],
+        if not email_is_valid(email):
+            return Response("Please use a different email address provider.", status=status.HTTP_200_OK)
+
+        if User.objects.filter(email=email).exists():
+            return Response("Email already in use, please use a different email address.", status=status.HTTP_200_OK)
+
+        now = timezone.now()
+
+        user = User(email=email,
                           first_name=request.data['first_name'],
                           last_name=request.data['last_name'],
                           is_active=True,

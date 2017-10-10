@@ -35,6 +35,9 @@ class Sidebar extends React.Component {
     handleToggleCollapsedNav(val);
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
   render() {
     const { navCollapsed, colorOption } = this.props;
     let toggleIcon = null;
@@ -63,7 +66,7 @@ class Sidebar extends React.Component {
 
                 <svg className="logo-img logo-react" viewBox="0 0 3925 3525" version="1.1" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0.000000,3446.000000) scale(0.400000,-0.400000)"
-                fill="#000000" stroke="none">
+                fill="#d74040" stroke="none">
                 <path d="M1555 8383 c-55 -6 -179 -35 -217 -49 -92 -34 -125 -48 -158 -63 -54
                 -25 -154 -83 -169 -99 -8 -7 -32 -25 -53 -39 -65 -40 -298 -281 -298 -307 0
                 -4 -11 -22 -24 -39 -53 -70 -156 -303 -156 -353 0 -9 -6 -30 -14 -47 -20 -44

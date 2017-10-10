@@ -20,14 +20,37 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
+    'social.apps.django_app.default',
 
     'rest_framework',
     'knox',
     'django_extensions',
+    'banners',
+    'notifications',
+    'content',
 
     'accounts',
     'base'
 )
+
+AUTHENTICATION_BACKENDS = (
+# For Facebook Authentication
+'social.backends.facebook.FacebookOAuth2',
+
+# For Twitter Authentication
+'social.backends.twitter.TwitterOAuth',
+
+# For Google Authentication
+'social.backends.google.GoogleOpenId',
+'social.backends.google.GoogleOAuth2',
+'social.backends.google.GoogleOAuth',
+
+# Default Django Auth Backends
+'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_FACEBOOK_KEY = '875075282657422'
+SOCIAL_AUTH_FACEBOOK_SECRET =  '2875d992a19963f9dfa01cdf587100ac'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -52,6 +75,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                                # Setting of Template Context Processors for Social Auth
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },

@@ -1,0 +1,47 @@
+
+.app-content {
+    background: linear-gradient(to left, rgba(215, 64, 64, 1) 0%, rgb(79, 115, 223) 100%);
+}
+
+
+.app-main .app-header > .app-header-inner {
+  background: #1f1f1f;
+}
+
+
+.app-sidebar .sidebar-header {
+  background: #ebcf64;
+}
+
+.sidebar-content {
+  background: #1f1f1f;
+}
+
+.app-sidebar .nav li > a {
+  color: #d74040 !important;
+}
+
+.app-sidebar .nav li.active > a, .app-sidebar .nav li > a:hover, .app-sidebar .nav li > a:focus {
+    color: #ebcf64 !important;
+}
+
+.app-sidebar .nav li.open > a, .app-sidebar .nav li.open > a:hover, .app-sidebar .nav li.open > a:focus {
+    color: #ebcf64 !important;
+}
+
+.sidebar-footer {
+  background: #1f1f1f !important;
+  border-radius: 0px !important;
+}
+
+
+.article-title, .article-title-style {
+    color: #ebcf64 !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px #636c72;
+}
+
+.app-main .app-header > .app-header-inner {
+    background: transparent;
+}

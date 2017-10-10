@@ -9,9 +9,12 @@ import {
     AUTH_REGISTER_USER_REQUEST,
     AUTH_REGISTER_USER_FAILURE,
     AUTH_REGISTER_USER_SUCCESS,
-    AUTH_REGISTER_USER
+    AUTH_REGISTER_USER,
+    AUTH_LOGOUT_USER
 } from '../constants/ActionTypes';
 
+
+//--------------LOGIN CALLBACK FUNCTIONS ----------------------//
 
 export function authLoginUserSuccess(token, user) {
     sessionStorage.setItem('token', token);
@@ -42,6 +45,11 @@ export function authLoginUserRequest() {
     };
 }
 
+//--------------LOGIN CALLBACK FUNCTIONS ----------------------//
+
+
+//--------------REGISTER CALLBACK FUNCTIONS ----------------------//
+
 export function authRegisterUserSuccess() {
     //sessionStorage.setItem('token', token);
     //sessionStorage.setItem('user', JSON.stringify(user));
@@ -68,6 +76,10 @@ export function authRegisterUserRequest() {
     };
 }
 
+//--------------REGISTER CALLBACK FUNCTIONS ----------------------//
+
+
+//--------------LOGOUT RELATED FUNCTIONS ----------------------//
 
 export function authLogout() {
     sessionStorage.removeItem('token');
@@ -84,6 +96,10 @@ export function authLogoutAndRedirect() {
         return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
     };
 }
+
+//--------------LOGOUT RELATED FUNCTIONS ----------------------//
+
+//--------------LOGIN ACTION FUNCTIONS ----------------------//
 
 export function authLoginUser(email, password, redirect = '/') {
     return (dispatch) => {
@@ -121,6 +137,10 @@ export function authLoginUser(email, password, redirect = '/') {
             });
     };
 }
+//--------------LOGIN ACTION FUNCTIONS ----------------------//
+
+
+//--------------REGISTEr ACTION FUNCTIONS ----------------------//
 
 export function authRegisterUser(email, password, first_name, last_name, redirect = '/') {
     return (dispatch) => {
@@ -160,3 +180,5 @@ export function authRegisterUser(email, password, first_name, last_name, redirec
             });
     };
 }
+
+//--------------REGISTEr ACTION FUNCTIONS ----------------------//

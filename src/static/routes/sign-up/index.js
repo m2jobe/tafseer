@@ -146,7 +146,7 @@ class PageSignUp extends React.Component {
                 </div>
                 <div className="divider" />
                 <div className="form-group">
-                  <p className="text-small">By clicking on sign up, you agree to <a href="javascript:;"><i>terms</i></a> and <a href="javascript:;"><i>privacy policy</i></a></p>
+                  <p className="text-small">By clickinaddfasdfag on sign up, you agree to <a href="javascript:;"><i>terms</i></a> and <a href="javascript:;"><i>privacy policy</i></a></p>
                 </div>
               </fieldset>
             </form>

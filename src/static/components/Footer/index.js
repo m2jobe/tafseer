@@ -9,9 +9,6 @@ class Footer extends React.Component {
           <span className="float-left">
             <span>Copyright © <a className="brand" target="_blank" href={APPCONFIG.productLink}>{APPCONFIG.brand}</a> {APPCONFIG.year}</span>
           </span>
-          <span className="float-right">
-            <span>Built by Tourmonkeys Team<i className="material-icons">favorite_border</i></span>
-          </span>
         </div>
       </section>
     );

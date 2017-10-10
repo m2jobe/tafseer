@@ -73,9 +73,9 @@ class Header extends React.Component {
             </a>
           </div>
 
-          <div className="brand d-none d-lg-inline-block d-xl-inline-block">
+          {/*<div className="brand d-none d-lg-inline-block d-xl-inline-block">
             <h2><Link to="/" style={{fontSize: '23.5px'}}>{APPCONFIG.brand}</Link></h2>
-          </div>
+          </div>*/}
 
           <div className="top-nav-left d-none d-lg-inline-block d-xl-inline-block">
             <NavLeftList />

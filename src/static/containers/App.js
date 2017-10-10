@@ -68,8 +68,7 @@ class App extends Component {
               'sidebar-sm': sidebarWidth === 'small',
               'sidebar-lg': sidebarWidth === 'large'})
           }>
-            {/*<Route path={`${match.url}app`} component={requireAuthentication(MainApp)} />*/}
-            <Route path={`${match.url}app`} component={MainApp} />
+            <Route path={`${match.url}app`} component={requireAuthentication(MainApp)} />
             <Route exact path="/404" component={Page404} />
             <Route exact path="/500" component={Page500} />
             <Route exact path="/confirm-email" component={PageConfirmEmail} />

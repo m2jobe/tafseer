@@ -1,6 +1,5 @@
 .logo-img {
-  width: 24px;
-  height: 24px;
+  height: 30px;
   margin-bottom: -3px;
   margin-right: 12px;
   // .st0 { fill: #fff; }
@@ -88,7 +87,7 @@
     margin-top: 5px;
   }
 
-  // first level li 
+  // first level li
   > li {
     > a {
       line-height: 24px;
@@ -132,7 +131,7 @@
     }
   }
 
-  // sub2 ul 
+  // sub2 ul
   ul ul {
     li {
       > a {
@@ -141,7 +140,7 @@
     }
   }
 
-  // sub3 ul 
+  // sub3 ul
   ul ul ul {
     li {
       > a {
@@ -224,7 +223,7 @@
             color: $nav_sub_link_active_color;
           }
         }
-      } 
+      }
     }
 
     ul ul ul {
@@ -232,6 +231,3 @@
     }
   }
 }
-
-
-

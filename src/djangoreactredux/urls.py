@@ -6,8 +6,18 @@ from django.contrib import admin
 from base import views as base_views
 
 urlpatterns = [
+    url(r'^api/v1/content/', include('content.urls', namespace='videos')),
+
+    url(r'^api/v1/banners/', include('banners.urls', namespace='banners')),
+    url(r'^api/v1/notifications/', include('notifications.urls', namespace='notifications')),
+
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
+
+    url(r'^social/', include('social.apps.django_app.urls', namespace='social')),
+
+    # Url Entries for django administration
+    url('', include('django.contrib.auth.urls', namespace='auth')),
 
     url(r'^admin/', admin.site.urls),
 

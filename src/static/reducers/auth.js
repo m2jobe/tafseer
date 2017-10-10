@@ -11,7 +11,7 @@ import {
 
 const initialState = {
     token: null,
-    userName: null,
+    userEmail: null,
     isAuthenticated: false,
     isAuthenticating: false,
     statusText: null
@@ -30,7 +30,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticating: false,
                 isAuthenticated: true,
                 token: action.payload.token,
-                userName: action.payload.user.email,
+                userEmail: action.payload.user.email,
                 statusText: 'You have been successfully logged in.'
             });
 
@@ -39,7 +39,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticating: false,
                 isAuthenticated: false,
                 token: null,
-                userName: null,
+                userEmail: null,
                 statusText: `Authentication Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
@@ -47,26 +47,23 @@ export default function authReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 token: null,
-                userName: null,
+                userEmail: null,
                 statusText: 'You have been successfully logged out.'
             });
 
         case AUTH_REGISTER_USER_REQUEST:
             return Object.assign({}, state, {
-                isAuthenticating: true,
                 statusText: null
             });
 
 
         case AUTH_REGISTER_USER_SUCCESS:
             return Object.assign({}, state, {
-                isAuthenticating: false,
                 statusText: 'You have been successfully registered.'
             });
 
         case AUTH_REGISTER_USER_FAILURE:
             return Object.assign({}, state, {
-                isAuthenticating: false, //needs its own version
                 statusText: `Registration Error: ${action.payload.status} - ${action.payload.statusText}`
             });
         default:
