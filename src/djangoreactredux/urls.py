@@ -13,11 +13,7 @@ urlpatterns = [
 
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),
-
-    url(r'^social/', include('social.apps.django_app.urls', namespace='social')),
-
-    # Url Entries for django administration
-    url('', include('django.contrib.auth.urls', namespace='auth')),
+    url(r'^accounts/', include('allauth.urls')),
 
     url(r'^admin/', admin.site.urls),
 

@@ -20,7 +20,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sessions',
     'django.contrib.admin',
-    'social.apps.django_app.default',
 
     'rest_framework',
     'knox',
@@ -30,27 +29,29 @@ INSTALLED_APPS = (
     'content',
 
     'accounts',
-    'base'
+    'base',
+    'whitenoise.runserver_nostatic',
+
+    'django.contrib.sites',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+    'allauth.socialaccount.providers.google',
+
 )
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
-# For Facebook Authentication
-'social.backends.facebook.FacebookOAuth2',
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
-# For Twitter Authentication
-'social.backends.twitter.TwitterOAuth',
-
-# For Google Authentication
-'social.backends.google.GoogleOpenId',
-'social.backends.google.GoogleOAuth2',
-'social.backends.google.GoogleOAuth',
-
-# Default Django Auth Backends
-'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-SOCIAL_AUTH_FACEBOOK_KEY = '875075282657422'
-SOCIAL_AUTH_FACEBOOK_SECRET =  '2875d992a19963f9dfa01cdf587100ac'
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
@@ -75,12 +76,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                                # Setting of Template Context Processors for Social Auth
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
-            ],
-        },
+               # `allauth` needs this from django
+                ]
+        }
     },
 ]
 
@@ -103,7 +101,7 @@ AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_ACTIVATION_DAYS = 7  # days
 WHITENOISE_ROOT = os.path.join(BASE_DIR, 'static_dist')
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_dist'),
 )
