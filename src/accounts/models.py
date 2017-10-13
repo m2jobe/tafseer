@@ -83,6 +83,7 @@ class User(AbstractBaseUser):
 
     # we want primary key to be called id so need to ignore pytlint
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)  # pylint: disable=invalid-name
+    username = models.CharField(_('username'), max_length=50)
 
     first_name = models.CharField(_('First Name'), max_length=50)
     last_name = models.CharField(_('Last Name'), max_length=50)

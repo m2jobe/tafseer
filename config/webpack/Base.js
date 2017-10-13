@@ -7,6 +7,28 @@ const fs = require('fs');
 const path = require('path');
 
 const npmBase = path.join(__dirname, '../../node_modules');
+const basePath = path.resolve(__dirname, '../../src/static/');
+
+const PATHS = {
+    app: path.join(__dirname, '../../src/static'),
+    build: path.join(__dirname, '../../src/static_dist')
+};
+
+const VENDOR = [
+    'babel-polyfill',
+    'history',
+    'react',
+    'react-dom',
+    'react-redux',
+    'react-router',
+    'react-mixin',
+    'classnames',
+    'redux',
+    'react-router-redux',
+    'jquery',
+    'bootstrap-loader',
+    'font-awesome-webpack!./styles/font-awesome.config.prod.js'
+];
 
 class WebpackBaseConfig {
 
@@ -77,7 +99,7 @@ class WebpackBaseConfig {
     };
 
     return {
-      context: this.srcPathAbsolute,
+      context: basePath,
       devtool: 'eval',
       devServer: {
         contentBase: ['./public/', './src/static'],
@@ -87,13 +109,17 @@ class WebpackBaseConfig {
         inline: true,
         port: 3000
       },
-      entry: './index.js',
+      /*entry: './index.js',*/
+      entry: {
+        vendor: VENDOR,
+        app: PATHS.app
+      },
       module: {
         rules: [
           {
             enforce: 'pre',
             test: /\.js?$/,
-            include: this.srcPathAbsolute,
+            include: basePath,
             loader: 'babel-loader',
             query: {
               presets: ['es2015', 'react', 'stage-2']
@@ -126,7 +152,7 @@ class WebpackBaseConfig {
             test: /\.(js|jsx)$/,
             include: [].concat(
               this.includedPackages,
-              [this.srcPathAbsolute]
+              [basePath]
             ),
             loaders: [
               // Note: Moved this to .babelrc
@@ -179,24 +205,24 @@ class WebpackBaseConfig {
         ]
       },
       output: {
-        path: path.resolve('./src/static_dist/assets'),
+        path: PATHS.build,
         filename: 'app.js',
-        publicPath: './assets/'
+        publicPath: '/static'
       },
       plugins: [],
       resolve: {
         alias: {
-          actions: `${this.srcPathAbsolute}/actions/`,
-          components: `${this.srcPathAbsolute}/components/`,
-          config: `${this.srcPathAbsolute}/config/${this.env}.js`,
-          images: `${this.srcPathAbsolute}/images/`,
-          sources: `${this.srcPathAbsolute}/sources/`,
-          stores: `${this.srcPathAbsolute}/stores/`,
-          styles: `${this.srcPathAbsolute}/styles/`
+          actions: `${basePath}/actions/`,
+          components: `${basePath}/components/`,
+          config: `${basePath}/config/${this.env}.js`,
+          images: `${basePath}/images/`,
+          sources: `${basePath}/sources/`,
+          stores: `${basePath}/stores/`,
+          styles: `${basePath}/styles/`
         },
         extensions: ['.js', '.jsx'],
         modules: [
-          this.srcPathAbsolute,
+          basePath,
           'node_modules'
         ]
       }

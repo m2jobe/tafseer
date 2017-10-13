@@ -188,7 +188,9 @@ class LoginView extends React.Component {
                           <div style={{marginBottom:'2vh', color: 'white'}}>
                             <a  style={{width:'100%'}}  className="btn btn-block btn-social btn-google">
                               <span className="fa fa-google"></span> Sign in with Google
+
                             </a>
+
                           </div>
                         </form>
                       </div>
