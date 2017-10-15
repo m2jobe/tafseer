@@ -3,7 +3,7 @@ html, body, .app-header {
 }
 
 .page-auth .body-inner:before, .page-login .body-inner:before, .page-signup .body-inner:before, .page-forgot .body-inner:before {
-    background-color: #B95656 !important;
+  //  background-color: #B95656 !important;
 }
 
 .tm-logo-text > h1 > a {
@@ -54,4 +54,8 @@ opacity: 1;
 height: 100%;
 box-sizing: border-box !important;
 padding-bottom: 20px !important;
+}
+
+.toggle:hover {
+  color: white !important;
 }

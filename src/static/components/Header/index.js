@@ -11,6 +11,7 @@ import { authLogoutAndRedirect } from '../../actions/auth';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
+import UserAvatar from 'react-user-avatar';
 
 const ImgIconButtonStyle = {
   width: '60px',
@@ -85,7 +86,11 @@ class Header extends React.Component {
             <ul className="list-unstyled float-right">
               <li style={{marginRight: '10px'}}>
                 <IconMenu
-                  iconButtonElement={<IconButton style={ImgIconButtonStyle}><img src="https://scontent.fyzd1-1.fna.fbcdn.net/v/t31.0-8/19092939_1805243142825160_1817836889219927612_o.jpg?oh=2c7c9c06c22ef4654d24626a1ba429fc&oe=5A469565" alt="" className="rounded-circle img30_30" /></IconButton>}
+                  iconButtonElement={<IconButton style={ImgIconButtonStyle}>
+
+                    {/*<img src="https://scontent.fyzd1-1.fna.fbcdn.net/v/t31.0-8/19092939_1805243142825160_1817836889219927612_o.jpg?oh=2c7c9c06c22ef4654d24626a1ba429fc&oe=5A469565" alt="" className="rounded-circle img30_30" />*/}
+                    <UserAvatar size="30" name="Madonna" />
+                  </IconButton>}
                   onChange={this.handleChange}
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
                   targetOrigin={{horizontal: 'right', vertical: 'top'}}
@@ -98,13 +103,13 @@ class Header extends React.Component {
                     innerDivStyle={listItemStyle}
                     leftIcon={<i className="material-icons">home</i>}
                               />
-                  <MenuItem
+                  {/*<MenuItem
                     value="/app/dashboard/"
                     primaryText="My Account"
                     innerDivStyle={listItemStyle}
                     style={{fontSize: '14px', lineHeight: '48px'}}
-                    leftIcon={<i className="material-icons">person_outline</i>}
-                              />
+                    leftIcon={<i className="material-icons">person_outline</i>
+                  />*/}
                   <MenuItem
                     onClick={this.logout}
                     onItemTouchTap={this.logout}

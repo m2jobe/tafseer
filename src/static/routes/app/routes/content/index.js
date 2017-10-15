@@ -13,7 +13,7 @@ import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Modal from 'react-modal';
-import ReactJWPlayer from 'react-jw-player';
+import JWPlayer from 'react-jwplayer';
 
 const customStyles = {
   content : {
@@ -112,36 +112,6 @@ class Content extends React.Component {
       this.closeModal();
   }
 
-
-  componentWillMount() {
-    this.props.actions.fetchVideo(this.props.match.params.videoID);
-
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    if(this.props.banners != nextProps.banners)  {
-      var currentBanners = nextProps.banners.map((object) =>
-          <div className="col-md-6">
-            <div className="card card-white">
-              <div className="card-image">
-                <img src={object.image} alt="" />
-                <span className="card-title">{object.artist} - {object.location} </span>
-              </div>
-              <div className="card-content">
-                <a className="card-button float-right" href="javascript:;">
-                  <button onClick={() => this.openModal(object.artist)} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
-                </a>
-                <p>Date: {object.dateText}</p>
-              </div>
-            </div>
-          </div>
-
-      );
-      this.setState({currentBanners: currentBanners})
-    }
-
-  }
-
   componentDidUpdate() {
     switch (this.props.triggerNotification) {
       case 'no':
@@ -156,11 +126,9 @@ class Content extends React.Component {
         break;
     }
 
-    console.log("video" + this.props.video);
   }
 
-
-  goToVideo = (id) => {
+  componentDidMount() {
     console.log(this.props.match.params.videoID);
 
   }
@@ -177,29 +145,15 @@ class Content extends React.Component {
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
 
-      <h2 className="article-title">Upcoming Live Events</h2>
+      <h2 className="article-title">{this.props.match.params.artist}</h2>
 
-      <ReactJWPlayer
-        playerId='A4dWigXp'
-        playerScript='https://content.jwplatform.com/libraries/CSUFB620.js'
-        playlist='https://cdn.jwplayer.com/v2/playlists/avk8QtIW'
-      />
 
-      <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal2"
-        >
-        <form>
-          <div className="form-group">
-          <h4>Get Notified when this live event begins! </h4>
-          <br/>
-          <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
-          </div>
-        </form>
-      </Modal>
+      <h4 style={{color: "white"}}> {this.props.match.params.name} </h4>
+
+      <JWPlayer videoId={this.props.match.params.videoID} player="16" />
+
+
+
       {/* End up BANNERS */}
 
 

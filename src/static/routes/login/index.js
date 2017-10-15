@@ -16,9 +16,15 @@ import 'font-awesome/css/font-awesome.min.css'
 
 import * as actionCreators from '../../actions/auth';
 
+import './css/style.css';
+import './js/index';
+import $ from 'jquery';
+
 const Form = t.form.Form;
 
-const Login = t.struct({
+//Login from react-facebook took the name Login so renamed to
+// Login1
+const Login1 = t.struct({
     email: t.String,
     password: t.String
 });
@@ -83,7 +89,9 @@ class LoginView extends React.Component {
         isAuthenticating: PropTypes.bool.isRequired,
         statusText: PropTypes.string,
         actions: PropTypes.shape({
-            authLoginUser: PropTypes.func.isRequired
+            authLoginUser: PropTypes.func.isRequired,
+            authRegisterUser: PropTypes.func.isRequired
+
         }).isRequired,
         location: PropTypes.shape({
             search: PropTypes.string.isRequired
@@ -94,6 +102,7 @@ class LoginView extends React.Component {
         statusText: '',
         location: null
     };
+
 
     constructor(props) {
         super(props);
@@ -106,12 +115,26 @@ class LoginView extends React.Component {
             },
             redirectTo: redirectRoute
         };
+
+        this.openRegister = this.openRegister.bind(this);
+        this.closeRegister = this.closeRegister.bind(this);
+
     }
 
     componentWillMount() {
         if (this.props.isAuthenticated) {
             this.props.dispatch(push('/'));
         }
+    }
+
+    openRegister = () => {
+      $('.container').addClass('active');
+
+    }
+
+    closeRegister = () => {
+      $('.container').removeClass('active');
+
     }
 
     onFormChange = (value) => {
@@ -125,11 +148,24 @@ class LoginView extends React.Component {
 
     login = (e) => {
         e.preventDefault();
-        const value = this.loginForm.getValue();
-        if (value) {
-            this.props.actions.authLoginUser(value.email, value.password, this.state.redirectTo);
+        var password = $('#pwds').val();
+        var username = $('#usrd').val();
+        if (username && password) {
+            this.props.actions.authLoginUser(username, password, this.state.redirectTo);
         }
     };
+
+    signUp = () => {
+      var password = $('#password').val();
+      var username = $('#username').val();
+      var email = $('#email').val();
+
+
+      if (username && password && email) {
+          this.props.actions.authRegisterUser(email, password, password, username, this.state.redirectTo);
+      }
+    }
+
 
     render() {
         let statusText = null;
@@ -157,52 +193,59 @@ class LoginView extends React.Component {
               <QueueAnim type="bottom" className="ui-animate">
                 <div key="1">
                   {statusText}
-                  <div className="body-inner">
-                    <div className="card bg-white">
-                      <div className="card-content">
 
-                        <section className="tm-logo-text logo text-center">
-                          <h1><a href="#/"><img className="tm-logo" src={logo} /></a></h1>
-                        </section>
+                  <div className="pen-title">
+<h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
+</div>
+<div className="container">
+<div className="card">
+  <h1 className="title">Login</h1>
+  <form onSubmit={this.login}>
+    <div className="input-container">
+      <input type="#{type}" id="usrd" required="required" />
+      <label htmlFor="#{label}">Username</label>
+      <div className="bar"> </div>
+    </div>
+    <div className="input-container">
+      <input type="password" id="pwds" required="required" />
+      <label htmlFor="#{label}">Password</label>
+      <div className="bar"> </div>
+    </div>
+    <div className="button-container">
+      <button disabled={this.props.isAuthenticating} type="submit"><span>Go</span></button>
+    </div>
+    {/*<div className="footer"><a href="#">Forgot your password?</a></div>
+    */}
+  </form>
+</div>
+<div className="card alt">
+  <a onClick={this.openRegister} className="toggle"> </a>
+  <h1 className="title">Register
+    <button onClick={this.closeRegister} className="close"> </button>
+  </h1>
+  <div>
+    <div className="input-container">
+      <input type="text" id="username" required="required" />
+      <label htmlFor="username">Username</label>
+      <div className="bar"> </div>
+    </div>
+    <div className="input-container">
+      <input type="email" id="email" required="required" />
+      <label htmlFor="email">Email</label>
+      <div className="bar"> </div>
+    </div>
+    <div className="input-container">
+      <input type="password" id="password" required="required" />
+      <label htmlFor="password">Password</label>
+      <div className="bar"> </div>
+    </div>
+    <div className="button-container">
+      <button onClick={this.signUp}><span>Next</span></button>
+    </div>
+  </div>
+</div>
+</div>
 
-                        <form className="form-horizontal" onSubmit={this.login}>
-                            <Form ref={(ref) => { this.loginForm = ref; }}
-                                type={Login}
-                                options={LoginFormOptions}
-                                value={this.state.formValues}
-                                onChange={this.onFormChange}
-                            />
-
-                          <div style={{float:'right'}}>
-                          <button disabled={this.props.isAuthenticating}
-                              type="submit" style={{background: 'transparent'}} className="color-primary card-action no-border text-right">
-                            Login
-                          </button>
-                          </div>
-                          <br/><br/><br/>
-                          <div style={{marginBottom:'2vh', color: 'white'}}>
-                          <a  style={{width:'100%'}}  className="btn btn-block btn-social btn-facebook">
-                            <span className="fa fa-facebook"></span> Sign in with Facebook
-                          </a>
-                          </div>
-                          <div style={{marginBottom:'2vh', color: 'white'}}>
-                            <a  style={{width:'100%'}}  className="btn btn-block btn-social btn-google">
-                              <span className="fa fa-google"></span> Sign in with Google
-
-                            </a>
-
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-
-                    <div className="additional-info">
-                      <a href="#/sign-up">Sign up</a>
-                      <span className="divider-h" />
-                      <a href="#/forgot-password">Forgot your password?</a>
-                    </div>
-
-                  </div>
                 </div>
               </QueueAnim>
             </div>

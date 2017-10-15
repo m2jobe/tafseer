@@ -56,14 +56,13 @@ class PageSignUp extends React.Component {
   signUp = () => {
     var email = $('#email').val();
     var password = $('#password').val();
-    var first_name = $('#first_name').val();
-    var last_name = $('#last_name').val();
+    var username = $('#username').val();
+    var password1 = $('#password2').val();
 
-    console.log(email);console.log(password);
-    console.log(first_name);console.log(last_name);
+
     if (email) {
         console.log("SENT ON IF STATEMENT")
-        this.props.actions.authRegisterUser(email, password, first_name, last_name, this.state.redirectTo);
+        this.props.actions.authRegisterUser(email, password, password1, username, this.state.redirectTo);
     }
   }
 
@@ -106,18 +105,10 @@ class PageSignUp extends React.Component {
               <fieldset>
                 <div className="form-group">
                   <TextField
-                    floatingLabelText="First Name"
+                    floatingLabelText="Username"
                     type="text"
                     fullWidth
-                    id="first_name"
-                  />
-                </div>
-                <div className="form-group">
-                  <TextField
-                    floatingLabelText="Last Name"
-                    type="text"
-                    fullWidth
-                    id="last_name"
+                    id="username"
                   />
                 </div>
                 <div className="form-group">

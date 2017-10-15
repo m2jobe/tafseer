@@ -13,8 +13,11 @@ from accounts.models import User
 from accounts.serializers import UserRegistrationSerializer, UserSerializer
 from lib.utils import AtomicMixin
 from django.utils import timezone
-
 from lib.utils import validate_email as email_is_valid
+
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from rest_auth.registration.views import SocialLoginView
+
 
 class UserRegisterView(AtomicMixin, CreateModelMixin, GenericAPIView):
     serializer_class = UserRegistrationSerializer
@@ -87,3 +90,7 @@ class UserEmailConfirmationStatusView(GenericAPIView):
         """Retrieve user current confirmed_email status."""
         user = self.request.user
         return Response({'status': user.confirmed_email}, status=status.HTTP_200_OK)
+
+
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter

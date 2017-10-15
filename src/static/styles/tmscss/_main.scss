@@ -45,3 +45,15 @@
 .app-main .app-header > .app-header-inner {
     background: transparent;
 }
+
+.ReactModal__Overlay {
+  background-color: rgba(0, 0, 0, 0.80) !important;
+}
+
+.ReactModal__Overlay .btn-primary {
+  background: #ee5353 !important;
+}
+
+.app-content-wrapper {
+  height: 100vh !important;
+}

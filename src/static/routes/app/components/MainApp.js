@@ -72,6 +72,7 @@ class MainApp extends React.Component {
 
   componentWillMount() {
       const token = this.props.token;
+      console.log("this is the token " + token);
       this.props.actions.dataFetchProtectedData(token);
   }
 
@@ -96,15 +97,15 @@ class MainApp extends React.Component {
                   <Route path={`${match.url}/pglayout`} component={AsyncPageLayout} />
                   <Route path={`${match.url}/table`} component={AsyncTable} />
                   <Route path={`${match.url}/ui`} component={AsyncUI} />
-                  <Route path={`${match.url}/content/:videoID`} component={Content} />
+                  <Route path={`${match.url}/content/:videoID/:artist/:name`} component={Content} />
               </div>
             </div>
 
-            <Footer />
+            {/*<Footer />*/}
           </div>
         </section>
 
-        <Customizer />
+        {/*<Customizer />*/}
       </div>
     );
   }

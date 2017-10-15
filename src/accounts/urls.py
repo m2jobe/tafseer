@@ -16,5 +16,6 @@ urlpatterns = [
     url(_(r'^status/email/$'),
         accounts.views.UserEmailConfirmationStatusView.as_view(),
         name='status'),
+    url(r'^rest-auth/facebook/$', accounts.views.FacebookLogin.as_view(), name='fb_login'),
 
 ]

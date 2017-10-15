@@ -160,9 +160,9 @@ body {
 }
 
 /* Card */
-.card {
+.page-login .card {
   position: relative;
-  background: #ffffff;
+  background: #fafafa !important;
   border-radius: 5px;
   padding: 60px 0 40px 0;
   box-sizing: border-box;
@@ -175,13 +175,7 @@ body {
   /* Footer */
   /* Alt Card */
 }
-.card:first-child {
-  background: #fafafa;
-  height: 10px;
-  border-radius: 5px 5px 0 0;
-  margin: 0 10px;
-  padding: 0;
-}
+
 .card .title {
   position: relative;
   z-index: 1;
@@ -329,6 +323,15 @@ body {
 .card .footer a:hover {
   color: #bababa;
 }
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .card.alt {
+      top: 0px !important;
+      right: 0px !important;
+    }
+}
+
 .card.alt {
   position: absolute;
   top: 40px;
@@ -444,10 +447,4 @@ background: linear-gradient(to right, #fc5c7d, #6a82fb); /* W3C, IE 10+/ Edge, F
     bottom: 30px;
     opacity: 0;
   }
-}
-body {
-
-    background: #de6161; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #de6161, #2657eb); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #de6161, #2657eb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

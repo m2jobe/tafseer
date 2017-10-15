@@ -30,7 +30,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticating: false,
                 isAuthenticated: true,
                 token: action.payload.token,
-                userEmail: action.payload.user.email,
+                userEmail: action.payload.user.username,
                 statusText: 'You have been successfully logged in.'
             });
 
@@ -51,6 +51,14 @@ export default function authReducer(state = initialState, action) {
                 statusText: 'You have been successfully logged out.'
             });
 
+        case AUTH_LOGIN_USER_FAILURE:
+            return Object.assign({}, state, {
+                isAuthenticated: false,
+                token: null,
+                userEmail: null,
+                statusText: action.payload.statusText
+            });
+
         case AUTH_REGISTER_USER_REQUEST:
             return Object.assign({}, state, {
                 statusText: null
@@ -64,7 +72,7 @@ export default function authReducer(state = initialState, action) {
 
         case AUTH_REGISTER_USER_FAILURE:
             return Object.assign({}, state, {
-                statusText: `Registration Error: ${action.payload.status} - ${action.payload.statusText}`
+                statusText: `${action.payload.statusText}`
             });
         default:
             return state;

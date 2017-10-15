@@ -162,12 +162,11 @@ class Dashboard extends React.Component {
         break;
     }
 
-    console.log("videos" + this.props.videos);
   }
 
 
-  goToVideo = (id) => {
-    this.props.dispatch(push('/app/content/'+id));
+  goToVideo = (url,artist,name) => {
+    this.props.dispatch(push('/app/content/'+url+'/'+artist+'/'+ name ));
 
   }
 
@@ -183,6 +182,21 @@ class Dashboard extends React.Component {
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
 
+          <Modal
+              isOpen={this.state.modalIsOpen}
+              onAfterOpen={this.afterOpenModal}
+              onRequestClose={this.closeModal}
+              style={customStyles}
+              contentLabel="Example Modal2"
+            >
+            <form>
+              <div className="form-group">
+              <h4>Get Notified when this live event begins! </h4>
+              <br/>
+              <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
+              </div>
+            </form>
+          </Modal>
     <QueueAnim type="bottom" className="ui-animate">
       <h2 className="article-title">Upcoming Live Events</h2>
 
@@ -190,21 +204,6 @@ class Dashboard extends React.Component {
         {this.state.currentBanners}
       </div>
 
-      <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal2"
-        >
-        <form>
-          <div className="form-group">
-          <h4>Get Notified when this live event begins! </h4>
-          <br/>
-          <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
-          </div>
-        </form>
-      </Modal>
       {/* End up BANNERS */}
 
       <article className="article">
@@ -225,7 +224,7 @@ class Dashboard extends React.Component {
                           <div className="info-inner">
                             <h3>{object.artist}</h3>
                             <p>{object.name}</p>
-                            <button onClick={() => this.goToVideo(object.id)} className="btn btn-primary"> Play </button>
+                            <button onClick={() => this.goToVideo(object.url, object.artist, object.name)} className="btn btn-primary"> Play </button>
                           </div>
                         </div>
                       </div>

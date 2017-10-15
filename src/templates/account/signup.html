@@ -1,0 +1,50 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+
+<div class="pen-title" >
+  <h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
+</div>
+<div class="container">
+  <div class="card"></div>
+  <div class="card">
+    <h1 class="title">Register</h1>
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <div class="input-container">
+        <input type="#{type}" id="phant_username" required="required"/>
+        <label for="#{label}">Username</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="email" id="phant_email" required="required"/>
+        <label for="#{label}">Email</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="phant_password1" required="required"/>
+        <label for="#{label}">Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="input-container">
+        <input type="#{type}" id="phant_password2" required="required"/>
+        <label for="#{label}">Repeat Password</label>
+        <div class="bar"></div>
+      </div>
+      <div class="button-container">
+        <button type="submit"><span>Next</span></button>
+      </div>
+    </form>
+
+  </div>
+</div>
+{% endblock %}
