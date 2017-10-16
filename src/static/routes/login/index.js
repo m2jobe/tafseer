@@ -200,6 +200,8 @@ class LoginView extends React.Component {
 <h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
 </div>
 <div className="container">
+  {statusText}
+
 <div className="card">
   <h1 className="title">Login</h1>
   <form onSubmit={this.login}>
@@ -247,7 +249,6 @@ class LoginView extends React.Component {
   </div>
 </div>
 </div>
-{statusText}
 
                 </div>
               </QueueAnim>
