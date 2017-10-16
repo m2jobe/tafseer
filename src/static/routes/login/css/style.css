@@ -327,7 +327,7 @@ body {
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
     .card.alt {
-      top: 0px !important;
+      top: 80px !important;
       right: 0px !important;
     }
 }

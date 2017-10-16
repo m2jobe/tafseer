@@ -216,7 +216,7 @@ class LoginView extends React.Component {
       <div className="bar"> </div>
     </div>
     <div className="button-container">
-      <button disabled={this.props.isAuthenticating} type="submit"><span>Go</span></button>
+      <button  style={{width: "100%"}}disabled={this.props.isAuthenticating} type="submit"><span>Go</span></button>
     </div>
     {/*<div className="footer"><a href="#">Forgot your password?</a></div>
     */}
