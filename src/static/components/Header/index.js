@@ -6,12 +6,14 @@ import APPCONFIG from 'constants/Config';
 import NavLeftList from './NavLeftList';
 import { push } from 'react-router-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 
 import { authLogoutAndRedirect } from '../../actions/auth';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton/IconButton';
 import UserAvatar from 'react-user-avatar';
+import * as actionCreators from '../../actions/data';
 
 const ImgIconButtonStyle = {
   width: '60px',
@@ -33,7 +35,8 @@ class Header extends React.Component {
   };
 
   static defaultProps = {
-      location: undefined
+      location: undefined,
+      userName:null
   };
   handleChange = (event, value) => {
     this.props.history.push(value);
@@ -51,6 +54,10 @@ class Header extends React.Component {
       // _sidebar.scss, _page-container.scss
       $body.toggleClass('sidebar-mobile-open');
     });
+  }
+
+  login = () => {
+    this.props.dispatch(push('/login'));
   }
 
   render() {
@@ -84,12 +91,13 @@ class Header extends React.Component {
 
           <div className="top-nav-right">
             <ul className="list-unstyled float-right">
+              {this.props.userName ?
               <li style={{marginRight: '10px'}}>
                 <IconMenu
                   iconButtonElement={<IconButton style={ImgIconButtonStyle}>
 
                     {/*<img src="https://scontent.fyzd1-1.fna.fbcdn.net/v/t31.0-8/19092939_1805243142825160_1817836889219927612_o.jpg?oh=2c7c9c06c22ef4654d24626a1ba429fc&oe=5A469565" alt="" className="rounded-circle img30_30" />*/}
-                    <UserAvatar size="30" name="Madonna" />
+                    <UserAvatar size="30" name={this.props.userName}/>
                   </IconButton>}
                   onChange={this.handleChange}
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
@@ -120,6 +128,13 @@ class Header extends React.Component {
                               />
                 </IconMenu>
               </li>
+              :
+              <li>
+                  <a className="btn btn-default dashboard-login-btn" onClick={this.login}>
+                    Sign in
+                  </a>
+              </li>
+              }
             </ul>
           </div>
         </div>
@@ -133,9 +148,18 @@ const mapStateToProps = state => ({
   colorOption: state.settings.colorOption,
   isFixedHeader: state.settings.isFixedHeader,
   isAuthenticated: state.auth.isAuthenticated,
-  location: state.routing.location
+  location: state.routing.location,
+  userName: state.auth.userName
 });
 
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        dispatch,
+        actions: bindActionCreators(actionCreators, dispatch)
+    };
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
 export { Header as HeaderNotConnected };

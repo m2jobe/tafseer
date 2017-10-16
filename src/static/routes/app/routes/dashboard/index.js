@@ -32,24 +32,17 @@ class Dashboard extends React.Component {
       data: PropTypes.string,
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
-          fetchBanners: PropTypes.func.isRequired,
-          fetchVideos: PropTypes.func.isRequired,
-          saveUserNotificationRequest: React.PropTypes.func.isRequired
+          dataFetchProtectedData: PropTypes.func.isRequired
 
       }).isRequired,
-      banners: PropTypes.array,
       triggerNotification: PropTypes.bool,
-      userEmail: PropTypes.string,
-      videos:PropTypes.array,
-
-
 
   };
 
   static defaultProps = {
     banners: null,
     triggerNotification: false,
-    userEmail: null,
+    userName: null,
     videos: null,
 
 
@@ -113,15 +106,20 @@ class Dashboard extends React.Component {
 
 
   saveUserNotificationRequest = () => {
-      this.props.actions.saveUserNotificationRequest(this.props.userEmail, this.state.currentArtist);
-      this.closeModal();
+      if(this.props.userName) {
+        this.props.actions.saveUserNotificationRequest(this.props.userName, this.state.currentArtist);
+      } else {
+        NotificationManager.warning('You need to sign in to subsribe for events', 'Oops', 3000);
+
+      }
+
   }
 
 
   componentWillMount() {
+
     this.props.actions.fetchBanners();
     this.props.actions.fetchVideos();
-
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -135,7 +133,7 @@ class Dashboard extends React.Component {
               </div>
               <div className="card-content">
                 <a className="card-button float-right" href="javascript:;">
-                  <button onClick={() => this.openModal(object.artist)} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
+                  <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
                 </a>
                 <p>Date: {object.dateText}</p>
               </div>
@@ -256,7 +254,7 @@ const mapStateToProps = (state) => {
     return {
         banners: state.data.banners,
         triggerNotification: state.data.triggerNotification,
-        userEmail: state.auth.userEmail,
+        userName: state.auth.userName,
         videos: state.data.videos,
 
     };

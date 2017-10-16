@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
 import Dashboard from '../routes/dashboard/'
 import Content from '../routes/content/'
+import requireAuthentication from '../../../utils/requireAuthentication';
 
 // import Chart from '../routes/chart/'
 // import ECommerce from '../routes/ecommerce/'
@@ -71,9 +72,7 @@ class MainApp extends React.Component {
   };
 
   componentWillMount() {
-      const token = this.props.token;
-      console.log("this is the token " + token);
-      this.props.actions.dataFetchProtectedData(token);
+
   }
 
   render() {
@@ -97,7 +96,7 @@ class MainApp extends React.Component {
                   <Route path={`${match.url}/pglayout`} component={AsyncPageLayout} />
                   <Route path={`${match.url}/table`} component={AsyncTable} />
                   <Route path={`${match.url}/ui`} component={AsyncUI} />
-                  <Route path={`${match.url}/content/:videoID/:artist/:name`} component={Content} />
+                  <Route path={`${match.url}/content/:videoID/:artist/:name`} component={requireAuthentication(Content)} />
               </div>
             </div>
 

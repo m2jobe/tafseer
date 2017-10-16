@@ -11,10 +11,10 @@ import {
 
 const initialState = {
     token: null,
-    userEmail: null,
+    userName: null,
     isAuthenticated: false,
     isAuthenticating: false,
-    statusText: null
+    statusText: 'Sign in to start streaming live events!'
 };
 
 export default function authReducer(state = initialState, action) {
@@ -30,7 +30,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticating: false,
                 isAuthenticated: true,
                 token: action.payload.token,
-                userEmail: action.payload.user.username,
+                userName: action.payload.user.username,
                 statusText: 'You have been successfully logged in.'
             });
 
@@ -39,7 +39,7 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticating: false,
                 isAuthenticated: false,
                 token: null,
-                userEmail: null,
+                userName: null,
                 statusText: `Authentication Error: ${action.payload.status} - ${action.payload.statusText}`
             });
 
@@ -47,7 +47,7 @@ export default function authReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 token: null,
-                userEmail: null,
+                userName: null,
                 statusText: 'You have been successfully logged out.'
             });
 
@@ -55,7 +55,7 @@ export default function authReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 isAuthenticated: false,
                 token: null,
-                userEmail: null,
+                userName: null,
                 statusText: action.payload.statusText
             });
 

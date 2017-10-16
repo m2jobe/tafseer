@@ -33,11 +33,11 @@ class Content extends React.Component {
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
           fetchVideos: PropTypes.func.isRequired,
-          saveUserNotificationRequest: React.PropTypes.func.isRequired
-
+          saveUserNotificationRequest: React.PropTypes.func.isRequired,
+          dataFetchProtectedData: React.PropTypes.func.isRequired
       }).isRequired,
       triggerNotification: PropTypes.bool,
-      userEmail: PropTypes.string,
+      userName: PropTypes.string,
       video:PropTypes.array,
 
 
@@ -46,7 +46,7 @@ class Content extends React.Component {
 
   static defaultProps = {
     triggerNotification: false,
-    userEmail: null,
+    userName: null,
     video: null,
   };
 
@@ -85,6 +85,12 @@ class Content extends React.Component {
     // references are now sync'd and can be accessed.
   }
 
+  componentWillMount() {
+    const token = this.props.token;
+    console.log("this is the token " + token);
+    this.props.actions.dataFetchProtectedData(token);
+  }
+
   createNotification = (type) => {
     return () => {
       switch (type) {
@@ -106,11 +112,6 @@ class Content extends React.Component {
     };
   }
 
-
-  saveUserNotificationRequest = () => {
-      this.props.actions.saveUserNotificationRequest(this.props.userEmail, this.state.currentArtist);
-      this.closeModal();
-  }
 
   componentDidUpdate() {
     switch (this.props.triggerNotification) {
@@ -170,7 +171,7 @@ class Content extends React.Component {
 const mapStateToProps = (state) => {
     return {
         triggerNotification: state.data.triggerNotification,
-        userEmail: state.auth.userEmail,
+        userName: state.auth.userName,
         video: state.data.video,
 
     };
