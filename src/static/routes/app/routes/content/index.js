@@ -86,9 +86,7 @@ class Content extends React.Component {
   }
 
   componentWillMount() {
-    const token = this.props.token;
-    console.log("this is the token " + token);
-    this.props.actions.dataFetchProtectedData(token);
+
   }
 
   createNotification = (type) => {
@@ -131,7 +129,9 @@ class Content extends React.Component {
 
   componentDidMount() {
     console.log(this.props.match.params.videoID);
-
+    const token = this.props.token;
+    console.log("this is the token " + token);
+    //this.props.actions.dataFetchProtectedData(token);
   }
 
 

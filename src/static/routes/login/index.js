@@ -127,6 +127,9 @@ class LoginView extends React.Component {
         }
     }
 
+    componentDidMount() {
+    }
+
     openRegister = () => {
       $('.container').addClass('active');
 
@@ -163,6 +166,7 @@ class LoginView extends React.Component {
 
       if (username && password && email) {
           this.props.actions.authRegisterUser(email, password, password, username, this.state.redirectTo);
+
       }
     }
 
@@ -192,8 +196,6 @@ class LoginView extends React.Component {
             <div className="main-body">
               <QueueAnim type="bottom" className="ui-animate">
                 <div key="1">
-                  {statusText}
-
                   <div className="pen-title">
 <h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
 </div>
@@ -245,6 +247,7 @@ class LoginView extends React.Component {
   </div>
 </div>
 </div>
+{statusText}
 
                 </div>
               </QueueAnim>
