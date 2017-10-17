@@ -13,72 +13,17 @@ import PropTypes from 'prop-types';
 import './styles.scss'
 import 'bootstrap-social/bootstrap-social.css'
 import 'font-awesome/css/font-awesome.min.css'
-
 import * as actionCreators from '../../actions/auth';
-
 import './css/style.css';
 import './js/index';
 import $ from 'jquery';
+import FacebookLogin from 'react-facebook-login';
 
 const Form = t.form.Form;
-
 //Login from react-facebook took the name Login so renamed to
-// Login1
-const Login1 = t.struct({
-    email: t.String,
-    password: t.String
-});
 
-const passwordLayout = (locals) => {
-  return (
-
-        <TextField
-          floatingLabelText="Password"
-          type="password"
-          fullWidth
-          />
-  );
-};
-const emailLayout = (locals) => {
-  return (
-        <TextField
-          floatingLabelText="Email"
-          fullWidth
-        />
-  );
-};
-const formLayout = (locals) => {
-  return (
-
-    <fieldset>
-      <div className="form-group">
-        {locals.inputs.email}
-        <hr className="tm-hr"/>
-      </div>
-      <div className="form-group">
-        {locals.inputs.password}
-        <hr className="tm-hr"/>
-      </div>
-    </fieldset>
-  );
-};
-const LoginFormOptions = {
-    auto: 'placeholders',
-    help: <i>Hint: a@a.com / qw</i>,
-    fields: {
-        password: {
-            type: 'password',
-            attrs: {
-              className: 'tm-input'
-            }
-        },
-        email: {
-            attrs: {
-              className: 'tm-input'
-            }
-        }
-    },
-    template: formLayout
+const responseFacebook = (response) => {
+  console.log(response);
 };
 
 
@@ -217,6 +162,13 @@ class LoginView extends React.Component {
     </div>
     <div className="button-container">
       <button  style={{width: "100%"}}disabled={this.props.isAuthenticating} type="submit"><span>Go</span></button>
+      <br/>
+      <FacebookLogin
+        appId="875075282657422"
+        autoLoad
+        callback={responseFacebook}
+        icon="fa-facebook"
+      />
     </div>
     {/*<div className="footer"><a href="#">Forgot your password?</a></div>
     */}
