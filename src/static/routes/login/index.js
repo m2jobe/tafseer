@@ -179,12 +179,12 @@ class LoginView extends React.Component {
     */}
   </form>
   <div className="button-container">
-    <FacebookLogin
+  {/*  <FacebookLogin
       appId="875075282657422"
       autoLoad
       callback={this.responseFacebook}
       icon="fa-facebook"
-    />
+    />*/}
   </div>
 </div>
 <div className="card alt">
