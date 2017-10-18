@@ -155,11 +155,12 @@ class LoginView extends React.Component {
 <h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
 </div>
 <div className="container">
+{statusText}
 
 <div className="card">
+
   <h1 className="title">Login</h1>
   <form onSubmit={this.login}>
-    {statusText}
     <div className="input-container">
       <input type="#{type}" id="usrd" required="required" />
       <label htmlFor="#{label}">Username</label>
