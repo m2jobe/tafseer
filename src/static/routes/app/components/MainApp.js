@@ -11,8 +11,7 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from '../../../actions/data';
 import PropTypes from 'prop-types';
 
-import Dashboard from '../routes/dashboard/'
-import Content from '../routes/content/'
+
 import requireAuthentication from '../../../utils/requireAuthentication';
 
 // import Chart from '../routes/chart/'
@@ -27,34 +26,16 @@ function LoadingComponent() {
   return <div></div>;
 }
 
-let AsyncChart = loadable({
-  loader: () => import('../routes/chart/'),
+
+let AsyncDashboard = loadable({
+  loader: () => import('../routes/dashboard/'),
   loading: LoadingComponent
 })
-let AsyncECommerce = loadable({
-  loader: () => import('../routes/ecommerce/'),
+let AsyncContent = loadable({
+  loader: () => import('../routes/content/'),
   loading: LoadingComponent
 })
-let AsyncForm = loadable({
-  loader: () => import('../routes/form/'),
-  loading: LoadingComponent
-})
-let AsyncPage = loadable({
-  loader: () => import('../routes/page/'),
-  loading: LoadingComponent
-})
-let AsyncPageLayout = loadable({
-  loader: () => import('../routes/page-layout/'),
-  loading: LoadingComponent
-})
-let AsyncTable = loadable({
-  loader: () => import('../routes/table/'),
-  loading: LoadingComponent
-})
-let AsyncUI = loadable({
-  loader: () => import('../routes/ui/'),
-  loading: LoadingComponent
-})
+
 
 
 class MainApp extends React.Component {
@@ -88,15 +69,8 @@ class MainApp extends React.Component {
           <div className="app-content-wrapper">
             <div className="app-content">
               <div className="full-height">
-                  <Route path={`${match.url}/dashboard`} component={Dashboard} />
-                  <Route path={`${match.url}/chart`} component={AsyncChart} />
-                  <Route path={`${match.url}/ecommerce`} component={AsyncECommerce} />
-                  <Route path={`${match.url}/form`} component={AsyncForm} />
-                  <Route path={`${match.url}/page`} component={AsyncPage} />
-                  <Route path={`${match.url}/pglayout`} component={AsyncPageLayout} />
-                  <Route path={`${match.url}/table`} component={AsyncTable} />
-                  <Route path={`${match.url}/ui`} component={AsyncUI} />
-                  <Route path={`${match.url}/content/:videoID`} component={requireAuthentication(Content)} />
+                  <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
+                  <Route path={`${match.url}/content/:videoID`} component={requireAuthentication(AsyncContent)} />
               </div>
             </div>
 
