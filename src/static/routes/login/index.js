@@ -18,6 +18,7 @@ import './css/style.css';
 import './js/index';
 import $ from 'jquery';
 import FacebookLogin from 'react-facebook-login';
+import ReactDOM from 'react-dom'
 
 const Form = t.form.Form;
 //Login from react-facebook took the name Login so renamed to
@@ -50,8 +51,8 @@ class LoginView extends React.Component {
     responseFacebook = (response) => {
       console.log(response);
       console.log("sending request");
-      this.props.actions.authFacebookLogin(response.accessToken, response.name);
-
+      this.props.actions.authFacebookLogin(response.accessToken, response);
+      console.log(response.picture.url);
     };
 
     constructor(props) {
@@ -122,7 +123,7 @@ class LoginView extends React.Component {
       }
     }
 
-    componentDidUpdate = () => { ReactDom.findDOMNode(this).scrollIntoView(); }
+    componentDidUpdate = () => { ReactDOM.findDOMNode(this).scrollIntoView(); }
 
     fbTriggered = () => {
       /// no longer needed? console.log("");
@@ -188,6 +189,8 @@ class LoginView extends React.Component {
       icon="fa-facebook"
       isMobile={true}
       disableMobileRedirect={true}
+      fields="name,email,picture"
+
     />
   </div>
 </div>

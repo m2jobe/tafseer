@@ -260,7 +260,7 @@ class Sidebar extends React.Component {
             <li>
               <a target="_blank" href="http://tourmonkeys.com">
                 <i className="nav-icon material-icons">about</i>
-                <span className="nav-text"><span>About</span> & <span>Tour Monkeys</span></span>
+                <span className="nav-text"><span>About</span> <span>Tour Monkeys</span></span>
               </a>
             </li>
           </ul>

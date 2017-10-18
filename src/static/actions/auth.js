@@ -10,7 +10,8 @@ import {
     AUTH_REGISTER_USER_FAILURE,
     AUTH_REGISTER_USER_SUCCESS,
     AUTH_REGISTER_USER,
-    AUTH_LOGOUT_USER
+    AUTH_LOGOUT_USER,
+    AUTH_FBLOGIN_USER_SUCCESS
 } from '../constants/ActionTypes';
 
 import axios from 'axios';
@@ -31,6 +32,18 @@ export function authLoginUserSuccess(token, user) {
     sessionStorage.setItem('user', JSON.stringify(user));
     return {
         type: AUTH_LOGIN_USER_SUCCESS,
+        payload: {
+            token,
+            user
+        }
+    };
+}
+
+export function authFBLoginUserSuccess(token, user) {
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('user', JSON.stringify(user));
+    return {
+        type: AUTH_FBLOGIN_USER_SUCCESS,
         payload: {
             token,
             user
@@ -249,7 +262,7 @@ export function authRegisterUser(email, password1, password2, username, redirect
 //--------------REGISTEr ACTION FUNCTIONS ----------------------//
 
 
-export function authFacebookLogin(access_token,name) {
+export function authFacebookLogin(access_token,fbResponse) {
     return (dispatch) => {
         dispatch(authLoginUserRequest());
         return axios
@@ -257,18 +270,21 @@ export function authFacebookLogin(access_token,name) {
           access_token,
         }).then((response) => {
                 console.log(response);
-                dispatch(authLoginUserSuccess(response.data.key, JSON.parse('{ "username":"'+name+'", "age":30}')));
+                dispatch(authFBLoginUserSuccess(response.data.key, JSON.parse('{ "username":"'+fbResponse.name+'", "fbImage":"'+fbResponse.picture.data.url+'"}')));
                 dispatch(push('/'));
 
             })
             .catch(function (error) {
               // raise different exception if due to invalid credentials
+              console.log("Error" + error.response);
+              console.log(access_token);
+
               if (_.get(error, 'response.status') === 400) {
-                    dispatch(authLoginUserFailure(400, error.response.data.non_field_errors[0]));
+                    dispatch(authLoginUserFailure(400, "There was an error logging you into facebook, please try again!"));
               } else if (error && typeof error.response !== 'undefined' && _.get(error, 'response.status') === 401) {
                   // Invalid authentication credentials
                   return error.response.then((data) => {
-                      dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
+                      dispatch(authLoginUserFailure(401, "There was an error logging you into facebook, please try again!"));
                   });
               } else if (error && typeof error.response !== 'undefined' && _.get(error, 'response.status') >= 500) {
                 // Server side error

@@ -5,7 +5,8 @@ import {
     AUTH_REGISTER_USER_REQUEST,
     AUTH_REGISTER_USER_SUCCESS,
     AUTH_REGISTER_USER_FAILURE,
-    AUTH_LOGOUT_USER
+    AUTH_LOGOUT_USER,
+    AUTH_FBLOGIN_USER_SUCCESS
 } from '../constants/ActionTypes';
 
 
@@ -14,7 +15,8 @@ const initialState = {
     userName: null,
     isAuthenticated: false,
     isAuthenticating: false,
-    statusText: 'Sign in to start streaming live events!'
+    statusText: 'Sign in to start streaming live events!',
+    fbImage: null
 };
 
 export default function authReducer(state = initialState, action) {
@@ -31,6 +33,17 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: true,
                 token: action.payload.token,
                 userName: action.payload.user.username,
+                statusText: 'You have been successfully logged in.',
+                fbImage: null
+            });
+
+        case AUTH_FBLOGIN_USER_SUCCESS:
+            return Object.assign({}, state, {
+                isAuthenticating: false,
+                isAuthenticated: true,
+                token: action.payload.token,
+                userName: action.payload.user.username,
+                fbImage: action.payload.user.fbImage,
                 statusText: 'You have been successfully logged in.'
             });
 

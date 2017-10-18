@@ -120,13 +120,12 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ############# REST FRAMEWORK ###################
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         #prevents our auth does it?
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+        #'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
 
     ),
