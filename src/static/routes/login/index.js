@@ -22,9 +22,7 @@ import FacebookLogin from 'react-facebook-login';
 const Form = t.form.Form;
 //Login from react-facebook took the name Login so renamed to
 
-const responseFacebook = (response) => {
-  console.log(response);
-};
+
 
 
 class LoginView extends React.Component {
@@ -35,7 +33,8 @@ class LoginView extends React.Component {
         statusText: PropTypes.string,
         actions: PropTypes.shape({
             authLoginUser: PropTypes.func.isRequired,
-            authRegisterUser: PropTypes.func.isRequired
+            authRegisterUser: PropTypes.func.isRequired,
+            authFacebookLogin: PropTypes.func.isRequired,
 
         }).isRequired,
         location: PropTypes.shape({
@@ -48,10 +47,16 @@ class LoginView extends React.Component {
         location: null
     };
 
+    responseFacebook = (response) => {
+      console.log(response);
+      console.log("sending request");
+      this.props.actions.authFacebookLogin(response.accessToken);
+
+    };
 
     constructor(props) {
         super(props);
-
+        //number
         const redirectRoute = this.props.location ? this.extractRedirect(this.props.location.search) || '/' : '/';
         this.state = {
             formValues: {
@@ -63,6 +68,8 @@ class LoginView extends React.Component {
 
         this.openRegister = this.openRegister.bind(this);
         this.closeRegister = this.closeRegister.bind(this);
+        this.responseFacebook = this.responseFacebook.bind(this);
+        this.fbTriggered = this.fbTriggered.bind(this);
 
     }
 
@@ -115,6 +122,9 @@ class LoginView extends React.Component {
       }
     }
 
+    fbTriggered = () => {
+      /// no longer needed? console.log("");
+    }
 
     render() {
         let statusText = null;
@@ -166,7 +176,8 @@ class LoginView extends React.Component {
       <FacebookLogin
         appId="875075282657422"
         autoLoad
-        callback={responseFacebook}
+        callback={this.responseFacebook}
+        onClick={this.fbTriggered}
         icon="fa-facebook"
       />
     </div>

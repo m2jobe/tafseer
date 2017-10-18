@@ -36,7 +36,8 @@ class Header extends React.Component {
 
   static defaultProps = {
       location: undefined,
-      userName:null
+      userName:null,
+      token:null
   };
   handleChange = (event, value) => {
     this.props.history.push(value);
@@ -91,13 +92,13 @@ class Header extends React.Component {
 
           <div className="top-nav-right">
             <ul className="list-unstyled float-right">
-              {this.props.userName ?
+              {this.props.token ?
               <li style={{marginRight: '10px'}}>
                 <IconMenu
                   iconButtonElement={<IconButton style={ImgIconButtonStyle}>
 
                     {/*<img src="https://scontent.fyzd1-1.fna.fbcdn.net/v/t31.0-8/19092939_1805243142825160_1817836889219927612_o.jpg?oh=2c7c9c06c22ef4654d24626a1ba429fc&oe=5A469565" alt="" className="rounded-circle img30_30" />*/}
-                    <UserAvatar size="30" name={this.props.userName}/>
+                    <UserAvatar size="30" name={this.props.userName ?  this.props.userName : 'nada'}/>
                   </IconButton>}
                   onChange={this.handleChange}
                   anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
@@ -149,7 +150,8 @@ const mapStateToProps = state => ({
   isFixedHeader: state.settings.isFixedHeader,
   isAuthenticated: state.auth.isAuthenticated,
   location: state.routing.location,
-  userName: state.auth.userName
+  userName: state.auth.userName,
+  token: state.auth.token
 });
 
 

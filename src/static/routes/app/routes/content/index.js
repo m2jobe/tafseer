@@ -13,7 +13,9 @@ import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Modal from 'react-modal';
-import JWPlayer from 'react-jwplayer';
+import ReactJWPlayer from 'react-jw-player';
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 const customStyles = {
   content : {
@@ -32,9 +34,7 @@ class Content extends React.Component {
       data: PropTypes.string,
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
-          fetchVideos: PropTypes.func.isRequired,
-          saveUserNotificationRequest: React.PropTypes.func.isRequired,
-          dataFetchProtectedData: React.PropTypes.func.isRequired
+          fetchVideo: PropTypes.func.isRequired,
       }).isRequired,
       triggerNotification: PropTypes.bool,
       userName: PropTypes.string,
@@ -134,6 +134,19 @@ class Content extends React.Component {
     //this.props.actions.dataFetchProtectedData(token);
   }
 
+  componentWillMount() {
+    this.props.actions.fetchVideo(this.props.match.params.videoID);
+  }
+
+  componentDidUpdate() {
+    if(this.props.video) {
+      console.log("content.jwplatform.com/videos/"+this.props.video[0].url+"-QUOQKe1A.html");
+      console.log(this.props.video[0].date_added)
+      console.log(new Date(Date.parse(this.props.video[0].date_added)));
+
+    }
+  }
+
 
 
   render() {
@@ -145,15 +158,25 @@ class Content extends React.Component {
     return (
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
+    {this.props.video ?
+      <div>
 
-      <h2 className="article-title">{this.props.match.params.artist}</h2>
-
-
-      <h4 style={{color: "white"}}> {this.props.match.params.name} </h4>
-
-      <JWPlayer videoId={this.props.match.params.videoID} player="16" />
+        <h2 className="article-title"> {this.props.video[0].artist} </h2>
 
 
+        <h4 style={{color: "white"}}>{this.props.video[0].name}  </h4>
+
+        <h6 style={{color: "white"}}>Live streamed on <Moment format="ll">{new Date( Date.parse(this.props.video[0].date_added))} </Moment>   </h6>
+
+        <ReactJWPlayer
+          file={"content.jwplatform.com/videos/"+this.props.video[0].url+"-QUOQKe1A.mp4"}
+          playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
+          playerID='1'
+        />
+      </div>
+      :
+      null
+    }
 
       {/* End up BANNERS */}
 

@@ -14,4 +14,4 @@ class VideoThumbnailSerializer(serializers.ModelSerializer):
 class VideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Video
-        fields = ('id','name', 'artist', 'url', 'description')
+        fields = ('id','name', 'artist', 'url', 'description', 'date_added')

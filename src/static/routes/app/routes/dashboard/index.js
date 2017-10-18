@@ -163,8 +163,8 @@ class Dashboard extends React.Component {
   }
 
 
-  goToVideo = (url,artist,name) => {
-    this.props.dispatch(push('/app/content/'+url+'/'+artist+'/'+ name ));
+  goToVideo = (id) => {
+    this.props.dispatch(push('/app/content/'+id ));
 
   }
 
@@ -205,7 +205,7 @@ class Dashboard extends React.Component {
       {/* End up BANNERS */}
 
       <article className="article">
-        <h2 className="article-title">Recent uploads</h2>
+        <h2 className="article-title">Recent Streams</h2>
         { this.props.videos ?
         <div className="row">
           {this.props.videos.map(function (object) {
@@ -222,7 +222,7 @@ class Dashboard extends React.Component {
                           <div className="info-inner">
                             <h3>{object.artist}</h3>
                             <p>{object.name}</p>
-                            <button onClick={() => this.goToVideo(object.url, object.artist, object.name)} className="btn btn-primary"> Play </button>
+                            <button onClick={() => this.goToVideo(object.id)} className="btn btn-primary"> Play </button>
                           </div>
                         </div>
                       </div>

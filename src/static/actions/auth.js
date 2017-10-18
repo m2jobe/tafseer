@@ -243,3 +243,42 @@ export function authRegisterUser(email, password1, password2, username, redirect
 
 
 //--------------REGISTEr ACTION FUNCTIONS ----------------------//
+
+
+export function authFacebookLogin(access_token) {
+    return (dispatch) => {
+        dispatch(authLoginUserRequest());
+        return axios
+        .post(`${SERVER_URL}/api/v1/accounts/rest-auth/facebook/`, {
+          access_token,
+        }).then((response) => {
+                console.log(response);
+                dispatch(authLoginUserSuccess(response.data.key, JSON.parse(response.config.data)));
+                dispatch(push('/'));
+
+            })
+            .catch(function (error) {
+              // raise different exception if due to invalid credentials
+              if (_.get(error, 'response.status') === 400) {
+                    dispatch(authLoginUserFailure(400, error.response.data.non_field_errors[0]));
+              } else if (error && typeof error.response !== 'undefined' && _.get(error, 'response.status') === 401) {
+                  // Invalid authentication credentials
+                  return error.response.then((data) => {
+                      dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
+                  });
+              } else if (error && typeof error.response !== 'undefined' && _.get(error, 'response.status') >= 500) {
+                // Server side error
+                dispatch(authLoginUserFailure(500, 'A server error occurred while sending your data!'));
+              } else {
+                // Most likely connection issues
+                dispatch(authLoginUserFailure('Connection Error', 'An error occurred while sending your data!'));
+              }
+              console.log(error.response);
+
+              //throw error;
+              return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+
+            });
+
+    };
+}

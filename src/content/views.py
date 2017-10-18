@@ -19,6 +19,8 @@ from lib.utils import AtomicMixin
 
 
 class FetchVideos(GenericAPIView):
+    serializer_class = VideoThumbnailSerializer
+
     def post(self, request):
         """Process GET request and return protected data."""
         queryset = Video.objects.all().order_by("id")
@@ -31,6 +33,8 @@ class FetchVideos(GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 class FetchVideo(GenericAPIView):
+    serializer_class = VideoSerializer
+
     def post(self, request):
         """Process GET request and return protected data."""
         queryset = Video.objects.filter(id=request.data['id']).order_by("id")

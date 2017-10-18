@@ -14,6 +14,8 @@ from banners.serializers import BannerSerializer
 from lib.utils import AtomicMixin
 # Create your views here.
 class FetchBanners(GenericAPIView):
+    serializer_class = BannerSerializer
+
     def post(self, request):
         """Process GET request and return protected data."""
         queryset = Banner.objects.all()

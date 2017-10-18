@@ -96,7 +96,7 @@ class MainApp extends React.Component {
                   <Route path={`${match.url}/pglayout`} component={AsyncPageLayout} />
                   <Route path={`${match.url}/table`} component={AsyncTable} />
                   <Route path={`${match.url}/ui`} component={AsyncUI} />
-                  <Route path={`${match.url}/content/:videoID/:artist/:name`} component={requireAuthentication(Content)} />
+                  <Route path={`${match.url}/content/:videoID`} component={requireAuthentication(Content)} />
               </div>
             </div>
 
