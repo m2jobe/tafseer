@@ -154,6 +154,8 @@ export function authLoginUser(username, password, redirect = '/') {
               } else {
                 // Most likely connection issues
                 dispatch(authLoginUserFailure('Connection Error', 'An error occurred while sending your data!'));
+                dispatch(authLogoutAndRedirect());
+
               }
               console.log(error.response);
 
@@ -182,10 +184,10 @@ export function authRegisterUser(email, password1, password2, username, redirect
         }).then((response) => {
                 console.log(response);
                 var dataToPass = JSON.parse(response.config.data);
-                dispatch(authRegisterUserSuccess(response.data.key, dataToPass));
+                //dispatch(authRegisterUserSuccess(response.data.key, dataToPass));
                 dispatch(authRegisterUserFailure("", "Hi " + dataToPass.username+ "! You've been sucessfully signed up, login to your new Tourmonkeys account!"));
 
-                dispatch(push('/app/dashboard'));
+                dispatch(push('/login'));
             })
             .catch(function (error) {
               // raise different exception if due to invalid credentials
@@ -232,6 +234,8 @@ export function authRegisterUser(email, password1, password2, username, redirect
               } else {
                 // Most likely connection issues
                 dispatch(authRegisterUserFailure('Connection Error', 'An error occurred while sending your data!'));
+                dispatch(authLogoutAndRedirect());
+
               }
 
               return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
@@ -272,6 +276,8 @@ export function authFacebookLogin(access_token,name) {
               } else {
                 // Most likely connection issues
                 dispatch(authLoginUserFailure('Connection Error', 'An error occurred while sending your data!'));
+                dispatch(authLogoutAndRedirect());
+
               }
               console.log(error.response);
 

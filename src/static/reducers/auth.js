@@ -64,7 +64,7 @@ export default function authReducer(state = initialState, action) {
                 statusText: null
             });
 
-
+        /* Maybe not needed */
         case AUTH_REGISTER_USER_SUCCESS:
             return Object.assign({}, state, {
                 statusText: 'You have been successfully registered.'

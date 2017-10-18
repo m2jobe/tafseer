@@ -122,6 +122,8 @@ class LoginView extends React.Component {
       }
     }
 
+    componentDidUpdate = () => { ReactDom.findDOMNode(this).scrollIntoView(); }
+
     fbTriggered = () => {
       /// no longer needed? console.log("");
     }
@@ -184,6 +186,8 @@ class LoginView extends React.Component {
       autoLoad
       callback={this.responseFacebook}
       icon="fa-facebook"
+      isMobile={true}
+      disableMobileRedirect={true}
     />
   </div>
 </div>
