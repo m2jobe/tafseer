@@ -13,7 +13,7 @@ import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Modal from 'react-modal';
-import ReactJWPlayer from 'react-jw-player';
+import JWPlayer from 'react-jwplayer';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
@@ -141,7 +141,7 @@ class Content extends React.Component {
   componentDidUpdate() {
     if(this.props.video) {
       console.log("content.jwplatform.com/videos/"+this.props.video[0].url+"-QUOQKe1A.html");
-      console.log(this.props.video[0].date_added)
+      console.log(this.props.video[0].url)
       console.log(new Date(Date.parse(this.props.video[0].date_added)));
 
     }
@@ -166,13 +166,10 @@ class Content extends React.Component {
 
         <h4 style={{color: "white"}}>{this.props.video[0].name}  </h4>
 
-        <h6 style={{color: "white"}}>Live streamed on <Moment format="ll">{new Date( Date.parse(this.props.video[0].date_added))} </Moment>   </h6>
+        <h6 style={{color: "white"}}>Live streamed on {new Date( Date.parse(this.props.video[0].date_added)).toDateString()}  </h6>
 
-        <ReactJWPlayer
-          file={"content.jwplatform.com/videos/"+this.props.video[0].url+"-QUOQKe1A.mp4"}
-          playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
-          playerID='1'
-        />
+        <JWPlayer videoId={this.props.video[0].url} player="16"/>
+
       </div>
       :
       null
@@ -181,7 +178,6 @@ class Content extends React.Component {
       {/* End up BANNERS */}
 
 
-    <NotificationContainer/>
 
   </div>
 

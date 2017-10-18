@@ -245,7 +245,7 @@ export function authRegisterUser(email, password1, password2, username, redirect
 //--------------REGISTEr ACTION FUNCTIONS ----------------------//
 
 
-export function authFacebookLogin(access_token) {
+export function authFacebookLogin(access_token,name) {
     return (dispatch) => {
         dispatch(authLoginUserRequest());
         return axios
@@ -253,7 +253,7 @@ export function authFacebookLogin(access_token) {
           access_token,
         }).then((response) => {
                 console.log(response);
-                dispatch(authLoginUserSuccess(response.data.key, JSON.parse(response.config.data)));
+                dispatch(authLoginUserSuccess(response.data.key, JSON.parse('{ "username":"'+name+'", "age":30}')));
                 dispatch(push('/'));
 
             })

@@ -50,7 +50,7 @@ class LoginView extends React.Component {
     responseFacebook = (response) => {
       console.log(response);
       console.log("sending request");
-      this.props.actions.authFacebookLogin(response.accessToken);
+      this.props.actions.authFacebookLogin(response.accessToken, response.name);
 
     };
 
@@ -155,11 +155,11 @@ class LoginView extends React.Component {
 <h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
 </div>
 <div className="container">
-  {statusText}
 
 <div className="card">
   <h1 className="title">Login</h1>
   <form onSubmit={this.login}>
+    {statusText}
     <div className="input-container">
       <input type="#{type}" id="usrd" required="required" />
       <label htmlFor="#{label}">Username</label>
@@ -172,18 +172,19 @@ class LoginView extends React.Component {
     </div>
     <div className="button-container">
       <button  style={{width: "100%"}}disabled={this.props.isAuthenticating} type="submit"><span>Go</span></button>
-      <br/>
-      <FacebookLogin
-        appId="875075282657422"
-        autoLoad
-        callback={this.responseFacebook}
-        onClick={this.fbTriggered}
-        icon="fa-facebook"
-      />
+
     </div>
     {/*<div className="footer"><a href="#">Forgot your password?</a></div>
     */}
   </form>
+  <div className="button-container">
+    <FacebookLogin
+      appId="875075282657422"
+      autoLoad
+      callback={this.responseFacebook}
+      icon="fa-facebook"
+    />
+  </div>
 </div>
 <div className="card alt">
   <a onClick={this.openRegister} className="toggle"> </a>
