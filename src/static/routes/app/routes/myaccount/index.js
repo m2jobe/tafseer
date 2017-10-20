@@ -58,7 +58,9 @@ class MyAccount extends React.Component {
       data: PropTypes.string,
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
-          dataFetchProtectedData: PropTypes.func.isRequired
+          dataFetchProtectedData: PropTypes.func.isRequired,
+          fetchEventsSubscribedTo: PropTypes.func.isRequired
+
       }).isRequired,
       triggerNotification: PropTypes.bool,
   };
@@ -66,6 +68,7 @@ class MyAccount extends React.Component {
   static defaultProps = {
     triggerNotification: false,
     userName: null,
+    eventsSubscribed:null
   };
 
 
@@ -123,6 +126,7 @@ class MyAccount extends React.Component {
   }
 
   componentWillMount() {
+    this.props.actions.fetchEventsSubscribedTo(this.props.userName);
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -169,7 +173,7 @@ class MyAccount extends React.Component {
             <div className="box-header">My Event Subscriptions</div>
             <div className="box-body">
               <List>
-                <Subheader>Today</Subheader>
+
                 <ListItem
                   leftAvatar={<Avatar src="assets/images-demo/avatars/ok-128.jpg" />}
                   rightIconButton={rightIconMenu}
@@ -254,6 +258,7 @@ class MyAccount extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userName: state.auth.userName,
+        eventsSubscribed: state.auth.eventsSubscribed,
 
     };
 };

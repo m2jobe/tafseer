@@ -5,7 +5,8 @@ import {
     BANNER_DATA_RECEIVED,
     NOTIFICATION_REQUEST_SENT,
     NOTIFICATION_REQUEST_COMPLETE,
-    VIDEO_FETCHED
+    VIDEO_FETCHED,
+    EVENTS_SUBSCRIBED_TO
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -14,7 +15,9 @@ const initialState = {
     videos: null,
     banners: null,
     triggerNotification: 'no',
-    video: null
+    video: null,
+    eventsSubscribed: null,
+
 
 };
 
@@ -51,6 +54,10 @@ export default function dataReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 video: action.payload.data,
                 isFetching: false
+            });
+        case EVENTS_SUBSCRIBED_TO:
+            return Object.assign({}, state, {
+                eventsSubscribed: action.payload.data,
             });
         default:
             return state;

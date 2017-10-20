@@ -124,13 +124,13 @@ export function authLogoutAndRedirect() {
           .then(checkHttpStatus)
           .then(parseJSON)
           .then((response) => {
-            console.log(response);
+            //console.log(response);
            dispatch(authLogout());
             dispatch(push('/login'));
           })
           .catch((error) => {
-            console.log(error);
-              console.log(error.response)
+            //console.log(error);
+              //console.log(error.response)
           });
         return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
     };
@@ -148,7 +148,7 @@ export function authLoginUser(username, password, redirect = '/') {
           username,
           password
         }).then((response) => {
-              console.log(response);
+              //console.log(response);
                 dispatch(authLoginUserSuccess(response.data.key, JSON.parse(response.config.data)));
                 dispatch(push(redirect));
             })
@@ -170,7 +170,7 @@ export function authLoginUser(username, password, redirect = '/') {
                 dispatch(authLogoutAndRedirect());
 
               }
-              console.log(error.response);
+              //console.log(error.response);
 
               //throw error;
               return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
@@ -186,7 +186,7 @@ export function authLoginUser(username, password, redirect = '/') {
 
 export function authRegisterUser(email, password1, password2, username, redirect = '/') {
     return (dispatch) => {
-      console.log("INSIDE FUNCTION");
+      //console.log("INSIDE FUNCTION");
       dispatch(authRegisterUserRequest());
         return axios
           .post(`${SERVER_URL}/rest-auth/registration/`, {
@@ -195,7 +195,7 @@ export function authRegisterUser(email, password1, password2, username, redirect
           password2,
           email
         }).then((response) => {
-                console.log(response);
+                //console.log(response);
                 var dataToPass = JSON.parse(response.config.data);
                 //dispatch(authRegisterUserSuccess(response.data.key, dataToPass));
                 dispatch(authRegisterUserFailure("", "Hi " + dataToPass.username+ "! You've been sucessfully signed up, login to your new Tourmonkeys account!"));
@@ -204,9 +204,9 @@ export function authRegisterUser(email, password1, password2, username, redirect
             })
             .catch(function (error) {
               // raise different exception if due to invalid credentials
-              console.log(error.response);
+              //console.log(error.response);
               if (_.get(error, 'response.status') === 201) {
-                console.log(response);
+                //console.log(response);
                 //dispatch(authRegisterUserSuccess(response.data.key, JSON.parse(response.config.data)));
                 dispatch(authRegisterUserFailure(201, "Account created, you can login now!"));
 
@@ -269,15 +269,15 @@ export function authFacebookLogin(access_token,fbResponse) {
         .post(`${SERVER_URL}/api/v1/accounts/rest-auth/facebook/`, {
           access_token,
         }).then((response) => {
-                console.log(response);
+                //console.log(response);
                 dispatch(authFBLoginUserSuccess(response.data.key, JSON.parse('{ "username":"'+fbResponse.name+'", "fbImage":"'+fbResponse.picture.data.url+'"}')));
                 dispatch(push('/'));
 
             })
             .catch(function (error) {
               // raise different exception if due to invalid credentials
-              console.log("Error" + error.response);
-              console.log(access_token);
+              //console.log("Error" + error.response);
+              //console.log(access_token);
 
               if (_.get(error, 'response.status') === 400) {
                     dispatch(authLoginUserFailure(400, "There was an error logging you into facebook, please try again!"));
@@ -295,7 +295,7 @@ export function authFacebookLogin(access_token,fbResponse) {
                 dispatch(authLogoutAndRedirect());
 
               }
-              console.log(error.response);
+              //console.log(error.response);
 
               //throw error;
               return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way

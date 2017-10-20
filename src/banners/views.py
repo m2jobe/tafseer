@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from banners.models import Banner
 from banners.serializers import BannerSerializer
+from django.db import connection
 
 from lib.utils import AtomicMixin
 # Create your views here.

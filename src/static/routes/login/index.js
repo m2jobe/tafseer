@@ -155,7 +155,7 @@ class LoginView extends React.Component {
               <QueueAnim type="bottom" className="ui-animate">
                 <div key="1">
                   <div className="pen-title">
-<h1><img onClick={this.props.dispatch(push(`/app/dashboard`))} src="https://i.imgur.com/SAgIP9z.png" /></h1>
+<h1><img src="https://i.imgur.com/SAgIP9z.png" /></h1>
 </div>
 <div className="container">
 {statusText}

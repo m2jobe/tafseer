@@ -109,8 +109,8 @@ class Header extends React.Component {
                   menuStyle={{minWidth: '150px'}}
                           >
                   <MenuItem
-                    value="/app/dashboard"
-                    primaryText="Dashboard"
+                    value="/app/home"
+                    primaryText="Home"
                     style={{fontSize: '14px', lineHeight: '48px'}}
                     innerDivStyle={listItemStyle}
                     leftIcon={<i className="material-icons">home</i>}

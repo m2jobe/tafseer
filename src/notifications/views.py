@@ -32,3 +32,15 @@ class SaveUserNotificationRequest(AtomicMixin, CreateModelMixin, GenericAPIView)
         notification.save()
 
         return Response("success", status=status.HTTP_200_OK)
+
+class FetchEventsSubscribedTo(GenericAPIView):
+    serializer_class = NotificationSerializer
+
+    def post(self, request):
+        """Process GET request and return protected data."""
+        queryset = Notification.objects.filter(email=request.data['username'])
+        serializer = NotificationSerializer(queryset, many=True)
+        data = serializer.data
+
+
+        return Response(data, status=status.HTTP_200_OK)

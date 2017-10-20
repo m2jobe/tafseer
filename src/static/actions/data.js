@@ -3,13 +3,22 @@ import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
+import { EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
 import { authLoginUserFailure } from './auth';
 
 
 export function dataReceiveProtectedData(data) {
     return {
         type: DATA_RECEIVE_PROTECTED_DATA,
+        payload: {
+            data
+        }
+    };
+}
+
+export function eventsSubscribedDataReceived(data) {
+    return {
+        type: EVENTS_SUBSCRIBED_TO,
         payload: {
             data
         }
@@ -195,5 +204,30 @@ export function saveUserNotificationRequest(email,artist) {
 export function notificationRequestComplete() {
     return (dispatch, state) => {
               dispatch(notification_complete());
+    };
+}
+
+
+export function fetchEventsSubscribedTo(username) {
+    return (dispatch, state) => {
+      return fetch(`${SERVER_URL}/api/v1/notifications/fetchEventsSubscribedTo/`, {
+          method: 'post',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+
+          },
+          body: JSON.stringify({username: username})
+
+      })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(eventsSubscribedDataReceived(response));
+            })
+            .catch((error) => {
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
     };
 }

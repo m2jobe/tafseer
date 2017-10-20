@@ -47,7 +47,7 @@ class App extends Component {
 
     const isRoot = location.pathname === '/' ? true : false;
     if (isRoot) {
-      return ( <Redirect to={'/app/dashboard'}/> );
+      return ( <Redirect to={'/app/home'}/> );
     }
 
     return (

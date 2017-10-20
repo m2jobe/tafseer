@@ -15,12 +15,6 @@ import 'react-notifications/lib/notifications.css';
 import Modal from 'react-modal';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const optionsCursorTrueWithMargin = {
-  followCursor: true,
-  shiftX: 20,
-  shiftY: 0
-}
-
 const customStyles = {
   content : {
     top                   : '50%',
@@ -122,10 +116,6 @@ class Home extends React.Component {
 
   }
 
-  goToEvent = (id) => {
-    this.props.dispatch(push('/app/events/details/'+id ));
-  }
-
 
   componentWillMount() {
 
@@ -152,8 +142,6 @@ class Home extends React.Component {
                       <h4>{object.artist }</h4>
                       <h5>{object.location} </h5>
                       <h6>Date: {object.dateText} </h6>
-                      <RaisedButton onClick={() => this.goToEvent(object.id)} label="See details" default />
-                      <br/><br/>
                       <RaisedButton onClick={() => this.saveUserNotificationRequest()} label="Notify me" primary />
                     </div>
                   </div>
@@ -252,15 +240,7 @@ class Home extends React.Component {
               <div className="form-group">
               <h4>Get Notified when this live event begins! </h4>
               <br/>
-              <ReactHover
-                options={optionsCursorTrueWithMargin}>
-                <ReactHover.Trigger type='trigger'>
-                  <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
-                </ReactHover.Trigger>
-                <ReactHover.Hover type='hover'>
-                  <h1> I am hover HTML </h1>
-                </ReactHover.Hover>
-              </ReactHover>
+              <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
               </div>
             </form>
           </Modal>

@@ -20,7 +20,7 @@ class Banner(models.Model ):
     image = models.URLField(_('imageurl'), max_length=200)
     date = models.DateTimeField(_('date joined'), auto_now_add=True)
     dateText = models.CharField(_('dateText'), max_length=50)
-    description = models.CharField(_('description'), max_length=250)
+    description = models.CharField(_('description'), max_length=1000)
 
     def __str__(self):
         """
