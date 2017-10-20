@@ -27,14 +27,23 @@ function LoadingComponent() {
 }
 
 
-let AsyncDashboard = loadable({
-  loader: () => import('../routes/dashboard/'),
+let AsyncHome= loadable({
+  loader: () => import('../routes/home/'),
   loading: LoadingComponent
 })
 let AsyncContent = loadable({
   loader: () => import('../routes/content/'),
   loading: LoadingComponent
 })
+let AsyncMyAccount = loadable({
+  loader: () => import('../routes/myaccount/'),
+  loading: LoadingComponent
+})
+let AsyncEvents = loadable({
+  loader: () => import('../routes/events/'),
+  loading: LoadingComponent
+})
+
 
 
 
@@ -69,7 +78,9 @@ class MainApp extends React.Component {
           <div className="app-content-wrapper">
             <div className="app-content">
               <div className="full-height">
-                  <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
+                  <Route path={`${match.url}/home`} component={AsyncHome} />
+                  <Route path={`${match.url}/myaccount`} component={AsyncMyAccount} />
+                  <Route path={`${match.url}/events`} component={AsyncEvents} />
                   <Route path={`${match.url}/content/:videoID`} component={AsyncContent} />
               </div>
             </div>

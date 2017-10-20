@@ -13,6 +13,13 @@ import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Modal from 'react-modal';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const optionsCursorTrueWithMargin = {
+  followCursor: true,
+  shiftX: 20,
+  shiftY: 0
+}
 
 const customStyles = {
   content : {
@@ -25,7 +32,7 @@ const customStyles = {
   }
 };
 
-class Dashboard extends React.Component {
+class Home extends React.Component {
   static propTypes = {
       dispatch: PropTypes.func.isRequired,
       isFetching: PropTypes.bool.isRequired,
@@ -115,6 +122,10 @@ class Dashboard extends React.Component {
 
   }
 
+  goToEvent = (id) => {
+    this.props.dispatch(push('/app/events/details/'+id ));
+  }
+
 
   componentWillMount() {
 
@@ -124,23 +135,73 @@ class Dashboard extends React.Component {
 
   componentWillUpdate(nextProps, nextState) {
     if(this.props.banners != nextProps.banners)  {
-      var currentBanners = nextProps.banners.map((object) =>
-          <div className="col-md-6">
-            <div className="card card-white">
-              <div className="card-image">
-                <img src={object.image} alt="" />
-                <span className="card-title">{object.artist} - {object.location} </span>
-              </div>
-              <div className="card-content">
-                <a className="card-button float-right" href="javascript:;">
-                  <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
-                </a>
-                <p>Date: {object.dateText}</p>
-              </div>
+      if(nextProps.banners.length == 1 ) {
+        const imgLeft = {
+          backgroundImage: 'url('+nextProps.banners[0].image+')',
+          backgroundPosition: 'center',
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor :'black'
+        };
+        var currentBanners = nextProps.banners.map((object) =>
+          <div className="col-md-12">
+            <div className="feature-callout feature-content-right card-white image-pull clearfix">
+                <div className="container-fluid with-maxwidth">
+                  <div className="col-12 col-md-6 offset-md-6">
+                    <div className="callout-feature-content">
+                      <h4>{object.artist }</h4>
+                      <h5>{object.location} </h5>
+                      <h6>Date: {object.dateText} </h6>
+                      <RaisedButton onClick={() => this.goToEvent(object.id)} label="See details" default />
+                      <br/><br/>
+                      <RaisedButton onClick={() => this.saveUserNotificationRequest()} label="Notify me" primary />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-12 col-md-6 feature-callout-image-pull" style={imgLeft} />
+
             </div>
           </div>
 
-      );
+        );
+      } else if(nextProps.banners.length == 2) {
+        var currentBanners = nextProps.banners.map((object) =>
+            <div className="col-md-6">
+              <div className="card card-white">
+                <div className="card-image">
+                  <img src={object.image} alt="" />
+                  <span className="card-title">{object.artist} - {object.location} </span>
+                </div>
+                <div className="card-content">
+                  <a className="card-button float-right" href="javascript:;">
+                    <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
+                  </a>
+                  <p>Date: {object.dateText}</p>
+                </div>
+              </div>
+            </div>
+
+        );
+      } else if (nextProps.banners.length == 3) {
+        var currentBanners = nextProps.banners.map((object) =>
+            <div className="col-md-4">
+              <div className="card card-white">
+                <div className="card-image">
+                  <img src={object.image} alt="" />
+                  <span className="card-title">{object.artist} - {object.location} </span>
+                </div>
+                <div className="card-content">
+                  <a className="card-button float-right" href="javascript:;">
+                    <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
+                  </a>
+                  <p>Date: {object.dateText}</p>
+                </div>
+              </div>
+            </div>
+
+        );
+      }
+
       this.setState({currentBanners: currentBanners})
     }
 
@@ -191,7 +252,15 @@ class Dashboard extends React.Component {
               <div className="form-group">
               <h4>Get Notified when this live event begins! </h4>
               <br/>
-              <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
+              <ReactHover
+                options={optionsCursorTrueWithMargin}>
+                <ReactHover.Trigger type='trigger'>
+                  <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
+                </ReactHover.Trigger>
+                <ReactHover.Hover type='hover'>
+                  <h1> I am hover HTML </h1>
+                </ReactHover.Hover>
+              </ReactHover>
               </div>
             </form>
           </Modal>
@@ -220,7 +289,7 @@ class Dashboard extends React.Component {
                         <div className="info-mask bg-color-dark" />
                         <div className="info-content">
                           <div className="info-inner">
-                            <h3>{object.artist}</h3>
+                            <a style={{textDecoration: "dashed"}}><h3>{object.artist}</h3></a>
                             <p>{object.name}</p>
                             <button onClick={() => this.goToVideo(object.id)} className="btn btn-primary"> Play </button>
                           </div>
@@ -267,5 +336,5 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
-export { Dashboard as DashboardNotConnected };
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export { Home as HomeNotConnected };

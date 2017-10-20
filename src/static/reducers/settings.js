@@ -1,3 +1,4 @@
+
 import APPCONFIG from 'constants/Config';
 import {
   TOGGLE_BOXED_LAYOUT,
@@ -11,7 +12,7 @@ import {
 
 const initialSettings = APPCONFIG.settings;
 
-const settings = (state = initialSettings, action) => {
+export default function settingsReducer(state = initialSettings, action) {
     // console.log(action)
   switch (action.type) {
     case TOGGLE_BOXED_LAYOUT:
@@ -20,10 +21,9 @@ const settings = (state = initialSettings, action) => {
         layoutBoxed: action.isLayoutBoxed
       };
     case TOGGLE_COLLAPSED_NAV:
-      return {
-        ...state,
-        navCollapsed: action.isNavCollapsed
-      };
+        return Object.assign({}, state, {
+            navCollapsed: action.isNavCollapsed
+        });
     case TOGGLE_NAV_BEHIND:
       return {
         ...state,
@@ -51,7 +51,5 @@ const settings = (state = initialSettings, action) => {
       };
     default:
       return state;
-  }
-};
-
-module.exports = settings;
+    }
+}

@@ -17,7 +17,7 @@ $page-bg:               #f5f5f5 !default; // background color of .app-page-conta
 
 
 $state-default-bg:              rgba(0,0,0, .1) !default; // also: pagination bg
-$state-default-border:          darken(adjust-hue($state-default-bg, -10), 5%) !default; 
+$state-default-border:          darken(adjust-hue($state-default-bg, -10), 5%) !default;
 
 //== Typography
 $font-weight-thin:      300 !default;
@@ -28,7 +28,7 @@ $font-family-condensed: "Roboto Condensed", "Roboto", "Helvetica Neue", Arial, s
 $container_fluid_maxwidth:      1400px;
 
 
-// Cards 
+// Cards
 $card-padding:          20px !default;
 $border-radius-card:    2px !default;
 
@@ -58,4 +58,8 @@ $theme-dark-data-table-header-color: rgba(#fff, 0.54);
 }
 @mixin z-depth-5 {
   box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22);
+}
+
+button, input, a, textarea {
+  cursor: pointer;
 }
