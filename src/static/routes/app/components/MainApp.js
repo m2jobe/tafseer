@@ -70,7 +70,7 @@ class MainApp extends React.Component {
             <div className="app-content">
               <div className="full-height">
                   <Route path={`${match.url}/dashboard`} component={AsyncDashboard} />
-                  <Route path={`${match.url}/content/:videoID`} component={requireAuthentication(AsyncContent)} />
+                  <Route path={`${match.url}/content/:videoID`} component={AsyncContent} />
               </div>
             </div>
 

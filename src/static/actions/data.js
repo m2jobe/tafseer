@@ -83,7 +83,7 @@ export function dataFetchProtectedData(token) {
                 if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
                     // Invalid authentication credentials
                     return error.response.json().then((data) => {
-                        dispatch(authLoginUserFailure(401, data.non_field_errors[0]));
+                        dispatch(authLoginUserFailure(401, "Please login to start streaming!"));
                         dispatch(push('/login'));
                     });
                 } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {

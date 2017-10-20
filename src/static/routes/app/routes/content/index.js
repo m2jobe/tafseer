@@ -35,6 +35,8 @@ class Content extends React.Component {
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
           fetchVideo: PropTypes.func.isRequired,
+          dataFetchProtectedData: PropTypes.func.isRequired
+
       }).isRequired,
       triggerNotification: PropTypes.bool,
       userName: PropTypes.string,
@@ -129,9 +131,13 @@ class Content extends React.Component {
 
   componentDidMount() {
     console.log(this.props.match.params.videoID);
+
+    /* Put this in
+
     const token = this.props.token;
     console.log("this is the token " + token);
-    //this.props.actions.dataFetchProtectedData(token);
+    this.props.actions.dataFetchProtectedData(token);
+    */
   }
 
   componentWillMount() {
