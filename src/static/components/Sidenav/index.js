@@ -263,6 +263,12 @@ class Sidebar extends React.Component {
                 <span className="nav-text"><span>About</span> <span>Tour Monkeys</span></span>
               </a>
             </li>
+            <li>
+              <a href="#">
+                <i className="nav-icon material-icons">web</i>
+                <span className="nav-text"><span>Beta:</span> <span>Version 3.0</span></span>
+              </a>
+            </li>
           </ul>
         </section>
       </nav>
