@@ -97,12 +97,15 @@ class SidebarContent extends React.Component {
       <ul className="nav" ref={(c) => { this.nav = c; }}>
         <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="#/app/home"><i className="nav-icon material-icons">home</i><span className="nav-text">Home</span></FlatButton></li>
+        <li className="nav-divider" />
+        <li><FlatButton href="#/app/myaccount"><i className="nav-icon material-icons">account_box</i><span className="nav-text">My Account</span></FlatButton></li>
+
         {/*<li className="nav-divider" />
 
         <li><FlatButton href="#/app/events"><i className="nav-icon material-icons">event_note</i><span className="nav-text">Upcoming Events</span></FlatButton></li>
-        <li className="nav-divider" />*/}
+        <li className="nav-divider" />*
         <li><FlatButton href="#/app/myaccount"><i className="nav-icon material-icons">account_box</i><span className="nav-text">My Account</span></FlatButton></li>
-        {/*<li>          <FlatButton href="#/app/ui/buttons"><i className="nav-icon material-icons">whatshot</i><span className="nav-text">Trending Events</span></FlatButton></li>
+        */}{/*<li>          <FlatButton href="#/app/ui/buttons"><i className="nav-icon material-icons">whatshot</i><span className="nav-text">Trending Events</span></FlatButton></li>
         <li className="nav-divider" />
         <li className="nav-header" disabled><span>Library</span></li>
         <li><FlatButton href="#/app/dashboard1"><i className="nav-icon material-icons">history</i><span className="nav-text">History</span></FlatButton></li>
