@@ -16,10 +16,10 @@ from notifications.serializers import NotificationSerializer
 
 from lib.utils import AtomicMixin
 
+from django.db import connection
 
 # Create your views here.
 class SaveUserNotificationRequest(AtomicMixin, CreateModelMixin, GenericAPIView):
-    serializer_class = NotificationSerializer
     authentication_classes = ()
 
     def post(self, request):
@@ -34,13 +34,23 @@ class SaveUserNotificationRequest(AtomicMixin, CreateModelMixin, GenericAPIView)
         return Response("success", status=status.HTTP_200_OK)
 
 class FetchEventsSubscribedTo(GenericAPIView):
-    serializer_class = NotificationSerializer
 
     def post(self, request):
         """Process GET request and return protected data."""
-        queryset = Notification.objects.filter(email=request.data['username'])
-        serializer = NotificationSerializer(queryset, many=True)
-        data = serializer.data
-
+        with connection.cursor() as cursor:
+          cursor.execute("select a.*, b.imageURL, b.description from notifications_notification as a inner join content_artist b on a.artist =b.artist where a.email ='"+request.data['username']+"'")
+          data = cursor.fetchall()
 
         return Response(data, status=status.HTTP_200_OK)
+
+
+class UnSubSelectedEvent(AtomicMixin, CreateModelMixin, GenericAPIView):
+    authentication_classes = ()
+
+    def post(self, request):
+        """Notification add view"""
+
+        b = Notification.objects.get(id=request.data['id'])
+        # This will delete the Blog and all of its Entry objects.
+        b.delete()
+        return Response("success", status=status.HTTP_200_OK)

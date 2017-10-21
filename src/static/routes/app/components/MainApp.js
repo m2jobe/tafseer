@@ -11,7 +11,7 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators from '../../../actions/data';
 import PropTypes from 'prop-types';
 
-
+import Spinner from 'react-spinkit';
 import requireAuthentication from '../../../utils/requireAuthentication';
 
 // import Chart from '../routes/chart/'
@@ -22,8 +22,9 @@ import requireAuthentication from '../../../utils/requireAuthentication';
 // import Table from '../routes/table/'
 // import UI from '../routes/ui/'
 
+
 function LoadingComponent() {
-  return <div></div>;
+  return  <div style={{zIndex: 10000, top: '33vh', display: 'table', position: 'relative', margin: 'auto'}}><Spinner name="ball-grid-pulse" /></div>;
 }
 
 

@@ -30,3 +30,25 @@ class Video(models.Model ):
         :return: string
         """
         return self.name
+
+
+class Artist(models.Model ):
+    """
+    Model that represents an video.
+
+    """
+
+    artist = models.CharField(_('Name'), max_length=50)
+    imageurl = models.URLField(_('Url'), max_length=200)
+    description = models.CharField(_('Description'), max_length=1000)
+    date_added = models.DateTimeField(_('date joined'), auto_now_add=True)
+    date_updated = models.DateTimeField(_('date updated'), auto_now=True)
+
+
+    def __str__(self):
+        """
+        Unicode representation for an user model.
+
+        :return: string
+        """
+        return self.artist

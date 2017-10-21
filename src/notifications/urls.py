@@ -11,4 +11,8 @@ urlpatterns = [
     url(_(r'^fetchEventsSubscribedTo/$'),
         notifications.views.FetchEventsSubscribedTo.as_view(),
         name='fetch_event_sub'),
+
+    url(_(r'^unSubSelectedEvent/$'),
+        notifications.views.UnSubSelectedEvent.as_view(),
+        name='event_unsub'),
 ]

@@ -34,7 +34,8 @@ export default function authReducer(state = initialState, action) {
                 token: action.payload.token,
                 userName: action.payload.user.username,
                 statusText: 'You have been successfully logged in.',
-                fbImage: null
+                fbImage: action.payload.user.fbImage,
+
             });
 
         case AUTH_FBLOGIN_USER_SUCCESS:
@@ -61,7 +62,8 @@ export default function authReducer(state = initialState, action) {
                 isAuthenticated: false,
                 token: null,
                 userName: null,
-                statusText: 'You have been successfully logged out.'
+                statusText: 'You have been successfully logged out.',
+                fbImage: null
             });
 
         case AUTH_LOGIN_USER_FAILURE:

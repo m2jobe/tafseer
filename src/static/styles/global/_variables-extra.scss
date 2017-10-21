@@ -63,3 +63,7 @@ $theme-dark-data-table-header-color: rgba(#fff, 0.54);
 button, input, a, textarea {
   cursor: pointer;
 }
+
+.ReactModal__Overlay {
+    z-index: 100 !important;
+}

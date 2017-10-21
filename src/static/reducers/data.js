@@ -58,6 +58,8 @@ export default function dataReducer(state = initialState, action) {
         case EVENTS_SUBSCRIBED_TO:
             return Object.assign({}, state, {
                 eventsSubscribed: action.payload.data,
+                isFetching: false
+
             });
         default:
             return state;

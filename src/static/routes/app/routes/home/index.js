@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import Modal from 'react-modal';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const customStyles = {
@@ -57,32 +56,11 @@ class Home extends React.Component {
 
       this.state = {
         currentBanners: null,
-        modalIsOpen: false,
-        currentArtist: '',
         enableNotificationCallback: false
 
       };
-
-      this.openModal = this.openModal.bind(this);
-      this.afterOpenModal = this.afterOpenModal.bind(this);
-      this.closeModal = this.closeModal.bind(this);
-
-      //this.openModal = this.openModal.bind(this);
-
   }
 
-  openModal = (currentArtist) => {
-    this.setState({modalIsOpen: true, currentArtist: currentArtist});
-  }
-
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-  }
 
   createNotification = (type) => {
     return () => {
@@ -106,9 +84,9 @@ class Home extends React.Component {
   }
 
 
-  saveUserNotificationRequest = () => {
+  saveUserNotificationRequest = (currentArtist) => {
       if(this.props.userName) {
-        this.props.actions.saveUserNotificationRequest(this.props.userName, this.state.currentArtist);
+        this.props.actions.saveUserNotificationRequest(this.props.userName, currentArtist);
       } else {
         NotificationManager.warning('You need to sign in to subsribe for events', 'Oops', 3000);
 
@@ -142,7 +120,7 @@ class Home extends React.Component {
                       <h4>{object.artist }</h4>
                       <h5>{object.location} </h5>
                       <h6>Date: {object.dateText} </h6>
-                      <RaisedButton onClick={() => this.saveUserNotificationRequest()} label="Notify me" primary />
+                      <RaisedButton onClick={() => this.saveUserNotificationRequest(object.artist )} label="Notify me" primary />
                     </div>
                   </div>
                 </div>
@@ -229,21 +207,6 @@ class Home extends React.Component {
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
 
-          <Modal
-              isOpen={this.state.modalIsOpen}
-              onAfterOpen={this.afterOpenModal}
-              onRequestClose={this.closeModal}
-              style={customStyles}
-              contentLabel="Example Modal2"
-            >
-            <form>
-              <div className="form-group">
-              <h4>Get Notified when this live event begins! </h4>
-              <br/>
-              <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
-              </div>
-            </form>
-          </Modal>
     <QueueAnim type="bottom" className="ui-animate">
       <h2 className="article-title">Upcoming Live Events</h2>
 

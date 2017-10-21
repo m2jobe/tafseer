@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/0.27.5_1/libexec/bin/yarn.js add https://github.com/m2jobe/react-jw-player/
+  /usr/local/bin/node /usr/local/Cellar/yarn/0.27.5_1/libexec/bin/yarn.js add react-spinkit
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/opt/qt/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/ImageMagick/bin
@@ -57,6 +57,7 @@ npm manifest:
       "react-facebook-auth": "^1.1.0",
       "react-facebook-login": "https://github.com/m2jobe/react-facebook-login",
       "react-hot-loader": "^3.0.0-beta.6",
+      "react-jw-player": "^1.12.0",
       "react-loadable": "^4.0.5",
       "react-modal": "^3.0.0",
       "react-moment": "^0.6.5",
@@ -5852,17 +5853,9 @@ Lockfile:
       prop-types "^15.5.8"
       react-base16-styling "^0.5.1"
   
-  "react-jw-player@https://github.com/m2jobe/react-jw-player":
+  react-jw-player@^1.12.0:
     version "1.12.0"
-    resolved "https://github.com/m2jobe/react-jw-player#e49317fa25a0604615c46fea5a10713c810591d2"
-    dependencies:
-      prop-types "^15.5.10"
-      react "^15.4.1"
-  
-  "react-jw-player@https://github.com/m2jobe/react-jw-player/":
-    version "1.12.0"
-    uid e49317fa25a0604615c46fea5a10713c810591d2
-    resolved "https://github.com/m2jobe/react-jw-player/#e49317fa25a0604615c46fea5a10713c810591d2"
+    resolved "https://registry.yarnpkg.com/react-jw-player/-/react-jw-player-1.12.0.tgz#920da3292f8f436ada0821b0cc84f2e6f1c8bcfa"
     dependencies:
       prop-types "^15.5.10"
       react "^15.4.1"
@@ -7623,5 +7616,5 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zrender/-/zrender-3.6.3.tgz#e3a06ba105cc45eb36492a818e7b7ae879a7b15b"
 
 Trace: 
-  Error: EACCES: permission denied, unlink '/Users/muhammedjobe/Documents/tourmonkeys/LiveApp/djr/node_modules/.yarn-integrity'
+  Error: EACCES: permission denied, mkdir '/Users/muhammedjobe/Documents/tourmonkeys/LiveApp/djr/node_modules/babel-code-frame/node_modules'
       at Error (native)

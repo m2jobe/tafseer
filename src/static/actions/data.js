@@ -224,7 +224,33 @@ export function fetchEventsSubscribedTo(username) {
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
+                console.log("adsf");
                 dispatch(eventsSubscribedDataReceived(response));
+            })
+            .catch((error) => {
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+export function unSubSelectedEvent(id,username) {
+    return (dispatch, state) => {
+      return fetch(`${SERVER_URL}/api/v1/notifications/unSubSelectedEvent/`, {
+          method: 'post',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+
+          },
+          body: JSON.stringify({id: id})
+
+      })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+              console.log(response);
+              dispatch(fetchEventsSubscribedTo(username));
             })
             .catch((error) => {
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way

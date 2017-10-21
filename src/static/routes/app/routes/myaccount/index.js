@@ -22,6 +22,19 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 
 
+const customStyles = {
+  content : {
+    top                   : '50%',
+    left                  : '50%',
+    right                 : 'auto',
+    bottom                : 'auto',
+    marginRight           : '-50%',
+    transform             : 'translate(-50%, -50%)',
+    width:                '50vh'
+  }
+};
+
+
 const iconButtonElement = (
   <IconButton
     touch
@@ -32,25 +45,6 @@ const iconButtonElement = (
   </IconButton>
 );
 
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem>Reply</MenuItem>
-    <MenuItem>Forward</MenuItem>
-    <MenuItem>Delete</MenuItem>
-  </IconMenu>
-);
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
-
 class MyAccount extends React.Component {
   static propTypes = {
       dispatch: PropTypes.func.isRequired,
@@ -59,7 +53,8 @@ class MyAccount extends React.Component {
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
           dataFetchProtectedData: PropTypes.func.isRequired,
-          fetchEventsSubscribedTo: PropTypes.func.isRequired
+          fetchEventsSubscribedTo: PropTypes.func.isRequired,
+          unSubSelectedEvent:  PropTypes.func.isRequired,
 
       }).isRequired,
       triggerNotification: PropTypes.bool,
@@ -79,7 +74,10 @@ class MyAccount extends React.Component {
 
       this.state = {
         modalIsOpen: false,
-        enableNotificationCallback: false
+        enableNotificationCallback: false,
+        modalIsOpen: false,
+        currentArtist : '',
+        currentDesc: ''
 
       };
 
@@ -91,8 +89,8 @@ class MyAccount extends React.Component {
 
   }
 
-  openModal = (currentArtist) => {
-    this.setState({modalIsOpen: true, currentArtist: currentArtist});
+  openModal = (artist, description) => {
+    this.setState({modalIsOpen: true, currentArtist: artist, currentDesc: description});
   }
 
 
@@ -129,12 +127,11 @@ class MyAccount extends React.Component {
     this.props.actions.fetchEventsSubscribedTo(this.props.userName);
   }
 
-  componentWillUpdate(nextProps, nextState) {
 
-  }
 
-  componentDidUpdate() {
 
+  unsub(id) {
+    this.props.actions.unSubSelectedEvent(id, this.props.userName);
   }
 
   render() {
@@ -143,7 +140,7 @@ class MyAccount extends React.Component {
 
     return (
 
-  <div className="container-fluid no-breadcrumbs page-dashboard">
+  <div className="container-fluid no-breadcrumbs page-myaccount">
 
           <Modal
               isOpen={this.state.modalIsOpen}
@@ -154,9 +151,9 @@ class MyAccount extends React.Component {
             >
             <form>
               <div className="form-group">
-              <h4>Get Notified when this live event begins! </h4>
+              <h4>{this.state.currentArtist}</h4>
               <br/>
-              <button type="submit"  onClick={() => this.saveUserNotificationRequest()}   className="btn btn-primary card-button"> Notify me </button>
+              <p> {this.state.currentDesc} </p>
               </div>
             </form>
           </Modal>
@@ -172,73 +169,40 @@ class MyAccount extends React.Component {
           <section className="box box-default">
             <div className="box-header">My Event Subscriptions</div>
             <div className="box-body">
-              <List>
+              { this.props.eventsSubscribed ?
+                <List>
+                {this.props.eventsSubscribed.map(function (object) {
+                    var rightIconMenu = (
+                      <IconMenu iconButtonElement={iconButtonElement}>
+                        <MenuItem onClick={() =>this.unsub(object[0])}>Unsubscribe</MenuItem>
+                      </IconMenu>
+                    );
 
-                <ListItem
-                  leftAvatar={<Avatar src="assets/images-demo/avatars/ok-128.jpg" />}
-                  rightIconButton={rightIconMenu}
-                  primaryText="Brendan Lim"
-                  secondaryText={
-                    <p>
-                      <span style={{color: darkBlack}}>Brunch this weekend?</span><br />
-                      I&apos;ll be in your neighborhood doing errands this weekend. Do you want to grab brunch?
-                    </p>
-                  }
-                  secondaryTextLines={2}
-                />
-                <Divider inset />
-                <ListItem
-                  leftAvatar={<Avatar src="assets/images-demo/avatars/kolage-128.jpg" />}
-                  rightIconButton={rightIconMenu}
-                  primaryText="me, Scott, Jennifer"
-                  secondaryText={
-                    <p>
-                      <span style={{color: darkBlack}}>Summer BBQ</span><br />
-                      Wish I could come, but I&apos;m out of town this weekend.
-                    </p>
-                  }
-                  secondaryTextLines={2}
-                />
-                <Divider inset />
-                <ListItem
-                  leftAvatar={<Avatar src="assets/images-demo/avatars/uxceo-128.jpg" />}
-                  rightIconButton={rightIconMenu}
-                  primaryText="Grace Ng"
-                  secondaryText={
-                    <p>
-                      <span style={{color: darkBlack}}>Oui oui</span><br />
-                      Do you have any Paris recs? Have you ever been?
-                    </p>
-                  }
-                  secondaryTextLines={2}
-                />
-                <Divider inset />
-                <ListItem
-                  leftAvatar={<Avatar src="assets/images-demo/avatars/kerem-128.jpg" />}
-                  rightIconButton={rightIconMenu}
-                  primaryText="Kerem Suer"
-                  secondaryText={
-                    <p>
-                      <span style={{color: darkBlack}}>Birthday gift</span><br />
-                      Do you have any ideas what we can get Heidi for her birthday? How about a pony?
-                    </p>
-                  }
-                  secondaryTextLines={2}
-                />
-                <Divider inset />
-                <ListItem
-                  leftAvatar={<Avatar src="assets/images-demo/avatars/raquelromanp-128.jpg" />}
-                  rightIconButton={rightIconMenu}
-                  primaryText="Raquel Parrado"
-                  secondaryText={
-                    <p>
-                      <span style={{color: darkBlack}}>Recipe to try</span><br />
-                      We should eat this: grated squash. Corn and tomatillo tacos.
-                    </p>
-                  }
-                  secondaryTextLines={2}
-                />
+                    return (
+                      <div>
+                      <ListItem
+                        leftAvatar={<Avatar src={object[4]} />}
+                        rightIconButton={rightIconMenu}
+                        primaryText={object[2]}
+                        secondaryText={
+                          <p>
+                            {object[5]}
+                          </p>
+                        }
+                        secondaryTextLines={4}
+                        onClick= {() => this.openModal(object[2], object[5])}
+                      />
+                      <Divider inset />
+                      </div>
+                    );
+
+                },this ) }
               </List>
+              :
+              <div>
+                No event subscriptions
+              </div>
+              }
             </div>
           </section>
         </div>
@@ -258,7 +222,7 @@ class MyAccount extends React.Component {
 const mapStateToProps = (state) => {
     return {
         userName: state.auth.userName,
-        eventsSubscribed: state.auth.eventsSubscribed,
+        eventsSubscribed: state.data.eventsSubscribed,
 
     };
 };
