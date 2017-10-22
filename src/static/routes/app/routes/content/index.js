@@ -177,7 +177,7 @@ class Content extends React.Component {
         <ReactJWPlayer
           playerId='1'
           playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
-          playlist={'http://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
+          playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
         />
 
       </div>
