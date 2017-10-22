@@ -175,6 +175,11 @@ class Content extends React.Component {
         <h6 style={{color: "white"}}>Live streamed on {new Date( Date.parse(this.props.video[0].date_added)).toDateString()}  </h6>
 
         <ReactJWPlayer
+          customProps={{
+          sharing: {
+          link: ''
+          }
+          }}
           playerId='1'
           playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
           playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
