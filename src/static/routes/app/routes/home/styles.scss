@@ -44,8 +44,8 @@
 }
 
 .banner-artist-title {
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-decoration-color: grey;
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important ;
+  text-decoration-color: grey !important;
   font-size: 2em;
 }

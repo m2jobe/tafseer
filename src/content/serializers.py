@@ -21,4 +21,4 @@ class VideoSerializer(serializers.ModelSerializer):
 class ArtistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Artist
-        fields = ('id','artist', 'imageurl', 'description')
+        fields = ('id','artist', 'imageurl','imageurl1','imageurl2', 'description','desc1','desc2','facebook','twitter','instagram','spotify','spotifyURI')

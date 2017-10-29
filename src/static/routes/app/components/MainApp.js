@@ -87,7 +87,7 @@ class MainApp extends React.Component {
               <div className="full-height">
                   <Route path={`${match.url}/home`} component={AsyncHome} />
                   <Route path={`${match.url}/myaccount`} component={requireAuthentication(AsyncMyAccount)} />
-                  <Route path={`${match.url}/events`} component={requireAuthentication(AsyncEvents)} />
+                  <Route path={`${match.url}/event`} component={AsyncEvents} />
                   <Route path={`${match.url}/content/:videoID`} component={AsyncContent} />
                   <Route path={`${match.url}/artist/:artist`} component={AsyncArtist} />
 

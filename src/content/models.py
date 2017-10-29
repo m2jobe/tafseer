@@ -40,7 +40,17 @@ class Artist(models.Model ):
 
     artist = models.CharField(_('Name'), max_length=50)
     imageurl = models.URLField(_('Url'), max_length=200)
+    imageurl1 = models.URLField(_('imageurl1'), max_length=200)
+    imageurl2 = models.URLField(_('imageurl2'), max_length=200)
     description = models.TextField(_('Description'))
+    desc1 = models.TextField(_('desc1'))
+    desc2 = models.TextField(_('desc2'))
+    facebook = models.URLField(_('facebook'), max_length=200)
+    twitter = models.URLField(_('twitter'), max_length=200)
+    instagram = models.URLField(_('instagram'), max_length=200)
+    spotify = models.URLField(_('spotify'), max_length=200)
+    spotifyURI = models.CharField(_('spotifyURI'), max_length=200)
+
     date_added = models.DateTimeField(_('date joined'), auto_now_add=True)
     date_updated = models.DateTimeField(_('date updated'), auto_now=True)
 
