@@ -40,7 +40,7 @@ class Artist(models.Model ):
 
     artist = models.CharField(_('Name'), max_length=50)
     imageurl = models.URLField(_('Url'), max_length=200)
-    description = models.CharField(_('Description'), max_length=1000)
+    description = models.TextField(_('Description'))
     date_added = models.DateTimeField(_('date joined'), auto_now_add=True)
     date_updated = models.DateTimeField(_('date updated'), auto_now=True)
 

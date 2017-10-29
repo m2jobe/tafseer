@@ -13,6 +13,8 @@ from content.models import Video
 
 from content.serializers import VideoThumbnailSerializer
 from content.serializers import VideoSerializer
+from content.models import Artist
+from content.serializers import ArtistSerializer
 
 
 from lib.utils import AtomicMixin
@@ -39,6 +41,19 @@ class FetchVideo(GenericAPIView):
         """Process GET request and return protected data."""
         queryset = Video.objects.filter(id=request.data['id']).order_by("id")
         serializer = VideoSerializer(queryset, many=True)
+        data = serializer.data
+
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class FetchArtist(GenericAPIView):
+    serializer_class = ArtistSerializer
+
+    def post(self, request):
+        """Process GET request and return protected data."""
+        queryset = Artist.objects.filter(artist=request.data['artist']).order_by("id")
+        serializer = ArtistSerializer(queryset, many=True)
         data = serializer.data
 
 

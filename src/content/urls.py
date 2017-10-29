@@ -10,4 +10,7 @@ urlpatterns = [
     url(_(r'^fetchVideo/$'),
         content.views.FetchVideo.as_view(),
         name='fetch_video'),
+    url(_(r'^fetchArtist/$'),
+        content.views.FetchArtist.as_view(),
+        name='fetch_artist'),
 ]

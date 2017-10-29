@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/0.27.5_1/libexec/bin/yarn.js add react-spinkit
+  /usr/local/bin/node /usr/local/Cellar/yarn/0.27.5_1/libexec/bin/yarn.js add react-comments
 
 PATH: 
   /Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/opt/qt/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/ImageMagick/bin
@@ -30,7 +30,8 @@ npm manifest:
       "serve:dev": "webpack-dev-server --open --env dev",
       "serve:dist": "webpack-dev-server --open --env dist -p --progress",
       "start": "npm run serve:dev",
-      "dev": "webpack --progress --display-error-details --config webpack.config.js --watch"
+      "dev": "webpack --progress --display-error-details --config webpack.config.js --watch",
+      "prod": "webpack --progress -p --config webpack.config.js"
     },
     "dependencies": {
       "axios": "^0.16.2",
@@ -66,6 +67,7 @@ npm manifest:
       "react-router": "^4.2.0",
       "react-router-dom": "^4.2.2",
       "react-router-redux": "5.0.0-alpha.6",
+      "react-spinkit": "^3.0.0",
       "react-user-avatar": "^1.9.0",
       "redux": "^3.7.2",
       "redux-auth": "^0.0.5-beta5",
@@ -4354,6 +4356,10 @@ Lockfile:
       emojis-list "^2.0.0"
       json5 "^0.5.0"
   
+  loaders.css@^0.1.2:
+    version "0.1.2"
+    resolved "https://registry.yarnpkg.com/loaders.css/-/loaders.css-0.1.2.tgz#3a9fb43726c73334a38142af9d0629019b658743"
+  
   locate-path@^2.0.0:
     version "2.0.0"
     resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
@@ -5967,6 +5973,15 @@ Lockfile:
       path-to-regexp "^1.7.0"
       prop-types "^15.5.4"
       warning "^3.0.0"
+  
+  react-spinkit@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/react-spinkit/-/react-spinkit-3.0.0.tgz#31fdaf4e18177766c57d1b1f3330290f8492a85a"
+    dependencies:
+      classnames "^2.2.3"
+      loaders.css "^0.1.2"
+      object-assign "^4.1.0"
+      prop-types "^15.5.8"
   
   react-themeable@^1.1.0:
     version "1.1.0"
@@ -7616,5 +7631,5 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zrender/-/zrender-3.6.3.tgz#e3a06ba105cc45eb36492a818e7b7ae879a7b15b"
 
 Trace: 
-  Error: EACCES: permission denied, mkdir '/Users/muhammedjobe/Documents/tourmonkeys/LiveApp/djr/node_modules/babel-code-frame/node_modules'
+  Error: EACCES: permission denied, open '/Users/muhammedjobe/Documents/tourmonkeys/LiveApp/djr/node_modules/progress/Readme.md'
       at Error (native)

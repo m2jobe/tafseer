@@ -45,6 +45,12 @@ let AsyncEvents = loadable({
   loading: LoadingComponent
 })
 
+let AsyncArtist = loadable({
+  loader: () => import('../routes/artist/'),
+  loading: LoadingComponent
+})
+
+
 
 
 
@@ -81,8 +87,10 @@ class MainApp extends React.Component {
               <div className="full-height">
                   <Route path={`${match.url}/home`} component={AsyncHome} />
                   <Route path={`${match.url}/myaccount`} component={requireAuthentication(AsyncMyAccount)} />
-                  <Route path={`${match.url}/events`} component={AsyncEvents} />
+                  <Route path={`${match.url}/events`} component={requireAuthentication(AsyncEvents)} />
                   <Route path={`${match.url}/content/:videoID`} component={AsyncContent} />
+                  <Route path={`${match.url}/artist/:artist`} component={AsyncArtist} />
+
               </div>
             </div>
 

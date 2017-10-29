@@ -35,8 +35,8 @@ class Content extends React.Component {
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
           fetchVideo: PropTypes.func.isRequired,
-          dataFetchProtectedData: PropTypes.func.isRequired
-
+          dataFetchProtectedData: PropTypes.func.isRequired,
+          fetchComments: PropTypes.func.isRequired,
       }).isRequired,
       triggerNotification: PropTypes.bool,
       userName: PropTypes.string,
@@ -50,6 +50,7 @@ class Content extends React.Component {
     triggerNotification: false,
     userName: null,
     video: null,
+    comments:null,
   };
 
 
@@ -90,6 +91,11 @@ class Content extends React.Component {
   componentWillMount() {
 
   }
+
+  handleNewComment = (comment) => {
+		console.log(comment.text);
+	}
+
 
   createNotification = (type) => {
     return () => {
@@ -141,15 +147,13 @@ class Content extends React.Component {
   }
 
   componentWillMount() {
-    this.props.actions.fetchVideo(this.props.match.params.videoID);
+    var videoID = this.props.match.params.videoID;
+    this.props.actions.fetchVideo(videoID);
+    this.props.actions.fetchComments(videoID);
   }
 
   componentDidUpdate() {
     if(this.props.video) {
-      console.log("content.jwplatform.com/videos/"+this.props.video[0].url+"-QUOQKe1A.html");
-      console.log(this.props.video[0].url)
-      console.log(new Date(Date.parse(this.props.video[0].date_added)));
-
     }
   }
 
@@ -185,6 +189,8 @@ class Content extends React.Component {
           playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
         />
 
+
+
       </div>
       :
       null
@@ -207,7 +213,7 @@ const mapStateToProps = (state) => {
         triggerNotification: state.data.triggerNotification,
         userName: state.auth.userName,
         video: state.data.video,
-
+        comments: state.data.comments,
     };
 };
 

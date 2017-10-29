@@ -51,6 +51,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "5.0.0-alpha.6",
+    "react-slick": "^0.15.4",
     "react-spinkit": "^3.0.0",
     "react-user-avatar": "^1.9.0",
     "redux": "^3.7.2",

@@ -6,7 +6,9 @@ import {
     NOTIFICATION_REQUEST_SENT,
     NOTIFICATION_REQUEST_COMPLETE,
     VIDEO_FETCHED,
-    EVENTS_SUBSCRIBED_TO
+    EVENTS_SUBSCRIBED_TO,
+    COMMENTS_FETCHED,
+    ARTIST_FETCHED
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -17,7 +19,8 @@ const initialState = {
     triggerNotification: 'no',
     video: null,
     eventsSubscribed: null,
-
+    comments: null,
+    artist: null
 
 };
 
@@ -59,7 +62,16 @@ export default function dataReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 eventsSubscribed: action.payload.data,
                 isFetching: false
-
+            });
+        case COMMENTS_FETCHED:
+            return Object.assign({}, state, {
+                comments: action.payload.data,
+                isFetching: false
+            });
+        case ARTIST_FETCHED:
+            return Object.assign({}, state, {
+                artist: action.payload.data,
+                isFetching: false
             });
         default:
             return state;
