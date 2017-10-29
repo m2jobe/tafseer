@@ -135,7 +135,11 @@ class Artist extends React.Component {
 
   componentWillMount() {
     var artist = this.props.match.params.artist;
-    this.props.actions.fetchArtist(artist);
+    if(artist == "Paul-Childers") {
+    this.props.actions.fetchArtist("Paul Childers");  
+    } else {
+    this.props.actions.fetchArtist(artist);	
+    }
   }
 
   componentDidUpdate(prevProps,prevState) {

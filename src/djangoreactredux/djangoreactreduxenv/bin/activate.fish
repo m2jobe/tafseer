@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/muhammedjobe/Documents/tourmonkeys/tm_react/actual_dir/djr/src/djangoreactredux/djangoreactreduxenv"
+set -gx VIRTUAL_ENV "/home/ubuntu/djr/src/djangoreactredux/djangoreactreduxenv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
