@@ -117,7 +117,8 @@ class Home extends React.Component {
                 <div className="container-fluid with-maxwidth">
                   <div className="col-12 col-md-6 offset-md-6">
                     <div className="callout-feature-content">
-                      <a onClick={()=>  this.props.dispatch(push('/app/artist/'+object.artist ))} className="banner-artist-title">{object.artist }</a>
+                      <a className="banner-artist-title">{object.artist }</a><br/>
+                      <a  onClick={()=>  this.props.dispatch(push('/app/artist/'+object.artist ))}  className="banner-artist-span" ><small>Learn More </small></a>
                       <h5>{object.location} </h5>
                       <h6>Date: {object.dateText} </h6>
                       <RaisedButton onClick={() => this.saveUserNotificationRequest(object.artist )} label="Notify me" primary />

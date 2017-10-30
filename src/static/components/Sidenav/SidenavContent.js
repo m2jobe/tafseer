@@ -97,7 +97,7 @@ class SidebarContent extends React.Component {
       <ul className="nav" ref={(c) => { this.nav = c; }}>
         <li className="nav-header"><span>Navigation</span></li>
         <li><FlatButton href="#/app/home"><i className="nav-icon material-icons">home</i><span className="nav-text">Home</span></FlatButton></li>
-        <li><FlatButton href="#/app/event"><i className="nav-icon material-icons">queue_play_next</i><span className="nav-text">Upcoming Performance</span></FlatButton></li>
+        <li><FlatButton href="#/app/event"><i className="nav-icon material-icons">queue_play_next</i><span className="nav-text">Todays Live Event</span></FlatButton></li>
         <li><FlatButton href="#/app/artist/Paul Childers"><i className="nav-icon material-icons">music_note</i><span className="nav-text">Upcoming Artist</span></FlatButton></li>
 
         <li className="nav-divider" />
