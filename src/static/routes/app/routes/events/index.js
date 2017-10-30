@@ -154,7 +154,7 @@ class Events extends React.Component {
       <hr/>
       <div className="row">
         <div className="col-sm-12">
-      <div style={{position: 'relative', paddingBottom: '56.25%', overflow: 'hidden'}}><iframe src="https://content.jwplatform.com/players/H4wKpwel-yJ29b8c4.html" width="100%" height="100%" frameBorder={0} scrolling="auto" allowFullScreen style={{position: 'absolute'}} /></div>
+      <div style={{position: 'relative', paddingBottom: '56.25%', overflow: 'hidden'}}><iframe src="https://content.jwplatform.com/players/yyQ4RCZN-yJ29b8c4.html" width="100%" height="100%" frameBorder={0} scrolling="auto" allowFullScreen style={{position: 'absolute'}} /></div>
         </div>
 
       </div>
