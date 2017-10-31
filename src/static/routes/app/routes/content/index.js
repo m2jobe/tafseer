@@ -16,6 +16,7 @@ import Modal from 'react-modal';
 import ReactJWPlayer from 'react-jw-player';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import JWPlayer from 'react-jwplayer';
 
 const customStyles = {
   content : {
@@ -204,7 +205,7 @@ class Content extends React.Component {
 
         <h6 style={{color: "white"}}>Live streamed on {new Date( Date.parse(this.props.video[0].date_added)).toDateString()}  </h6>
 
-        <ReactJWPlayer
+        {/*<ReactJWPlayer
           customProps={{
           sharing: {
           link: ''
@@ -214,7 +215,10 @@ class Content extends React.Component {
           playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
           playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
 
-        />
+        />*/}
+
+        <JWPlayer videoId={this.props.video[0].url} player="16" />
+
 
         {this.state.setListData ?
         <div style={bgStyles}>
