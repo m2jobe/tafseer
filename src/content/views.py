@@ -25,7 +25,7 @@ class FetchVideos(GenericAPIView):
 
     def post(self, request):
         """Process GET request and return protected data."""
-        queryset = Video.objects.all().order_by("id")
+        queryset = Video.objects.all().order_by("-id")
         serializer = VideoThumbnailSerializer(queryset, many=True)
         data = serializer.data
 #        queryset = Objective.objects.filter(username=request.data['username'], date__lte=request.data['endDate'], date__gte = request.data['startDate']).order_by('-id')
