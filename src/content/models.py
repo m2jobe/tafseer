@@ -22,6 +22,8 @@ class Video(models.Model ):
     date_added = models.DateTimeField(_('date joined'), auto_now_add=True)
     date_updated = models.DateTimeField(_('date updated'), auto_now=True)
 
+    setList = models.TextField(_('setList'))
+    setListTime = models.TextField(_('setListTime'))
 
     def __str__(self):
         """

@@ -63,16 +63,24 @@ class Content extends React.Component {
         currentBanners: null,
         modalIsOpen: false,
         currentArtist: '',
-        enableNotificationCallback: false
+        enableNotificationCallback: false,
+        setListData: null,
+        setListTimeData:null
 
       };
 
       this.openModal = this.openModal.bind(this);
       this.afterOpenModal = this.afterOpenModal.bind(this);
       this.closeModal = this.closeModal.bind(this);
+      this.onMoveTo = this.onMoveTo.bind(this);
 
       //this.openModal = this.openModal.bind(this);
 
+  }
+
+
+  onMoveTo(position) {
+    window.jwplayer('1').seek(position);
   }
 
   openModal = (currentArtist) => {
@@ -119,7 +127,7 @@ class Content extends React.Component {
   }
 
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     switch (this.props.triggerNotification) {
       case 'no':
         break;
@@ -132,7 +140,6 @@ class Content extends React.Component {
         this.props.actions.notificationRequestComplete();
         break;
     }
-
   }
 
   componentDidMount() {
@@ -152,8 +159,16 @@ class Content extends React.Component {
     this.props.actions.fetchComments(videoID);
   }
 
-  componentDidUpdate() {
-    if(this.props.video) {
+  componentDidUpdate(prevProps,prevState) {
+    if(prevProps.video != this.props.video) {
+      if(this.props.video[0].setList != ""){
+      var array = this.props.video[0].setList.split(',');
+      var array2 = this.props.video[0].setListTime.split(',');
+
+      this.setState({setListData: array})
+      this.setState({setListTimeData: array2})
+
+      }
     }
   }
 
@@ -162,6 +177,17 @@ class Content extends React.Component {
   render() {
     var banners = null
 
+        const bgStyles = {
+      background: 'linear-gradient(135deg, #723362, #9d223c)',
+      padding: '36px',
+    };
+    const textStyles = {
+      color: 'white',
+      fontSize: '16px',
+      lineHeight: '36px',
+      fontFamily: 'sans-serif',
+      paddingLeft: '1em', // to compensate for letter spacing
+    };
 
     const { match, location } = this.props;
 
@@ -187,9 +213,21 @@ class Content extends React.Component {
           playerId='1'
           playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
           playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
+
         />
 
-
+        {this.state.setListData ?
+        <div style={bgStyles}>
+          <div  style={textStyles}>
+            <h2> {this.props.video[0].artist} setlist <br/>    <small style={{fontSize:'14px'}}>Click on a song name to skip </small></h2>
+              {this.state.setListData.map(function(name, index){
+                  return <div><a onClick={() => this.onMoveTo(parseInt(this.state.setListTimeData[index]))}> {index +1}. {name} </a> <br/></div>;
+                },this )}
+          </div>
+        </div>
+        :
+        null
+        }
 
       </div>
       :
