@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { ARTIST_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
+import { SURAHS_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
 import { authLoginUserFailure } from './auth';
 
 
@@ -298,18 +298,18 @@ export function fetchComments(videoID) {
 
 //artist comments
 
-export function artistFetched(data) {
+export function surahsFetched(data) {
     return {
-        type: ARTIST_FETCHED,
+        type: SURAHS_FETCHED,
         payload: {
             data
         }
     };
 }
 
-export function fetchArtist(artist) {
+export function fetchSurahs() {
     return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/content/fetchArtist/`, {
+      return fetch(`${SERVER_URL}/api/v1/content/fetchSurahs/`, {
           method: 'post',
           headers: {
               'Accept': 'application/json',
@@ -317,13 +317,12 @@ export function fetchArtist(artist) {
               'X-Requested-With': 'XMLHttpRequest'
 
           },
-          body: JSON.stringify({artist: artist})
 
       })
             .then(checkHttpStatus)
             .then(parseJSON)
             .then((response) => {
-                dispatch(artistFetched(response));
+                dispatch(surahsFetched(response));
             })
             .catch((error) => {
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way

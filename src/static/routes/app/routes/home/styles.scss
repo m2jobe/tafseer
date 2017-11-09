@@ -52,3 +52,35 @@
   text-decoration-style: dotted !important ;
   text-decoration-color: grey !important;
 }
+
+.homeBackground {
+  height: 500px;
+  background-color: #019B8B;
+  background-image: url(http://tafseer.nfshost.com/dist/img/newBackground.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+.home-page-container {
+  padding:0px !important;
+}
+
+.box-body {
+  padding: 0 !important;
+}
+
+.select-options {
+  display: inline-flex;
+  width: 100%;
+}
+
+.select-option {
+  width: 35% !important;
+  margin-right: 5% !important;
+}
+
+@media only screen and (min-width: 992px) {
+.app-header {
+    display: none;
+}
+}

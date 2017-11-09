@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from content.models import Video
-from content.models import Artist
+from content.models import Surah
 
 
 from lib.utils import validate_email as email_is_valid
@@ -18,7 +18,8 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ('id','name', 'artist', 'url', 'description', 'date_added', 'setList', 'setListTime')
 
 
-class ArtistSerializer(serializers.ModelSerializer):
+
+class SurahSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Artist
-        fields = ('id','artist', 'imageurl','imageurl1','imageurl2', 'description','desc1','desc2','facebook','twitter','instagram','spotify','spotifyURI')
+        model = Surah
+        fields = ('id','value','label')

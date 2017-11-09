@@ -14,9 +14,7 @@ body {
 
 body {
   z-index: 100;
-  background: #de6161 !important; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #de6161, #2657eb) !important; /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #de6161, #2657eb) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: rgba(249,249,249,1) !important; /* fallback for old browsers */
 }
 
 .full-height{

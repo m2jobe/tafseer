@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import classnames from 'classnames';
 import './styles.scss'
 import { connect } from 'react-redux';
-
 import { bindActionCreators } from 'redux';
 import * as actionCreators from '../../../../actions/data';
 import PropTypes from 'prop-types';
@@ -13,6 +12,11 @@ import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import RaisedButton from 'material-ui/RaisedButton';
+import Select from 'react-select';
+// Be sure to include styles at some point, probably during your bootstrapping
+import 'react-select/dist/react-select.css';
+
+
 
 const customStyles = {
   content : {
@@ -30,22 +34,15 @@ class Home extends React.Component {
       dispatch: PropTypes.func.isRequired,
       isFetching: PropTypes.bool.isRequired,
       data: PropTypes.string,
-      token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
-          dataFetchProtectedData: PropTypes.func.isRequired
-
+          fetchSurahs: PropTypes.func.isRequired,
       }).isRequired,
-      triggerNotification: PropTypes.bool,
+      surahs: PropTypes.array,
 
   };
 
   static defaultProps = {
-    banners: null,
-    triggerNotification: false,
-    userName: null,
-    videos: null,
-
-
+    surahs: null,
   };
 
 
@@ -55,9 +52,9 @@ class Home extends React.Component {
       let focusedInput = null;
 
       this.state = {
-        currentBanners: null,
-        enableNotificationCallback: false
-
+        enableNotificationCallback: false,
+        surahOptions: null,
+        ayatOptions: null
       };
   }
 
@@ -84,94 +81,17 @@ class Home extends React.Component {
   }
 
 
-  saveUserNotificationRequest = (currentArtist) => {
-      if(this.props.userName) {
-        this.props.actions.saveUserNotificationRequest(this.props.userName, currentArtist);
-      } else {
-        NotificationManager.warning('You need to sign in to subsribe for events', 'Oops', 3000);
-
-      }
-
-  }
-
 
   componentWillMount() {
 
-    this.props.actions.fetchBanners();
-    this.props.actions.fetchVideos();
+    this.props.actions.fetchSurahs();
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(this.props.banners != nextProps.banners)  {
-      if(nextProps.banners.length == 1 ) {
-        const imgLeft = {
-          backgroundImage: 'url('+nextProps.banners[0].image+')',
-          backgroundPosition: 'center',
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor :'black'
-        };
-        var currentBanners = nextProps.banners.map((object) =>
-          <div className="col-md-12">
-            <div className="feature-callout feature-content-right card-white image-pull clearfix">
-                <div className="container-fluid with-maxwidth">
-                  <div className="col-12 col-md-6 offset-md-6">
-                    <div className="callout-feature-content">
-                      <a className="banner-artist-title">{object.artist }</a><br/>
-                      {/*<a  onClick={()=>  this.props.dispatch(push('/app/artist/'+object.artist ))}  className="banner-artist-span" ><small>Learn More </small></a>*/}
-                      <h5>{object.location} </h5>
-                      <h6>Date: {object.dateText} </h6>
-                      <RaisedButton onClick={() => this.saveUserNotificationRequest(object.artist )} label="Notify me" primary />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-12 col-md-6 feature-callout-image-pull" style={imgLeft} />
+    if(this.props.surahs != nextProps.surahs)  {
 
-            </div>
-          </div>
-
-        );
-      } else if(nextProps.banners.length == 2) {
-        var currentBanners = nextProps.banners.map((object) =>
-            <div className="col-md-6">
-              <div className="card card-white">
-                <div className="card-image">
-                  <img src={object.image} alt="" />
-                  <span className="card-title">{object.artist} - {object.location} </span>
-                </div>
-                <div className="card-content">
-                  <a className="card-button float-right" href="javascript:;">
-                    <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
-                  </a>
-                  <p>Date: {object.dateText}</p>
-                </div>
-              </div>
-            </div>
-
-        );
-      } else if (nextProps.banners.length == 3) {
-        var currentBanners = nextProps.banners.map((object) =>
-            <div className="col-md-4">
-              <div className="card card-white">
-                <div className="card-image">
-                  <img src={object.image} alt="" />
-                  <span className="card-title">{object.artist} - {object.location} </span>
-                </div>
-                <div className="card-content">
-                  <a className="card-button float-right" href="javascript:;">
-                    <button onClick={() => this.saveUserNotificationRequest()} className="btn btn-icon btn-icon-round btn-floating btn-danger"><i className="material-icons mdi-sm">sms</i></button>
-                  </a>
-                  <p>Date: {object.dateText}</p>
-                </div>
-              </div>
-            </div>
-
-        );
-      }
-
-      this.setState({currentBanners: currentBanners})
+      this.setState({surahOptions: nextProps.surahs})
     }
-
   }
 
   componentDidUpdate() {
@@ -196,7 +116,13 @@ class Home extends React.Component {
 
   }
 
+  surahChange = (val) => {
+    alert('Selected: - trigger ayat population'+ val);
+  }
 
+  ayatChange = (val) => {
+    console.log('Selected: ', val);
+  }
 
   render() {
     var banners = null
@@ -206,54 +132,81 @@ class Home extends React.Component {
 
     return (
 
-  <div className="container-fluid no-breadcrumbs page-dashboard">
+  <div className="container-fluid no-breadcrumbs home-page-container">
 
     <QueueAnim type="bottom" className="ui-animate">
-      <h2 className="article-title">Upcoming Live Events</h2>
+      <section>
+      <div className="row homeBackground">
+        <div className="col-sm-12">
 
-      <div className="row featured-live-event">
-        {this.state.currentBanners}
-      </div>
-
-      {/* End up BANNERS */}
-
-      <article className="article">
-        <h2 className="article-title">Recent Streams</h2>
-        { this.props.videos ?
-        <div className="row">
-          {this.props.videos.map(function (object) {
-              return (
-                <div className="col-xl-4 tm-thumbnail" key={object.id}>
-                  <div className="ih-item ih-material">
-                    <a href="javascript:;">
-                      <div className="img">
-                        <img src={object.thumbnail} alt="" />
-                      </div>
-                      <div className="info">
-                        <div className="info-mask bg-color-dark" />
-                        <div className="info-content">
-                          <div className="info-inner">
-                            <a style={{textDecoration: "dashed"}}><h3>{object.artist}</h3></a>
-                            <p>{object.name}</p>
-                            <button onClick={() => this.goToVideo(object.id)} className="btn btn-primary"> Play </button>
-                          </div>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              );
-
-          },this ) }
         </div>
-        :
-        null
-        }
-      </article>
+      </div>
+    </section>
 
+    <section className="content" style={{marginTop: '5vh'}}>
+  {/* Small boxes (Stat box) */}
+  <div className="row" id="mainRow">
+    <div className="col-md-6">
+      <div className="box" style={{background: 'transparent', borderStyle: 'none', boxShadow: 'none', width: '80%', display: 'block', margin: '0 auto'}}>
+        {/* /.box-header */}
+        <div className="box-body">
+          <img style={{width: '100%'}} src="http://tafseer.nfshost.com/dist/img/mainPageLogo.png" />
+        </div>
+        {/* /.box-body */}
+        <div className="box-footer clearfix" style={{background: 'transparent', borderStyle: 'none'}}>
+          <button onclick="highlightMe(this); getArticleID(this, 8);" style={{width: '100%', border: 'none', color: 'white', outline: 'none', background: '#8AB1A8', height: 40}}> PREFACE </button> <br /><br />
+          <button onclick="highlightMe(this); getArticleID(this, 11);" style={{width: '100%', border: 'none', color: 'white', outline: 'none', background: '#8AB1A8', height: 40}}> INTRODUCTION TO THE QUR-AAN </button>
+        </div>
+      </div>
+      {/* /.box */}
+    </div>
+    <div className="col-md-6">
+      <div className="box" style={{background: 'transparent', borderStyle: 'none', boxShadow: 'none'}}>
+        <div className="box-body" >
+          <div className="select-options">
+            <div className="select-option">
+              <Select
+                name="surah-field-name"
+                value="Select a surah"
+                options={this.state.surahOptions}
+                onChange={this.surahChange}
+              />
+            </div>
+            <div className="select-option">
+              <Select
+                name="ayat-field-name"
+                options={this.state.ayatOptions}
+                onChange={this.ayatChange}
+              />
+            </div>
+            <div className="select-option">
+              <div className="input-group m-t-10" style={{backgroundColor: '#E9E9E9'}}>
+                <input style={{borderStyle: 'none', borderRadius: 0, height: 40, background: 'transparent'}} type="text" name="query" id="autocomplete" className="form-control ui-autocomplete-input" placeholder="Search..." autoComplete="off" />
+                <span style={{background: 'transparent'}} className="input-group-btn">
+                  <button style={{border: 0, background: 'transparent', boxShadow: 'none', borderRadius: 0, color: '#179A8A'}} type="button" onclick="searchDB()" className="btn waves-effect waves-light btn-default"><span className="fa fa-search" /></button>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="box-footer clearfix" style={{background: 'transparent', borderStyle: 'none'}}>
+          <h3 style={{fontSize: 20}}> A contemporary English translation and Tafseer (exegesis) that is unique because it: </h3>
+          <ul style={{fontSize: 18}}>
+            <li> unveils the implicit linkages between the verses, sections and Soorahs,</li>
+            <li> corroborates with the context in which Allah SWT has put them, and</li>
+            <li> uses established scientific realities to expound the signs cited therein </li>
+          </ul>
+          <h3 style={{fontSize: 20}}> while maintaining its congruence with the works of the earlier mainstream mufassireen (exegetes). </h3>
+        </div>
+        {/* /.box-body */}
+      </div>
+      {/* /.box */}
+    </div>
+  </div>
+  {/* /.row (main row) */}
+</section>
 
     </QueueAnim>
-    <NotificationContainer/>
 
   </div>
 
@@ -265,10 +218,7 @@ class Home extends React.Component {
 //module.exports = MainApp;
 const mapStateToProps = (state) => {
     return {
-        banners: state.data.banners,
-        triggerNotification: state.data.triggerNotification,
-        userName: state.auth.userName,
-        videos: state.data.videos,
+        surahs: state.data.surahs,
 
     };
 };

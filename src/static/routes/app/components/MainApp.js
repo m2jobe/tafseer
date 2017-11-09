@@ -98,7 +98,7 @@ class MainApp extends React.Component {
           </div>
         </section>
 
-        {/*<Customizer />*/}
+        <Customizer />
       </div>
     );
   }

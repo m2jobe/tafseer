@@ -10,11 +10,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from content.models import Video
+from content.models import Surah
 
 from content.serializers import VideoThumbnailSerializer
 from content.serializers import VideoSerializer
-from content.models import Artist
-from content.serializers import ArtistSerializer
+from content.serializers import SurahSerializer
 
 
 from lib.utils import AtomicMixin
@@ -47,13 +47,13 @@ class FetchVideo(GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class FetchArtist(GenericAPIView):
-    serializer_class = ArtistSerializer
+class fetchSurahs(GenericAPIView):
+    serializer_class = SurahSerializer
 
     def post(self, request):
         """Process GET request and return protected data."""
-        queryset = Artist.objects.filter(artist=request.data['artist']).order_by("id")
-        serializer = ArtistSerializer(queryset, many=True)
+        queryset = Surah.objects.order_by("id")
+        serializer = SurahSerializer(queryset, many=True)
         data = serializer.data
 
 

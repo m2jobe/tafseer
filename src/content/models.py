@@ -64,3 +64,24 @@ class Artist(models.Model ):
         :return: string
         """
         return self.artist
+
+
+
+class Surah(models.Model ):
+    """
+    Model that represents an video.
+
+    """
+
+    value = models.CharField(_('value'), max_length=50)
+    label = models.CharField(_('label'), max_length=50)
+
+
+
+    def __str__(self):
+        """
+        Unicode representation for an user model.
+
+        :return: string
+        """
+        return self.value
