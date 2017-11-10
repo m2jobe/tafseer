@@ -85,3 +85,25 @@ class Surah(models.Model ):
         :return: string
         """
         return self.value
+
+class Translations(models.Model):
+    """
+    Model that represents Translation table
+
+    """
+    objectID = models.IntegerField(_('objectID'))
+    rangeStart = models.IntegerField(_('rangeStart'))
+    rangeEnd = models.IntegerField(_('rangeEnd'))
+    explanation = models.TextField(_('explanation'))
+    translation = models.TextField(_('translation'))
+    surah = models.CharField(_('surah'), max_length=100)
+    quranText = models.TextField(_('quranText'))
+    connectPrev = models.CharField(_('connectPrev'), max_length=3)
+
+    def __str__(self):
+        """
+        Unicode representation for an user model.
+
+        :return: string
+        """
+        return self.objectID

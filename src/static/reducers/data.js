@@ -9,7 +9,8 @@ import {
     EVENTS_SUBSCRIBED_TO,
     COMMENTS_FETCHED,
     ARTIST_FETCHED,
-    SURAHS_FETCHED
+    SURAHS_FETCHED,
+    AYATS_FETCHED
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -21,8 +22,8 @@ const initialState = {
     video: null,
     eventsSubscribed: null,
     comments: null,
-    surahs: null
-
+    surahs: null,
+    ayats: null
 };
 
 export default function dataReducer(state = initialState, action) {
@@ -72,6 +73,11 @@ export default function dataReducer(state = initialState, action) {
         case SURAHS_FETCHED:
             return Object.assign({}, state, {
                 surahs: action.payload.data,
+                isFetching: false
+            });
+        case AYATS_FETCHED:
+            return Object.assign({}, state, {
+                ayats: action.payload.data,
                 isFetching: false
             });
         default:

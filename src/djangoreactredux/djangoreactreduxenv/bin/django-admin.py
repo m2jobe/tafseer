@@ -1,4 +1,4 @@
-#!/home/ubuntu/djr/src/djangoreactredux/djangoreactreduxenv/bin/python3
+#!/home/muhammed/Documents/tm/tafseer/src/djangoreactredux/djangoreactreduxenv/bin/python2
 from django.core import management
 
 if __name__ == "__main__":

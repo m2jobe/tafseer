@@ -11,12 +11,15 @@ ALLOWED_HOSTS = ['*']
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'tourmonkeys_db',
-        'USER': 'tourmonkeys',
-        'PASSWORD': 't0urTeam',
-        'HOST': 'tourmonkeysdbinstance.cbjveiv1grwa.us-east-2.rds.amazonaws.com',
-        'PORT': 5432,
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tafseer',
+        'USER': 'tafseer',
+        'PASSWORD': 'Sibos96e!',
+        'HOST': 'tafseerdb.cbjveiv1grwa.us-east-2.rds.amazonaws.com',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 

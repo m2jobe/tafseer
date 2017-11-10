@@ -11,10 +11,12 @@ from rest_framework.response import Response
 
 from content.models import Video
 from content.models import Surah
+from content.models import Translations
 
 from content.serializers import VideoThumbnailSerializer
 from content.serializers import VideoSerializer
 from content.serializers import SurahSerializer
+from content.serializers import AyatSerializer
 
 
 from lib.utils import AtomicMixin
@@ -47,13 +49,26 @@ class FetchVideo(GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
-class fetchSurahs(GenericAPIView):
+class FetchSurahs(GenericAPIView):
     serializer_class = SurahSerializer
 
     def post(self, request):
         """Process GET request and return protected data."""
         queryset = Surah.objects.order_by("id")
         serializer = SurahSerializer(queryset, many=True)
+        data = serializer.data
+
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class FetchAyats(GenericAPIView):
+    serializer_class = AyatSerializer
+
+    def post(self, request):
+        """Process GET request and return protected data."""
+        queryset = Translations.objects.filter(surah=request.data['surah']).order_by("rangeStart")
+        serializer = AyatSerializer(queryset, many=True)
         data = serializer.data
 
 

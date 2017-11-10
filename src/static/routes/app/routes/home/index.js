@@ -36,13 +36,16 @@ class Home extends React.Component {
       data: PropTypes.string,
       actions: PropTypes.shape({
           fetchSurahs: PropTypes.func.isRequired,
+          fetchAyats: PropTypes.func.isRequired
       }).isRequired,
       surahs: PropTypes.array,
+      ayats: PropTypes.array
 
   };
 
   static defaultProps = {
     surahs: null,
+    ayats: null
   };
 
 
@@ -54,7 +57,9 @@ class Home extends React.Component {
       this.state = {
         enableNotificationCallback: false,
         surahOptions: null,
-        ayatOptions: null
+        ayatOptions: null,
+        currentSurah:null,
+        currentAyat:null
       };
   }
 
@@ -88,9 +93,46 @@ class Home extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if(this.props.surahs != nextProps.surahs)  {
+    //updates when surah changes
 
+    if(this.props.surahs != nextProps.surahs)  {
+      // Pick up ayat options when surah changes
       this.setState({surahOptions: nextProps.surahs})
+    }
+
+    if(this.state.currentAyat != nextState.currentAyat)  {
+      //Navigate to main page when the state of the current Ayat changes
+      this.goToPage(nextState.currentAyat, this.state.currentSurah)
+    }
+
+    if(this.state.currentSurah != nextState.currentSurah) {
+      //fetch ayats for the particular surah when the dropdown changes
+      this.props.actions.fetchAyats(nextState.currentSurah);
+    }
+
+    if(this.props.ayats != nextProps.ayats) {
+      //When ayat options are received from the server, update the dropdown column
+      var ayatJsonArr = [];
+
+      for (var i = 0; i < nextProps.ayats.length; i++) {
+          var currentRow = nextProps.ayats[i];
+
+          var rangeStart = currentRow.rangeStart;
+          var rangeEnd = currentRow.rangeEnd;
+          var rangeValue = rangeStart + '-' + rangeEnd;
+          var rangeLabel;
+          if(rangeStart == rangeEnd) {
+            rangeLabel = rangeStart;
+          } else {
+            rangeLabel = rangeStart + ' - ' + rangeEnd;
+          }
+          ayatJsonArr.push({
+              label: rangeLabel,
+              value: rangeValue
+          });
+      }
+
+      this.setState({ayatOptions: ayatJsonArr})
     }
   }
 
@@ -111,17 +153,18 @@ class Home extends React.Component {
   }
 
 
-  goToVideo = (id) => {
-    this.props.dispatch(push('/app/content/'+id ));
+  goToPage = (ayat,surah) => {
+    this.props.dispatch(push('/app/content/'+ayat +'/'+surah));
 
   }
 
   surahChange = (val) => {
-    alert('Selected: - trigger ayat population'+ val);
+    this.setState({currentSurah: val.value});
   }
 
   ayatChange = (val) => {
-    console.log('Selected: ', val);
+    this.setState({currentAyat: val.value});
+
   }
 
   render() {
@@ -219,7 +262,7 @@ class Home extends React.Component {
 const mapStateToProps = (state) => {
     return {
         surahs: state.data.surahs,
-
+        ayats: state.data.ayats
     };
 };
 
