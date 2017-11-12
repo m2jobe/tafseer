@@ -7,10 +7,7 @@ from base import views as base_views
 
 urlpatterns = [
     url(r'^api/v1/content/', include('content.urls', namespace='videos')),
-    url(r'^api/v1/comments/', include('comments.urls', namespace='comments')),
 
-    url(r'^api/v1/banners/', include('banners.urls', namespace='banners')),
-    url(r'^api/v1/notifications/', include('notifications.urls', namespace='notifications')),
 
     url(r'^api/v1/accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^api/v1/getdata/', include('base.urls', namespace='base')),

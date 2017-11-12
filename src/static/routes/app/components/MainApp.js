@@ -36,21 +36,6 @@ let AsyncContent = loadable({
   loader: () => import('../routes/content/'),
   loading: LoadingComponent
 })
-let AsyncMyAccount = loadable({
-  loader: () => import('../routes/myaccount/'),
-  loading: LoadingComponent
-})
-let AsyncEvents = loadable({
-  loader: () => import('../routes/events/'),
-  loading: LoadingComponent
-})
-
-let AsyncArtist = loadable({
-  loader: () => import('../routes/artist/'),
-  loading: LoadingComponent
-})
-
-
 
 
 
@@ -86,10 +71,7 @@ class MainApp extends React.Component {
             <div className="app-content">
               <div className="full-height">
                   <Route path={`${match.url}/home`} component={AsyncHome} />
-                  <Route path={`${match.url}/myaccount`} component={requireAuthentication(AsyncMyAccount)} />
-                  <Route path={`${match.url}/event`} component={AsyncEvents} />
-                  <Route path={`${match.url}/content/:videoID`} component={AsyncContent} />
-                  <Route path={`${match.url}/artist/:artist`} component={AsyncArtist} />
+                  <Route path={`${match.url}/content/:surah/:ayat`} component={AsyncContent} />
 
               </div>
             </div>
@@ -98,7 +80,7 @@ class MainApp extends React.Component {
           </div>
         </section>
 
-        <Customizer />
+        {/*<Customizer />*/}
       </div>
     );
   }

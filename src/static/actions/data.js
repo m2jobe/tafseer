@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { AYATS_FETCHED,SURAHS_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
+import { SURAH_FETCHED,AYATS_FETCHED,SURAHS_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
 import { authLoginUserFailure } from './auth';
 
 
@@ -359,6 +359,41 @@ export function fetchAyats(surah) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(ayatsFetched(response));
+            })
+            .catch((error) => {
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+
+export function surahFetched(data) {
+    return {
+        type: SURAH_FETCHED,
+        payload: {
+            data
+        }
+    };
+}
+
+export function fetchSurah(surah) {
+    return (dispatch, state) => {
+      return fetch(`${SERVER_URL}/api/v1/content/fetchSurah/`, {
+          method: 'post',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+
+          },
+          body: JSON.stringify({surah: surah})
+
+      })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(surahFetched(response));
             })
             .catch((error) => {
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way

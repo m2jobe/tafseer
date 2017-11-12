@@ -10,3 +10,24 @@
   color: white !important;
   padding-top: 28% !important;
 }
+
+.app-sidebar .sidebar-header {
+    padding: 11px 1px 1px 5px !important;
+
+}
+
+#app-inner > div.app-main.full-height > div > nav > section.sidebar-header.bg-color-primary > a.logo-img.logo-react > i {
+  font-size: 30px !important;
+  color: #08867A !important;
+}
+
+
+#app-inner > div.app-main.full-height > div > nav > section.sidebar-header.bg-color-primary > a.brand {
+  display: none !important;
+}
+
+@media only screen and (max-width: 991px) {
+.logo-img {
+  display: none !important;
+}
+}

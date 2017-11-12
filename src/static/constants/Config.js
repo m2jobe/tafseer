@@ -2,7 +2,7 @@ const date = new Date();
 const year = date.getFullYear();
 
 const APPCONFIG = {
-  brand: 'Tourmonkeys',
+  brand: 'Tafseer',
   user: 'Muhammed',
   year,
   productLink: 'http://tourmonkeys.com',

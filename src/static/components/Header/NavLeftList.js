@@ -25,50 +25,7 @@ class NavLeftList extends React.Component {
     return (
       <ul className="list-unstyled list-inline">
         <li className="list-inline-item">
-          <IconMenu
-            iconButtonElement={<IconButton
-              style={HeaderIconButtonStyle}
-              className="md-button header-btn">
-              <i className="material-icons tm-notifications">notifications_none</i>
-              <span className="badge">3</span>
-            </IconButton>}
-            onChange={this.handleChange}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            menuStyle={{minWidth: '250px'}}
-                    >
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="David Live Event starting"
-              secondaryText={<span className="text-muted">5min ago</span>}
-                        />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="Elton Live Event starting"
-              secondaryText={<span className="text-muted">1h ago</span>}
-                        />
-            <Divider />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="Rewatch live event"
-              secondaryText={<span className="text-muted">5min ago</span>}
-                        />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">mail_outline</i>}
-              primaryText="New stream from Tour Live"
-              secondaryText={<span className="text-muted">1h ago</span>}
-                        />
-            <Divider />
-            <MenuItem
-              className="header-icon-dropdown-item"
-              leftIcon={<i className="material-icons">notifications_none</i>}
-              primaryText="Copy task completed"
-                        />
-          </IconMenu>
+
         </li>
       </ul>
     );

@@ -12,10 +12,6 @@ import PropTypes from 'prop-types';
 import { push } from 'react-router-redux';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
-import Modal from 'react-modal';
-import ReactJWPlayer from 'react-jw-player';
-import Moment from 'react-moment';
-import 'moment-timezone';
 
 const customStyles = {
   content : {
@@ -143,7 +139,6 @@ class Content extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.videoID);
 
     /* Put this in
 
@@ -154,9 +149,10 @@ class Content extends React.Component {
   }
 
   componentWillMount() {
-    var videoID = this.props.match.params.videoID;
-    this.props.actions.fetchVideo(videoID);
-    this.props.actions.fetchComments(videoID);
+    var surah = this.props.match.params.surah;
+    var ayat = this.props.match.params.ayat;
+
+    this.props.actions.fetchSurah(surah);
   }
 
   componentDidUpdate(prevProps,prevState) {
@@ -194,49 +190,8 @@ class Content extends React.Component {
     return (
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
-    {this.props.video ?
-      <div>
 
-        <h2 className="article-title"> {this.props.video[0].artist} </h2>
-
-
-        <h4 style={{color: "white"}}>{this.props.video[0].name}  </h4>
-
-        <h6 style={{color: "white"}}>Live streamed on {new Date( Date.parse(this.props.video[0].date_added)).toDateString()}  </h6>
-
-        <ReactJWPlayer
-          customProps={{
-          sharing: {
-          link: ''
-          }
-          }}
-          playerId='1'
-          playerScript='https://content.jwplatform.com/libraries/yJ29b8c4.js'
-          playlist={'https://content.jwplatform.com/feeds/'+this.props.video[0].url+'.json'}
-
-        />
-
-        {this.state.setListData ?
-        <div style={bgStyles}>
-          <div  style={textStyles}>
-            <h2> {this.props.video[0].artist} setlist <br/>    <small style={{fontSize:'14px'}}>Click on a song name to skip </small></h2>
-              {this.state.setListData.map(function(name, index){
-                  return <div><a onClick={() => this.onMoveTo(parseInt(this.state.setListTimeData[index]))}> {index +1}. {name} </a> <br/></div>;
-                },this )}
-          </div>
-        </div>
-        :
-        null
-        }
-
-      </div>
-      :
-      null
-    }
-
-      {/* End up BANNERS */}
-
-
+  <h2 className="article-title"> yo </h2>
 
   </div>
 

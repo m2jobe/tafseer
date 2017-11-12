@@ -24,8 +24,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'knox',
     'django_extensions',
-    'banners',
-    'notifications',
     'content',
 
     'accounts',
@@ -42,8 +40,6 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
-    'comments'
-
 )
 SITE_ID = 1
 

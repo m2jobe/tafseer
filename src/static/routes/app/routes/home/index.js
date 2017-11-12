@@ -154,17 +154,16 @@ class Home extends React.Component {
 
 
   goToPage = (ayat,surah) => {
-    this.props.dispatch(push('/app/content/'+ayat +'/'+surah));
+    this.props.dispatch(push('content/'+surah +'/'+ayat));
 
   }
 
   surahChange = (val) => {
-    this.setState({currentSurah: val.value});
+    this.setState({currentSurah: val.value, surahValue:val.value, ayatValue: "Loading..."});
   }
 
   ayatChange = (val) => {
     this.setState({currentAyat: val.value});
-
   }
 
   render() {
@@ -213,6 +212,7 @@ class Home extends React.Component {
                 value="Select a surah"
                 options={this.state.surahOptions}
                 onChange={this.surahChange}
+                value={this.state.surahValue}
               />
             </div>
             <div className="select-option">
@@ -220,6 +220,7 @@ class Home extends React.Component {
                 name="ayat-field-name"
                 options={this.state.ayatOptions}
                 onChange={this.ayatChange}
+                value={this.state.ayatValue}
               />
             </div>
             <div className="select-option">
@@ -232,7 +233,7 @@ class Home extends React.Component {
             </div>
           </div>
         </div>
-        <div className="box-footer clearfix" style={{background: 'transparent', borderStyle: 'none'}}>
+        <div className="box-footer clprepend-iconearfix" style={{background: 'transparent', borderStyle: 'none'}}>
           <h3 style={{fontSize: 20}}> A contemporary English translation and Tafseer (exegesis) that is unique because it: </h3>
           <ul style={{fontSize: 18}}>
             <li> unveils the implicit linkages between the verses, sections and Soorahs,</li>

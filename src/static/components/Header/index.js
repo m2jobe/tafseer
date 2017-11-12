@@ -93,52 +93,7 @@ class Header extends React.Component {
 
           <div className="top-nav-right">
             <ul className="list-unstyled float-right">
-              {this.props.token ?
-              <li style={{marginRight: '10px'}}>
-                <IconMenu
-                  iconButtonElement={<IconButton style={ImgIconButtonStyle}>
-                    {this.props.fbImage ?
-                    <img src={this.props.fbImage} alt="" className="rounded-circle img30_30" />
-                    :
-                    <UserAvatar size="30" name={this.props.userName ?  this.props.userName : 'nada'}/>
-                    }
-                  </IconButton>}
-                  onChange={this.handleChange}
-                  anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-                  targetOrigin={{horizontal: 'right', vertical: 'top'}}
-                  menuStyle={{minWidth: '150px'}}
-                          >
-                  <MenuItem
-                    value="/app/home"
-                    primaryText="Home"
-                    style={{fontSize: '14px', lineHeight: '48px'}}
-                    innerDivStyle={listItemStyle}
-                    leftIcon={<i className="material-icons">home</i>}
-                              />
-                  {/*<MenuItem
-                    value="/app/dashboard/"
-                    primaryText="My Account"
-                    innerDivStyle={listItemStyle}
-                    style={{fontSize: '14px', lineHeight: '48px'}}
-                    leftIcon={<i className="material-icons">person_outline</i>
-                  />*/}
-                  <MenuItem
-                    onClick={this.logout}
-                    onItemTouchTap={this.logout}
-                    primaryText="Log Out"
-                    innerDivStyle={listItemStyle}
-                    style={{fontSize: '14px', lineHeight: '48px'}}
-                    leftIcon={<i className="material-icons">forward</i>}
-                              />
-                </IconMenu>
-              </li>
-              :
-              <li>
-                  <a className="btn btn-default dashboard-login-btn" onClick={this.login}>
-                    Sign in
-                  </a>
-              </li>
-              }
+
             </ul>
           </div>
         </div>

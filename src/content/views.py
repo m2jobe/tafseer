@@ -17,6 +17,7 @@ from content.serializers import VideoThumbnailSerializer
 from content.serializers import VideoSerializer
 from content.serializers import SurahSerializer
 from content.serializers import AyatSerializer
+from content.serializers import FullSurahSerializer
 
 
 from lib.utils import AtomicMixin
@@ -62,6 +63,7 @@ class FetchSurahs(GenericAPIView):
         return Response(data, status=status.HTTP_200_OK)
 
 
+
 class FetchAyats(GenericAPIView):
     serializer_class = AyatSerializer
 
@@ -69,6 +71,19 @@ class FetchAyats(GenericAPIView):
         """Process GET request and return protected data."""
         queryset = Translations.objects.filter(surah=request.data['surah']).order_by("rangeStart")
         serializer = AyatSerializer(queryset, many=True)
+        data = serializer.data
+
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class FetchSurah(GenericAPIView):
+    serializer_class = FullSurahSerializer
+
+    def post(self, request):
+        """Process GET request and return protected data."""
+        queryset = Translations.objects.filter(surah=request.data['surah']).order_by("rangeStart")
+        serializer = FullSurahSerializer(queryset, many=True)
         data = serializer.data
 
 
