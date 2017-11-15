@@ -25,7 +25,9 @@ class NavLeftList extends React.Component {
     return (
       <ul className="list-unstyled list-inline">
         <li className="list-inline-item">
-
+        <a href="/" className="imgLogoAnchor" style={{background: 'transparent', width: 230, display: 'inline-block', paddingLeft: 14, paddingTop: 14}}>
+          <img id="imgLogo" src="http://tafseer.nfshost.com/dist/img/QuranLogo.png" />
+        </a>
         </li>
       </ul>
     );

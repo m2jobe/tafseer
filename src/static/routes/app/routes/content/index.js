@@ -31,12 +31,12 @@ class Content extends React.Component {
       token: PropTypes.string.isRequired,
       actions: PropTypes.shape({
           fetchVideo: PropTypes.func.isRequired,
-          dataFetchProtectedData: PropTypes.func.isRequired,
+          fetchSurah: PropTypes.func.isRequired,
           fetchComments: PropTypes.func.isRequired,
       }).isRequired,
       triggerNotification: PropTypes.bool,
       userName: PropTypes.string,
-      video:PropTypes.array,
+      surah:PropTypes.array,
 
 
 
@@ -45,7 +45,7 @@ class Content extends React.Component {
   static defaultProps = {
     triggerNotification: false,
     userName: null,
-    video: null,
+    surah: null,
     comments:null,
   };
 
@@ -156,16 +156,7 @@ class Content extends React.Component {
   }
 
   componentDidUpdate(prevProps,prevState) {
-    if(prevProps.video != this.props.video) {
-      if(this.props.video[0].setList != ""){
-      var array = this.props.video[0].setList.split(',');
-      var array2 = this.props.video[0].setListTime.split(',');
 
-      this.setState({setListData: array})
-      this.setState({setListTimeData: array2})
-
-      }
-    }
   }
 
 
@@ -190,8 +181,35 @@ class Content extends React.Component {
     return (
 
   <div className="container-fluid no-breadcrumbs page-dashboard">
+    <div className="row">
+      <div className="col-sm-12">
+        <h2> {this.props.match.params.surah} </h2>
+      </div>
+    </div>
 
-  <h2 className="article-title"> yo </h2>
+    <div className="row">
+      <div className="col-sm-12 introduction" id="introduction">
+        Wu tang bang with us
+      </div>
+    </div>
+
+    <div className="row">
+      <div className="col-sm-12 teachings" id="teachings">
+        Who roll cant with us ,cant one
+      </div>
+    </div>
+
+    <div className="row">
+      <div className="col-sm-12 mainContent" id="mainContent">
+        Whistle whistle whipping on this thing for so long now
+      </div>
+    </div>
+
+    <div className="row">
+      <div className="col-sm-12 appendix" id="appendix">
+        Whistle whistle whipping on this thing for so long now
+      </div>
+    </div>
 
   </div>
 
@@ -205,8 +223,7 @@ const mapStateToProps = (state) => {
     return {
         triggerNotification: state.data.triggerNotification,
         userName: state.auth.userName,
-        video: state.data.video,
-        comments: state.data.comments,
+        surah: state.data.surah,
     };
 };
 

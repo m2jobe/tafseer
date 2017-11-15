@@ -4,7 +4,6 @@ import { push } from 'react-router-redux';
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
 import { SURAH_FETCHED,AYATS_FETCHED,SURAHS_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
-import { authLoginUserFailure } from './auth';
 
 
 export function dataReceiveProtectedData(data) {

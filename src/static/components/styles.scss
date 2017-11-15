@@ -31,3 +31,42 @@
   display: none !important;
 }
 }
+
+.app-header .app-header-inner {
+  height: auto !important;
+  padding: 5px !important;
+}
+
+.app-main .app-header > .app-header-inner {
+    background: #019B8B !important;
+}
+
+
+.imgLogoAnchor {
+  padding-left: 11vh !important;
+}
+
+.fixed-header .app-page-container .app-content-wrapper .app-content {
+    padding-top: 0px !important;
+}
+
+
+.select-options-header {
+  display: inline-flex;
+  width: 100%;
+}
+
+.select-option-header {
+  width: 35% !important;
+  margin-right: 5% !important;
+}
+
+
+.top-nav-right {
+  width: 100vh;
+  margin-top: 4vh;
+}
+
+.top-nav-right > .list-unstyled {
+  width: 90vh;
+}

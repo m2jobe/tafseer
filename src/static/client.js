@@ -7,7 +7,6 @@ import createHistory from 'history/createHashHistory';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import reducers from './reducers';
 import App from './containers/App';
-import { authLoginUserSuccess } from './actions/auth';
 import configureStore from './stores/configureStore';
 
 import Page404 from 'routes/404/components/404'
@@ -24,9 +23,6 @@ try {
     // Failed to parse
 }
 
-if (token !== null) {
-    store.dispatch(authLoginUserSuccess(token, user));
-}
 
 
 render(

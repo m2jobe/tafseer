@@ -57,6 +57,10 @@ class MainApp extends React.Component {
 
   }
 
+  componentDidMount() {
+    console.log(this.props.location);
+  }
+
   render() {
     const { match, location } = this.props;
 
@@ -65,8 +69,11 @@ class MainApp extends React.Component {
         <Sidenav />
 
         <section id="page-container" className="app-page-container">
+          {this.props.location.pathname.indexOf("content") >= 0 ?
           <Header />
-
+          :
+          null
+          }
           <div className="app-content-wrapper">
             <div className="app-content">
               <div className="full-height">
@@ -80,7 +87,8 @@ class MainApp extends React.Component {
           </div>
         </section>
 
-        {/*<Customizer />*/}
+        <Customizer />
+
       </div>
     );
   }

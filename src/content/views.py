@@ -9,12 +9,9 @@ from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from content.models import Video
 from content.models import Surah
 from content.models import Translations
 
-from content.serializers import VideoThumbnailSerializer
-from content.serializers import VideoSerializer
 from content.serializers import SurahSerializer
 from content.serializers import AyatSerializer
 from content.serializers import FullSurahSerializer
@@ -22,32 +19,6 @@ from content.serializers import FullSurahSerializer
 
 from lib.utils import AtomicMixin
 
-
-class FetchVideos(GenericAPIView):
-    serializer_class = VideoThumbnailSerializer
-
-    def post(self, request):
-        """Process GET request and return protected data."""
-        queryset = Video.objects.all().order_by("-id")
-        serializer = VideoThumbnailSerializer(queryset, many=True)
-        data = serializer.data
-#        queryset = Objective.objects.filter(username=request.data['username'], date__lte=request.data['endDate'], date__gte = request.data['startDate']).order_by('-id')
-        #video = Video(name="asdf", artist='username', url="2015-05-05", description='objective', shots='note', date_added='2015-05-05 00:00:00', date_updated='2015-05-05 00:00:00')
-        #video.save()
-
-        return Response(data, status=status.HTTP_200_OK)
-
-class FetchVideo(GenericAPIView):
-    serializer_class = VideoSerializer
-
-    def post(self, request):
-        """Process GET request and return protected data."""
-        queryset = Video.objects.filter(id=request.data['id']).order_by("id")
-        serializer = VideoSerializer(queryset, many=True)
-        data = serializer.data
-
-
-        return Response(data, status=status.HTTP_200_OK)
 
 
 class FetchSurahs(GenericAPIView):
@@ -82,7 +53,7 @@ class FetchSurah(GenericAPIView):
 
     def post(self, request):
         """Process GET request and return protected data."""
-        queryset = Translations.objects.filter(surah=request.data['surah']).order_by("rangeStart")
+        queryset = Translations.objects.filter(surah=request.data['name']).order_by("rangeStart")
         serializer = FullSurahSerializer(queryset, many=True)
         data = serializer.data
 
