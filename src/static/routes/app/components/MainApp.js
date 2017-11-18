@@ -12,7 +12,6 @@ import * as actionCreators from '../../../actions/data';
 import PropTypes from 'prop-types';
 
 import Spinner from 'react-spinkit';
-import requireAuthentication from '../../../utils/requireAuthentication';
 
 // import Chart from '../routes/chart/'
 // import ECommerce from '../routes/ecommerce/'
@@ -58,7 +57,6 @@ class MainApp extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location);
   }
 
   render() {
@@ -98,7 +96,6 @@ class MainApp extends React.Component {
 const mapStateToProps = (state) => {
     return {
         data: state.data.data,
-        isFetching: state.data.isFetching
     };
 };
 

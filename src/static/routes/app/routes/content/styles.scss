@@ -20,7 +20,21 @@
     width: auto !important;
 }
 
-.page-dashboard {
+.Content-page-container {
   margin-top: 12vh !important;
   padding: 9vh !important;
+}
+
+
+.quranTextFont1 {
+    //font-family: 'MyWebFont', Fallback, sans-serif;
+    font-size: 2em !important;
+    text-align: justify;
+    margin-left: 10px;
+}
+
+.translations {
+    font-size: 1.2em !important;
+    text-align: justify;
+    margin-right: 10px;
 }

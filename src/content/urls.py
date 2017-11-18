@@ -14,4 +14,7 @@ urlpatterns = [
     url(_(r'^fetchSurah/$'),
         content.views.FetchSurah.as_view(),
         name='fetch_surah'),
+    url(_(r'^fetchSurahIntroAndAppendix/$'),
+        content.views.FetchSurahIntroAndAppendix.as_view(),
+        name='fetch_surah_intro_appendix'),
 ]

@@ -46,9 +46,6 @@ class Header extends React.Component {
 
   static defaultProps = {
       location: undefined,
-      userName:null,
-      token:null,
-      fbImage:null,
       surahs: null,
       ayats: null
   };
@@ -90,7 +87,7 @@ class Header extends React.Component {
   }
 
   render() {
-    const { isFixedHeader, colorOption } = this.props;
+    const { isFixedHeader, colorOption, match } = this.props;
 
     return (
       <section className="app-header">
@@ -167,11 +164,9 @@ class Header extends React.Component {
 const mapStateToProps = state => ({
   colorOption: state.settings.colorOption,
   isFixedHeader: state.settings.isFixedHeader,
-  isAuthenticated: state.auth.isAuthenticated,
   location: state.routing.location,
-  userName: state.auth.userName,
-  token: state.auth.token,
-  fbImage: state.auth.fbImage
+  surahs: state.data.surahs,
+  ayats: state.data.ayats,
 
 });
 

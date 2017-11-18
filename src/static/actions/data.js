@@ -3,7 +3,7 @@ import { push } from 'react-router-redux';
 
 import { SERVER_URL } from '../utils/config';
 import { checkHttpStatus, parseJSON } from '../utils';
-import { SURAH_FETCHED,AYATS_FETCHED,SURAHS_FETCHED, COMMENTS_FETCHED, EVENTS_SUBSCRIBED_TO, VIDEO_FETCHED, VIDEO_DATA_RECEIVED, NOTIFICATION_REQUEST_SENT, NOTIFICATION_REQUEST_COMPLETE, BANNER_DATA_RECEIVED, DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
+import { SURAH_INTRO_APPENDIX_FETCHED, SURAH_FETCHED,AYATS_FETCHED,SURAHS_FETCHED,DATA_FETCH_PROTECTED_DATA_REQUEST, DATA_RECEIVE_PROTECTED_DATA } from '../constants/ActionTypes';
 
 
 export function dataReceiveProtectedData(data) {
@@ -15,41 +15,7 @@ export function dataReceiveProtectedData(data) {
     };
 }
 
-export function eventsSubscribedDataReceived(data) {
-    return {
-        type: EVENTS_SUBSCRIBED_TO,
-        payload: {
-            data
-        }
-    };
-}
 
-export function videoDataReceived(data) {
-    return {
-        type: VIDEO_DATA_RECEIVED,
-        payload: {
-            data
-        }
-    };
-}
-
-export function videoFetched(data) {
-    return {
-        type: VIDEO_FETCHED,
-        payload: {
-            data
-        }
-    };
-}
-
-export function bannersDataReceived(data) {
-    return {
-        type: BANNER_DATA_RECEIVED,
-        payload: {
-            data
-        }
-    };
-}
 
 export function dataFetchProtectedDataRequest() {
     return {
@@ -57,242 +23,6 @@ export function dataFetchProtectedDataRequest() {
     };
 }
 
-export function notificaton_sent(data) {
-    return {
-        type: NOTIFICATION_REQUEST_SENT,
-        payload: {
-            data
-        }
-    };
-}
-
-export function notification_complete () {
-  return {
-    type: NOTIFICATION_REQUEST_COMPLETE
-  };
-}
-
-export function dataFetchProtectedData(token) {
-    return (dispatch, state) => {
-        dispatch(dataFetchProtectedDataRequest());
-        return fetch(`${SERVER_URL}/api/v1/getdata/`, {
-            credentials: 'include',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Token ${token}`
-            }
-        })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(dataReceiveProtectedData(response.data));
-            })
-            .catch((error) => {
-                if (error && typeof error.response !== 'undefined' && error.response.status === 401) {
-                    // Invalid authentication credentials
-                    return error.response.json().then((data) => {
-                        dispatch(authLoginUserFailure(401, "Please login to start streaming!"));
-                        dispatch(push('/login'));
-                    });
-                } else if (error && typeof error.response !== 'undefined' && error.response.status >= 500) {
-                    // Server side error
-                    dispatch(authLoginUserFailure(500, 'A server error occurred while sending your data!'));
-                } else {
-                    // Most likely connection issues
-                    dispatch(authLoginUserFailure('Connection Error', 'An error occurred while sending your data!'));
-                }
-
-                dispatch(push('/login'));
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-export function fetchVideos() {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/content/fetchVideos/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          }
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(videoDataReceived(response));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-export function fetchVideo(id) {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/content/fetchVideo/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          },
-          body: JSON.stringify({id: id})
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(videoFetched(response));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-
-export function fetchBanners() {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/banners/fetchBanners/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          }
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(bannersDataReceived(response));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-export function saveUserNotificationRequest(email,artist) {
-    return (dispatch, state) => {
-        return fetch(`${SERVER_URL}/api/v1/notifications/saveUserNotificationRequest/`, {
-            credentials: 'include',
-            method: 'post',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({email: email, artist: artist})
-        })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(notificaton_sent(response));
-            })
-            .catch((error) => {
-
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-export function notificationRequestComplete() {
-    return (dispatch, state) => {
-              dispatch(notification_complete());
-    };
-}
-
-
-export function fetchEventsSubscribedTo(username) {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/notifications/fetchEventsSubscribedTo/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          },
-          body: JSON.stringify({username: username})
-
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                console.log("adsf");
-                dispatch(eventsSubscribedDataReceived(response));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-export function unSubSelectedEvent(id,username) {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/notifications/unSubSelectedEvent/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          },
-          body: JSON.stringify({id: id})
-
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-              console.log(response);
-              dispatch(fetchEventsSubscribedTo(username));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-
-
-//Comments functions
-
-export function commentsFetched(data) {
-    return {
-        type: COMMENTS_FETCHED,
-        payload: {
-            data
-        }
-    };
-}
-
-export function fetchComments(videoID) {
-    return (dispatch, state) => {
-      return fetch(`${SERVER_URL}/api/v1/comments/fetchComments/`, {
-          method: 'post',
-          headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'X-Requested-With': 'XMLHttpRequest'
-
-          },
-          body: JSON.stringify({videoID: videoID})
-
-      })
-            .then(checkHttpStatus)
-            .then(parseJSON)
-            .then((response) => {
-                dispatch(commentsFetched(response));
-            })
-            .catch((error) => {
-                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
-            });
-    };
-}
-//end of Comments functions
 
 
 //artist comments
@@ -393,6 +123,40 @@ export function fetchSurah(surah) {
             .then(parseJSON)
             .then((response) => {
                 dispatch(surahFetched(response));
+            })
+            .catch((error) => {
+                return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way
+            });
+    };
+}
+
+
+export function surahIntroAndAppendixFetched(data) {
+    return {
+        type: SURAH_INTRO_APPENDIX_FETCHED,
+        payload: {
+            data
+        }
+    };
+}
+
+export function fetchSurahIntroAndAppendix(surah) {
+    return (dispatch, state) => {
+      return fetch(`${SERVER_URL}/api/v1/content/fetchSurahIntroAndAppendix/`, {
+          method: 'post',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+
+          },
+          body: JSON.stringify({surah: surah})
+
+      })
+            .then(checkHttpStatus)
+            .then(parseJSON)
+            .then((response) => {
+                dispatch(surahIntroAndAppendixFetched(response));
             })
             .catch((error) => {
                 return Promise.resolve(); // TODO: we need a promise here because of the tests, find a better way

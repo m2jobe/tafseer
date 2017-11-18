@@ -11,10 +11,12 @@ from rest_framework.response import Response
 
 from content.models import Surah
 from content.models import Translations
+from content.models import SurahDetailed
 
 from content.serializers import SurahSerializer
 from content.serializers import AyatSerializer
 from content.serializers import FullSurahSerializer
+from content.serializers import SurahIntroAndAppendixSerializer
 
 
 from lib.utils import AtomicMixin
@@ -44,7 +46,6 @@ class FetchAyats(GenericAPIView):
         serializer = AyatSerializer(queryset, many=True)
         data = serializer.data
 
-
         return Response(data, status=status.HTTP_200_OK)
 
 
@@ -53,8 +54,21 @@ class FetchSurah(GenericAPIView):
 
     def post(self, request):
         """Process GET request and return protected data."""
-        queryset = Translations.objects.filter(surah=request.data['name']).order_by("rangeStart")
+        queryset = Translations.objects.filter(surah=request.data['surah']).order_by("rangeStart")
         serializer = FullSurahSerializer(queryset, many=True)
+        data = serializer.data
+
+
+        return Response(data, status=status.HTTP_200_OK)
+
+
+class FetchSurahIntroAndAppendix(GenericAPIView):
+    serializer_class = SurahIntroAndAppendixSerializer
+
+    def post(self, request):
+        """Process GET request and return protected data."""
+        queryset = SurahDetailed.objects.filter(surah=request.data['surah'])
+        serializer = SurahIntroAndAppendixSerializer(queryset, many=True)
         data = serializer.data
 
 

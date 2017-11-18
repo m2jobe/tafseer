@@ -55,8 +55,8 @@ class SurahDetailed(models.Model ):
     surahIntro = models.TextField(_('surahIntro'))
     surahAppendix = models.TextField(_('surahAppendix'))
     surahTeachings = models.TextField(_('surahTeachings'))
-    name = models.TextField(_('name'))
-    surahValue = models.TextField(_('surahValue'))
+    surah = models.TextField(_('surah'))
+    surahLabel = models.TextField(_('surahLabel'))
 
     def __str__(self):
         """
@@ -89,9 +89,10 @@ class Glossary(models.Model ):
     Model that represents an video.
 
     """
-    articleID = models.IntegerField(_('objectID'))
-    articleName = models.TextField(_('articleName'))
-    articleContent = models.TextField(_('articleContent'))
+    sortorder = models.IntegerField(_('sortorder'))
+    term = models.TextField(_('term'))
+    description = models.TextField(_('description'))
+    to_glossarize = models.BooleanField(_('to_glossarize'))
 
     def __str__(self):
         """

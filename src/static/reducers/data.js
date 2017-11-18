@@ -3,7 +3,8 @@ import {
     DATA_FETCH_PROTECTED_DATA_REQUEST,
     SURAHS_FETCHED,
     AYATS_FETCHED,
-    SURAH_FETCHED
+    SURAH_FETCHED,
+    SURAH_INTRO_APPENDIX_FETCHED
 } from '../constants/ActionTypes';
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
     isFetching: false,
     surahs: null,
     ayats: null,
-    surah:null
+    surah:null,
+    surahIntroAndAppendix:null
 };
 
 export default function dataReducer(state = initialState, action) {
@@ -40,6 +42,10 @@ export default function dataReducer(state = initialState, action) {
             return Object.assign({}, state, {
                 surah: action.payload.data,
                 isFetching: false
+            });
+        case SURAH_INTRO_APPENDIX_FETCHED:
+            return Object.assign({}, state, {
+                surahIntroAndAppendix: action.payload.data,
             });
         default:
             return state;
