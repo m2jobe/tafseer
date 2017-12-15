@@ -25,9 +25,13 @@
   padding: 9vh !important;
 }
 
+@font-face {
+  font-family: 'MyWebFont';
+  src: url('./quranfont.ttf')  format('truetype');
+}
 
 .quranTextFont1 {
-    //font-family: 'MyWebFont', Fallback, sans-serif;
+    font-family: 'MyWebFont', Fallback, sans-serif;
     font-size: 2em !important;
     text-align: justify;
     margin-left: 10px;

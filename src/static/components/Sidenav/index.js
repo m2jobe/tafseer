@@ -9,16 +9,39 @@ import {
 import SidenavContent from './SidenavContent';
 import navLogo from '../../assets/images/tourlogo.png'
 import '../styles.scss'
+import PropTypes from 'prop-types';
 
-
+const customStyles = {
+    marginTop                   : '0vh'
+};
 
 class Sidebar extends React.Component {
 
 
+    constructor(props) {
+        super(props);
+
+        let focusedInput = null;
+
+        this.state = {
+          enableNotificationCallback: false,
+          surahOptions: null,
+          ayatOptions: null,
+          currentSurah:null,
+          currentAyat:null,
+          sideBarStyle:null
+        };
+        //this.initTranslationArea = this.initTranslationArea.bind(this);
+
+        //this.prepareTranslationArea = this.prepareTranslationArea.bind(this);
+    }
+
+
   componentDidMount() {
     // AutoCloseMobileNav
-    const { history } = this.props;
+    const { history,location } = this.props;
     const $body = $('#body');
+    console.log("sidebar loc " +location.pathname)
 
     if (APPCONFIG.AutoCloseMobileNav) {
       history.listen((location) => {
@@ -26,6 +49,35 @@ class Sidebar extends React.Component {
           $body.removeClass('sidebar-mobile-open');
         }, 0);
       });
+    }
+    if(this.props.location.pathname.indexOf("content") >= 0) {
+      var contentStyle = {
+          marginTop : '17vh'
+      };
+      this.setState({sideBarStyle: contentStyle})
+    } else {
+      var contentStyle = {
+          marginTop : '0vh'
+      };
+      this.setState({sideBarStyle: contentStyle})
+    }
+
+  }
+
+  componentDidUpdate(prevState,prevProps) {
+    if(prevState.sideBarStyle != null ){
+    if(this.state.sideBarStyle != prevState.sideBarStyle) {
+        if(this.props.location.pathname.indexOf("content") >= 0) {
+          var contentStyle = {
+              marginTop : '17vh'
+          };
+        } else {
+          var contentStyle = {
+              marginTop : '0vh'
+          };
+        }
+        this.setState({sideBarStyle: contentStyle})
+    }
     }
   }
 
@@ -39,7 +91,7 @@ class Sidebar extends React.Component {
     return true;
   }
   render() {
-    const { navCollapsed, colorOption } = this.props;
+    const { navCollapsed, colorOption, location } = this.props;
     let toggleIcon = null;
     if (navCollapsed) {
       toggleIcon = <i className="material-icons">menu</i>;
@@ -48,8 +100,8 @@ class Sidebar extends React.Component {
     }
 
     return (
-      <nav
-        className={classnames('app-sidebar', {
+      <nav style={this.state.sideBarStyle}
+          className={classnames('app-sidebar', {
           'bg-color-light': ['31', '32', '33', '34', '35', '36'].indexOf(colorOption) >= 0,
           'bg-color-dark': ['31', '32', '33', '34', '35', '36'].indexOf(colorOption) < 0 })}
             >

@@ -64,7 +64,9 @@ class MainApp extends React.Component {
 
     return (
       <div className="main-app-container">
+
         <Sidenav />
+
 
         <section id="page-container" className="app-page-container">
           {this.props.location.pathname.indexOf("content") >= 0 ?

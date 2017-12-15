@@ -63,9 +63,6 @@ class Content extends React.Component {
         currentSurah:null,
         currentAyat:null,
       };
-      this.initTranslationArea = this.initTranslationArea.bind(this);
-
-      this.prepareTranslationArea = this.prepareTranslationArea.bind(this);
   }
 
 
@@ -90,15 +87,13 @@ class Content extends React.Component {
     };
   }
 
-
-
   componentWillMount() {
 
     var surah = this.props.match.params.surah;
     var ayat = this.props.match.params.ayat;
 
-    this.props.actions.fetchSurah(surah);
     this.props.actions.fetchSurahIntroAndAppendix(surah);
+    this.props.actions.fetchSurah(surah);
 
     //this.props.actions.fetchSurahs();
   }
@@ -120,8 +115,9 @@ class Content extends React.Component {
     }
 
     if(this.props.surah != prevProps.surah) {
-      this.prepareTranslationArea();
+
     }
+
   }
 
 
@@ -138,121 +134,7 @@ class Content extends React.Component {
     this.setState({currentAyat: val.value});
   }
 
-  initTranslationArea = (text) => {
-    $('#mainContent').append(text)
-  }
 
-  prepareTranslationArea = () => {
-    $('#mainContent').text('');
-    for (var i = 0; i < this.props.surah.length; i++) {
-
-    var rangeStart = this.props.surah[i].rangeStart;
-    var rangeEnd = this.props.surah[i].rangeEnd;
-
-    var rangeName = rangeStart + '-' +this.props.surah[i].rangeEnd;
-
-
-    if(i<this.props.surah.length-1) {
-      var tempvar=i+1;
-      var connectedTo = this.props.surah[tempvar].connectPrev;
-    } else {
-      var connectedTo = "no";
-    }
-
-
-    if(connectedTo == "yes") {
-      if(rangeStart == rangeEnd) {
-        $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+'</option>' );
-      } else {
-        $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+ ' - ' +rangeEnd+'</option>' );
-      }
-      var builderString = "";
-      var builderString2 = "";
-      var builderString3 = "";
-      var finalBuilder = "";
-      builderString += "<div class='row container-flex' > <div class='col-sm-6 first'> <div class='translations' name='"+rangeName+"' style='' id='"+rangeName+"' style='font-size:1em; font-family: 'Open Sans', sans-serif; font-weight: 400;'>"+ this.props.surah[i].translation;
-
-      builderString2 += "</div></div> <div class='col-sm-6 second'> <div class='quranTextFont1' style='; direction: rtl; font-size:1.8em'  name='"+rangeName+"A' id='"+rangeName+"A'>"+ "<span style='display:inline'>" + this.props.surah[i].quranText + "</span>";
-
-      builderString3 += "</div> </div>  </div> <br/>  <div class='row' > <div class='col-md-12'><div class='tafseer'  name='"+rangeName+"E' id='"+rangeName+"E' style='font-size:1em; font-family: 'Open Sans', sans-serif; font-weight: 300;' >"+ this.props.surah[i].explanation;
-
-      finalBuilder = " </div></div> </div>";
-
-      var keepCount = i+1;
-      for(var j = i+1; j < this.props.surah.length; j++) {
-              var rangeStart = this.props.surah[j].rangeStart;
-              var rangeEnd = this.props.surah[j].rangeEnd;
-
-              var rangeName = rangeStart + '-' + rangeEnd;
-
-              var connectedTo="";
-
-              if(j<=this.props.surah.length-1) {
-                 connectedTo = this.props.surah[j].connectPrev;
-                //("connectedTo " + connectedTo);
-              } else {
-                 connectedTo = "no";
-
-              }
-              if (connectedTo=="yes") {
-                var quranText = "<span id='"+rangeName+"' style='display:inline'>" +  this.props.surah[j].quranText + "</span>"
-                builderString += this.props.surah[j].translation;
-
-                builderString2 += quranText;
-                builderString3 += this.props.surah[j].explanation;
-
-
-                  /*if(rangeStart == rangeEnd) {
-                  $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+'</option>' );
-                  } else {
-                  $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+ ' - ' +rangeEnd+'</option>' );
-                }*/
-
-
-                if(j == this.props.surah.length-1) {
-                                    var completeBuild = builderString + builderString2  + finalBuilder + "<br/>";
-                ///(completeBuild + "-----------------------------------BREAK---------------------------------------");
-                this.initTranslationArea(completeBuild);
-                                keepCount = j;
-                            j=this.props.surah.length;
-                            i=this.props.surah.length;
-                break;
-
-                }
-              } else {
-                var completeBuild = builderString + builderString2  + finalBuilder + "<br/>";
-                ///(completeBuild + "-----------------------------------BREAK---------------------------------------");
-                this.initTranslationArea(completeBuild);
-                                keepCount = j;
-                break;
-
-              }
-              keepCount = j;
-
-      }
-
-      if(keepCount != this.props.surah.length-1) {
-        i = keepCount-1;
-        //console.log("old i :" + i);
-        //console.log("old keepcount :" + keepCount);
-      } else {
-          i++;
-       //i = keepCount;
-        //console.log("new i :" + i);
-        //console.log("new keepcount :" + keepCount);
-      }
-
-      } else {
-            /*if(rangeStart == rangeEnd) {
-            $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+'</option>' );
-            } else {
-            $('#ayat').append( '<option value="'+rangeName+'">'+rangeStart+ ' - ' +rangeEnd+'</option>' );
-            }*/
-            //this.initTranslationArea("<div class='row container-flex'> <div class='col-sm-6 first'> <div class='translations' name='"+rangeName+"' id='"+rangeName+"' style='font-size:1em; font-family: 'Open Sans', sans-serif; font-weight: 400;'>"+ this.props.surah[i].translation + "</div></div> <div class='col-sm-6 second'> <div class='quranTextFont1' style='direction: rtl; font-size:1.8em'  name='"+rangeName+"A' id='"+rangeName+"A'>"+ this.props.surah[i].quranText + "</div> </div>  </div> <br/> <div class='row' > <div class='col-md-12'><div class='tafseer'  name='"+rangeName+"E' id='"+rangeName+"E' style='font-size:1em; font-family: 'Open Sans', sans-serif; font-weight: 300;' >"+ this.props.surah[i].explanation + " </div></div> </div> <br/>");
-
-      }
-    }
-  }
 
 
   render() {
@@ -285,11 +167,23 @@ class Content extends React.Component {
           </section>
 
 
-          <div id="mainContent" style={{width:'100%'}}>
+          {/*Content Section */}
+          <section>
+          {this.props.surah.map(function(surah, index){
+              return (
+                 <div className="row">
 
+                            <div className="col-sm-6" id="translation">
+                              {surah.translation}
+                            </div>
+                            <div className="col-sm-6" id="quranText">
+                              {surah.quranText}
+                            </div>
+                          </div>
+                )
+            })}
 
-
-          </div>
+          </section>
 
           {/*Appendix Section */}
           <section>
